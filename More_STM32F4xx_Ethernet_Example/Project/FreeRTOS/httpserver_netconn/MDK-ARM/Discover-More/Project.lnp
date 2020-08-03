@@ -23,6 +23,7 @@
 ".\discover-more\misc.o"
 ".\discover-more\stm32f4xx_adc.o"
 ".\discover-more\stm32f4xx_dma.o"
+".\discover-more\stm32f4xx_tim.o"
 ".\discover-more\stm32f4x7_eth.o"
 ".\discover-more\api_lib.o"
 ".\discover-more\api_msg.o"

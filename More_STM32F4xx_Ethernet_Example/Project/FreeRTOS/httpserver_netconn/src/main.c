@@ -153,7 +153,8 @@ int main(void)
 	
   /*Initialize LCD and Leds */ 
   LCD_LED_Init();
-	
+	CUSTOM_GPIO_Init();
+	CUSTOM_PWM_Init();
   /*Initialize Serial COM */ 
   STM_CUSTOM_COMInit(CUSTOM_NO_COM1, &USART_InitStructure);
 	TM_USART_DMA_Init(USART1);  
@@ -278,7 +279,9 @@ void udp_recv_fn(void *arg, struct udp_pcb *pcb, struct pbuf *p, struct ip_addr 
 			if( printf_xHandle != NULL ) {
 				vTaskDelete( printf_xHandle );
 			}
-			//pwm duty rate 100%
+			//pwm duty rate 0%
+			TIM_SetAutoreload(TIM3, 1333);
+			TIM_SetCompare1(TIM3, 0);
 		}
 		else {
 			GPIOE->ODR = ((GPIOE->ODR)&(~0xC0)) | ((((~command_L)&0x01)<<7) | (((~command_L)&0x20)<<1));
@@ -301,7 +304,8 @@ void udp_recv_fn(void *arg, struct udp_pcb *pcb, struct pbuf *p, struct ip_addr 
 						vTaskDelete( printf_xHandle );
 					}
 					//pwm
-					
+					TIM_SetAutoreload(TIM3, 1500);
+					TIM_SetCompare1(TIM3, 100);
 				  //gpio
 					GPIO_SetBits(GPIOA, GPIO_Pin_15);
 					GPIO_ResetBits(GPIOE, GPIO_Pin_3);

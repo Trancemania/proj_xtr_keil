@@ -132,6 +132,52 @@ void CUSTOM_GPIO_Init()
 	GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5|GPIO_Pin_6|GPIO_Pin_7);
 }
 
+void CUSTOM_PWM_Init() {
+	GPIO_InitTypeDef GPIO_InitStructure; 
+	TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
+	TIM_OCInitTypeDef TIM_OCInitStructure;
+	uint16_t Period;
+	Period = 1333; // 20 KHz for 10MHz prescaled
+	
+	/* GPIOB clock enable */
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);
+
+	/* Initialize PB4, Alternative Function, 100Mhz, Output, Push-pull */
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_UP ;
+	GPIO_Init(GPIOB, &GPIO_InitStructure);
+	GPIO_PinAFConfig(GPIOB, GPIO_PinSource4, GPIO_AF_TIM3);
+	
+	/* TIM3 clock enable */
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3 , ENABLE);
+
+	/* Timer Base configuration */
+	TIM_TimeBaseStructInit(&TIM_TimeBaseStructure);
+	TIM_TimeBaseStructure.TIM_Prescaler = ((SystemCoreClock / 10000000) / 2) - 1; // Get clock to 10 MHz on STM32F4;
+	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
+	TIM_TimeBaseStructure.TIM_Period = Period - 1;
+	TIM_TimeBaseStructure.TIM_ClockDivision = 0;
+//	TIM_TimeBaseStructure.TIM_RepetitionCounter = 0; //only for tim1 and tim8
+	TIM_TimeBaseInit(TIM3, &TIM_TimeBaseStructure);
+	
+	/* Enable TIM3 Preload register on ARR */
+	TIM_ARRPreloadConfig(TIM3, ENABLE);
+	
+	/* TIM PWM1 Mode configuration */
+	TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1;
+	TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
+	TIM_OCInitStructure.TIM_Pulse = 0; // 0%
+	TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_Low;	//negative pulse
+	/* Output Compare PWM1 Mode configuration: Channel1 PB.04 */
+	TIM_OC1Init(TIM3, &TIM_OCInitStructure);
+	TIM_OC1PreloadConfig(TIM3, TIM_OCPreload_Enable);
+	
+	/* TIM4 enable counter */
+	TIM_Cmd(TIM3, ENABLE);	
+}
 
 //#define LED4_PIN                         GPIO_Pin_12
 //#define LED4_GPIO_PORT                   GPIOD
