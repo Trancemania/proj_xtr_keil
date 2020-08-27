@@ -195,6 +195,71 @@ void ETH_IRQHandler(void)
   }
 }
 
+/* Set interrupt handlers */
+/* Handle PD0 interrupt */
+void EXTI0_IRQHandler(void) {
+    /* Make sure that interrupt flag is set */
+    if (EXTI_GetITStatus(EXTI_Line0) != RESET) {
+        /* Do your stuff when PD0 is changed */
+        
+				GPIOA->ODR = ((GPIOD->ODR)&(~0x20)) | ((~EXTI_GetITStatus(EXTI_Line0))<<5);  //PA5
+        
+        /* Clear interrupt flag */
+        EXTI_ClearITPendingBit(EXTI_Line0);
+    }
+}
+
+/* Handle PD1 interrupt */
+void EXTI1_IRQHandler(void) {
+    /* Make sure that interrupt flag is set */
+    if (EXTI_GetITStatus(EXTI_Line1) != RESET) {
+        /* Do your stuff when PD0 is changed */
+        
+				GPIOA->ODR = ((GPIOD->ODR)&(~0x4)) | ((~EXTI_GetITStatus(EXTI_Line1))<<3);		//PA3
+        
+        /* Clear interrupt flag */
+        EXTI_ClearITPendingBit(EXTI_Line1);
+    }
+}
+ 
+/* Handle PC10/11/12/13 interrupt */
+void EXTI15_10_IRQHandler(void) {
+    /* Make sure that interrupt flag is set */
+    if (EXTI_GetITStatus(EXTI_Line10) != RESET) {
+        /* Do your stuff when PC10 is changed */
+			
+				GPIOE->ODR = ((GPIOD->ODR)&(~0x80)) | ((~EXTI_GetITStatus(EXTI_Line10))<<7);		//PE7
+        
+        /* Clear interrupt flag */
+        EXTI_ClearITPendingBit(EXTI_Line10);
+    }
+    if (EXTI_GetITStatus(EXTI_Line11) != RESET) {
+        /* Do your stuff when PC11 is changed */
+			
+				GPIOD->ODR = ((GPIOD->ODR)&(~0x800)) | ((~EXTI_GetITStatus(EXTI_Line11))<<11);		//PD11
+        
+        /* Clear interrupt flag */
+        EXTI_ClearITPendingBit(EXTI_Line11);
+    }
+    if (EXTI_GetITStatus(EXTI_Line12) != RESET) {
+        /* Do your stuff when PC12 is changed */
+			
+				GPIOA->ODR = ((GPIOD->ODR)&(~0x100)) | ((~EXTI_GetITStatus(EXTI_Line12))<<8);		//PA8
+        
+        /* Clear interrupt flag */
+        EXTI_ClearITPendingBit(EXTI_Line12);
+    }
+    if (EXTI_GetITStatus(EXTI_Line13) != RESET) {
+        /* Do your stuff when PC13 is changed */
+        
+				GPIOE->ODR = ((GPIOD->ODR)&(~0x40)) | ((~EXTI_GetITStatus(EXTI_Line13))<<6);		//PE6
+			
+        /* Clear interrupt flag */
+        EXTI_ClearITPendingBit(EXTI_Line13);
+    }
+}
+
+
 /******************************************************************************/
 /*                 STM32F4xx Peripherals Interrupt Handlers                   */
 /*  Add here the Interrupt Handler for the used peripheral(s) (PPP), for the  */

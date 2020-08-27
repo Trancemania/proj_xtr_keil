@@ -154,7 +154,8 @@ typedef enum
 void STM_CUSTOM_COMInit(CUSTOM_NO_COM_TypeDef CUSTOM_COM, USART_InitTypeDef* USART_InitStruct);
 void CUSTOM_GPIO_Init(void);
 void CUSTOM_PWM_Init(void);
-
+void CUSTOM_EXTI_Init(void);
+void CUSTOM_UART_INT_Init(void);
 
 #endif /* __STM32F4_DISCOVERY_H */
 /**

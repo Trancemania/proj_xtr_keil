@@ -179,6 +179,104 @@ void CUSTOM_PWM_Init() {
 	TIM_Cmd(TIM3, ENABLE);	
 }
 
+void CUSTOM_EXTI_Init() {
+    /* Set variables used */
+	GPIO_InitTypeDef GPIO_InitStruct;
+	EXTI_InitTypeDef EXTI_InitStruct;
+	NVIC_InitTypeDef NVIC_InitStruct;
+	
+	/* Enable clock for GPIOC */
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC, ENABLE);
+	/* Enable clock for GPIOD */
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD, ENABLE);
+	/* Enable clock for SYSCFG */
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_SYSCFG, ENABLE);	
+	
+	/* Set pin as input */
+	GPIO_InitStruct.GPIO_Mode = GPIO_Mode_IN;
+	GPIO_InitStruct.GPIO_OType = GPIO_OType_PP;
+	GPIO_InitStruct.GPIO_Pin = GPIO_Pin_10|GPIO_Pin_11|GPIO_Pin_12|GPIO_Pin_13;
+	GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	GPIO_InitStruct.GPIO_Speed = GPIO_Speed_100MHz;
+	GPIO_Init(GPIOC, &GPIO_InitStruct);
+	
+	GPIO_InitStruct.GPIO_Mode = GPIO_Mode_IN;
+	GPIO_InitStruct.GPIO_OType = GPIO_OType_PP;
+	GPIO_InitStruct.GPIO_Pin = GPIO_Pin_0|GPIO_Pin_1;
+	GPIO_InitStruct.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	GPIO_InitStruct.GPIO_Speed = GPIO_Speed_100MHz;
+	GPIO_Init(GPIOD, &GPIO_InitStruct);
+	
+	/* Tell system that you will use PC10/11/12/13 for EXTI_Line */
+	SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOC, EXTI_PinSource10);
+	SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOC, EXTI_PinSource11);
+	SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOC, EXTI_PinSource12);
+	SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOC, EXTI_PinSource13);
+	
+	/* Tell system that you will use PD0/1 for EXTI_Line */
+	SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOD, EXTI_PinSource0);
+	SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOD, EXTI_PinSource1);
+	
+	/* PC10/11/12/13 is connected to EXTI_Line10/11/12/13 */
+	/* PD0/1 is connected to EXTI_Line0/1 */
+	/* Enable interrupt */
+	EXTI_InitStruct.EXTI_LineCmd = ENABLE;
+	/* Interrupt mode */
+	EXTI_InitStruct.EXTI_Mode = EXTI_Mode_Interrupt;
+	/* Triggers on rising and falling edge */
+	EXTI_InitStruct.EXTI_Trigger = EXTI_Trigger_Rising_Falling;
+	/* Add to EXTI */
+	
+	EXTI_InitStruct.EXTI_Line = EXTI_Line10;
+	EXTI_Init(&EXTI_InitStruct);	
+	
+	EXTI_InitStruct.EXTI_Line = EXTI_Line11;
+	EXTI_Init(&EXTI_InitStruct);	
+	
+	EXTI_InitStruct.EXTI_Line = EXTI_Line12;
+	EXTI_Init(&EXTI_InitStruct);	
+
+	EXTI_InitStruct.EXTI_Line = EXTI_Line13;
+	EXTI_Init(&EXTI_InitStruct);	
+
+	EXTI_InitStruct.EXTI_Line = EXTI_Line0;
+	EXTI_Init(&EXTI_InitStruct);	
+
+	EXTI_InitStruct.EXTI_Line = EXTI_Line1;
+	EXTI_Init(&EXTI_InitStruct);	
+
+	/* Add IRQ vector to NVIC */
+	/*  is connected to EXTI_Line0/1/10/11/12/13, which has EXTI0/1/10/11/12/13_IRQn vector */
+	/* Set priority */
+	NVIC_InitStruct.NVIC_IRQChannelPreemptionPriority = 0x00;
+	/* Set sub priority */
+	NVIC_InitStruct.NVIC_IRQChannelSubPriority = 0x00;
+	/* Enable interrupt */
+	NVIC_InitStruct.NVIC_IRQChannelCmd = ENABLE;
+	/* Add to NVIC */
+	
+	NVIC_InitStruct.NVIC_IRQChannel = EXTI15_10_IRQn;
+	NVIC_Init(&NVIC_InitStruct);	
+	
+	NVIC_InitStruct.NVIC_IRQChannel = EXTI0_IRQn;
+	NVIC_Init(&NVIC_InitStruct);	
+
+	NVIC_InitStruct.NVIC_IRQChannel = EXTI1_IRQn;
+	NVIC_Init(&NVIC_InitStruct);	
+
+}
+
+void CUSTOM_UART_INT_Init() {               //https://stackoverflow.com/questions/12543076/usart-receive-interrupt-stm32
+	NVIC_InitTypeDef NVIC_InitStructure;
+	
+	USART_ITConfig(USART1, USART_IT_RXNE, ENABLE);
+	NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn;
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+	NVIC_Init(&NVIC_InitStructure);
+}
+
 //#define LED4_PIN                         GPIO_Pin_12
 //#define LED4_GPIO_PORT                   GPIOD
 //#define LED4_GPIO_CLK                    RCC_AHB1Periph_GPIOD  
