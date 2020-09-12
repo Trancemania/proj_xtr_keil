@@ -156,7 +156,8 @@ void CUSTOM_PWM_Init() {
 
 	/* Timer Base configuration */
 	TIM_TimeBaseStructInit(&TIM_TimeBaseStructure);
-	TIM_TimeBaseStructure.TIM_Prescaler = ((SystemCoreClock / 10000000) / 2) - 1; // Get clock to 10 MHz on STM32F4;
+	TIM_TimeBaseStructure.TIM_Prescaler = ((SystemCoreClock  / 2 / 10000)) - 1; // Get clock to 10 KHz on STM32F4; 
+	//https://qiita.com/forest1/items/b02042714b6ed30dc625
 	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;
 	TIM_TimeBaseStructure.TIM_Period = Period - 1;
 	TIM_TimeBaseStructure.TIM_ClockDivision = 0;
