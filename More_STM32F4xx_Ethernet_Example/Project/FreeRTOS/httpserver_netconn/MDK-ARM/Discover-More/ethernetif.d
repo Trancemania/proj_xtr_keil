@@ -5,7 +5,7 @@
 .\discover-more\ethernetif.o: ..\..\..\..\Utilities\lwip_v1.3.2\src\include\lwip/arch.h
 .\discover-more\ethernetif.o: ..\..\..\..\Utilities\lwip_v1.3.2\port\STM32F4x7\arch/cc.h
 .\discover-more\ethernetif.o: ..\..\..\..\Utilities\lwip_v1.3.2\port\STM32F4x7\arch/cpu.h
-.\discover-more\ethernetif.o: D:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\discover-more\ethernetif.o: D:\Program Files\Keil\ARM\ARMCC\Bin\..\include\stdio.h
 .\discover-more\ethernetif.o: ..\..\..\..\Utilities\lwip_v1.3.2\src\include\lwip/def.h
 .\discover-more\ethernetif.o: ..\..\..\..\Utilities\lwip_v1.3.2\src\include\lwip/mem.h
 .\discover-more\ethernetif.o: ..\..\..\..\Utilities\lwip_v1.3.2\src\include\lwip/pbuf.h
@@ -13,7 +13,7 @@
 .\discover-more\ethernetif.o: ..\..\..\..\Utilities\lwip_v1.3.2\src\include\lwip/sys.h
 .\discover-more\ethernetif.o: ..\..\..\..\Utilities\lwip_v1.3.2\port\STM32F4x7\arch/sys_arch.h
 .\discover-more\ethernetif.o: ..\..\..\..\Utilities\FreeRTOS_v6.1.0\include\FreeRTOS.h
-.\discover-more\ethernetif.o: D:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\discover-more\ethernetif.o: D:\Program Files\Keil\ARM\ARMCC\Bin\..\include\stddef.h
 .\discover-more\ethernetif.o: ..\..\..\..\Utilities\FreeRTOS_v6.1.0\include\projdefs.h
 .\discover-more\ethernetif.o: ..\inc\FreeRTOSConfig.h
 .\discover-more\ethernetif.o: ..\..\..\..\Utilities\FreeRTOS_v6.1.0\include\portable.h
@@ -31,16 +31,16 @@
 .\discover-more\ethernetif.o: ..\..\..\..\Utilities\lwip_v1.3.2\src\include\ipv4\lwip/ip.h
 .\discover-more\ethernetif.o: ..\..\..\..\Utilities\lwip_v1.3.2\port\STM32F4x7\FreeRTOS\ethernetif.h
 .\discover-more\ethernetif.o: ..\inc\main.h
-.\discover-more\ethernetif.o: D:\Program Files\Keil_v5\ARM\INC\ST\STM32F4xx\stm32f4xx.h
+.\discover-more\ethernetif.o: D:\Program Files\Keil\ARM\INC\ST\STM32F4xx\stm32f4xx.h
 .\discover-more\ethernetif.o: ..\..\..\..\Libraries\CMSIS\Include\core_cm4.h
-.\discover-more\ethernetif.o: D:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\discover-more\ethernetif.o: D:\Program Files\Keil\ARM\ARMCC\Bin\..\include\stdint.h
 .\discover-more\ethernetif.o: ..\..\..\..\Libraries\CMSIS\Include\core_cmInstr.h
 .\discover-more\ethernetif.o: ..\..\..\..\Libraries\CMSIS\Include\core_cmFunc.h
 .\discover-more\ethernetif.o: ..\..\..\..\Libraries\CMSIS\Include\core_cm4_simd.h
-.\discover-more\ethernetif.o: D:\Program Files\Keil_v5\ARM\INC\ST\STM32F4xx\system_stm32f4xx.h
+.\discover-more\ethernetif.o: D:\Program Files\Keil\ARM\INC\ST\STM32F4xx\system_stm32f4xx.h
 .\discover-more\ethernetif.o: ..\inc\stm32f4xx_conf.h
 .\discover-more\ethernetif.o: ..\..\..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_adc.h
-.\discover-more\ethernetif.o: D:\Program Files\Keil_v5\ARM\INC\ST\STM32F4xx\stm32f4xx.h
+.\discover-more\ethernetif.o: D:\Program Files\Keil\ARM\INC\ST\STM32F4xx\stm32f4xx.h
 .\discover-more\ethernetif.o: ..\..\..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_can.h
 .\discover-more\ethernetif.o: ..\..\..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_crc.h
 .\discover-more\ethernetif.o: ..\..\..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_cryp.h
@@ -80,4 +80,4 @@
 .\discover-more\ethernetif.o: ..\..\..\..\Utilities\lwip_v1.3.2\src\include\lwip\udp.h
 .\discover-more\ethernetif.o: ..\..\..\..\Libraries\STM32F4x7_ETH_Driver\inc\stm32f4x7_eth.h
 .\discover-more\ethernetif.o: ..\inc\stm32f4x7_eth_conf.h
-.\discover-more\ethernetif.o: D:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\discover-more\ethernetif.o: D:\Program Files\Keil\ARM\ARMCC\Bin\..\include\string.h

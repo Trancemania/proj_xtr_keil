@@ -155,6 +155,9 @@ int main(void)
   LCD_LED_Init();
 	CUSTOM_GPIO_Init();
 	CUSTOM_PWM_Init();
+	TIM_SetAutoreload(TIM3, 1333);
+	TIM_SetCompare1(TIM3, 100);
+
   /*Initialize Serial COM */ 
   STM_CUSTOM_COMInit(CUSTOM_NO_COM1, &USART_InitStructure);
 	STM_CUSTOM_COMInit(CUSTOM_NO_COM2, &USART_InitStructure);

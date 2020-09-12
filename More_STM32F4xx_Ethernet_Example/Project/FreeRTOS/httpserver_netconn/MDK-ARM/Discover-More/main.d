@@ -1,16 +1,16 @@
 .\discover-more\main.o: ..\src\main.c
 .\discover-more\main.o: ..\..\..\..\Libraries\STM32F4x7_ETH_Driver\inc\stm32f4x7_eth.h
 .\discover-more\main.o: ..\inc\stm32f4x7_eth_conf.h
-.\discover-more\main.o: D:\Program Files\Keil_v5\ARM\INC\ST\STM32F4xx\stm32f4xx.h
+.\discover-more\main.o: D:\Program Files\Keil\ARM\INC\ST\STM32F4xx\stm32f4xx.h
 .\discover-more\main.o: ..\..\..\..\Libraries\CMSIS\Include\core_cm4.h
-.\discover-more\main.o: D:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\discover-more\main.o: D:\Program Files\Keil\ARM\ARMCC\Bin\..\include\stdint.h
 .\discover-more\main.o: ..\..\..\..\Libraries\CMSIS\Include\core_cmInstr.h
 .\discover-more\main.o: ..\..\..\..\Libraries\CMSIS\Include\core_cmFunc.h
 .\discover-more\main.o: ..\..\..\..\Libraries\CMSIS\Include\core_cm4_simd.h
-.\discover-more\main.o: D:\Program Files\Keil_v5\ARM\INC\ST\STM32F4xx\system_stm32f4xx.h
+.\discover-more\main.o: D:\Program Files\Keil\ARM\INC\ST\STM32F4xx\system_stm32f4xx.h
 .\discover-more\main.o: ..\inc\stm32f4xx_conf.h
 .\discover-more\main.o: ..\..\..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_adc.h
-.\discover-more\main.o: D:\Program Files\Keil_v5\ARM\INC\ST\STM32F4xx\stm32f4xx.h
+.\discover-more\main.o: D:\Program Files\Keil\ARM\INC\ST\STM32F4xx\stm32f4xx.h
 .\discover-more\main.o: ..\..\..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_can.h
 .\discover-more\main.o: ..\..\..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_crc.h
 .\discover-more\main.o: ..\..\..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_cryp.h
@@ -49,9 +49,9 @@
 .\discover-more\main.o: ..\..\..\..\Utilities\lwip_v1.3.2\src\include\lwip/arch.h
 .\discover-more\main.o: ..\..\..\..\Utilities\lwip_v1.3.2\port\STM32F4x7\arch/cc.h
 .\discover-more\main.o: ..\..\..\..\Utilities\lwip_v1.3.2\port\STM32F4x7\arch/cpu.h
-.\discover-more\main.o: D:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\discover-more\main.o: D:\Program Files\Keil\ARM\ARMCC\Bin\..\include\stdio.h
 .\discover-more\main.o: ..\..\..\..\Utilities\lwip_v1.3.2\src\include\lwip/api_msg.h
-.\discover-more\main.o: D:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\discover-more\main.o: D:\Program Files\Keil\ARM\ARMCC\Bin\..\include\stddef.h
 .\discover-more\main.o: ..\..\..\..\Utilities\lwip_v1.3.2\src\include\ipv4\lwip/ip_addr.h
 .\discover-more\main.o: ..\..\..\..\Utilities\lwip_v1.3.2\src\include\ipv4\lwip/inet.h
 .\discover-more\main.o: ..\..\..\..\Utilities\lwip_v1.3.2\src\include\lwip/err.h
@@ -87,5 +87,5 @@
 .\discover-more\main.o: ..\inc\tm_stm32f4_usart_dma.h
 .\discover-more\main.o: ..\inc\tm_stm32f4_dma.h
 .\discover-more\main.o: ..\inc\tm_stm32f4_dma.h
-.\discover-more\main.o: D:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-.\discover-more\main.o: D:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+.\discover-more\main.o: D:\Program Files\Keil\ARM\ARMCC\Bin\..\include\string.h
+.\discover-more\main.o: D:\Program Files\Keil\ARM\ARMCC\Bin\..\include\stdarg.h

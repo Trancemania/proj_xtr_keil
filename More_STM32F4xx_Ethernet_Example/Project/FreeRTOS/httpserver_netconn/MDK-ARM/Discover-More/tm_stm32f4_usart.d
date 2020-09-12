@@ -1,16 +1,16 @@
 .\discover-more\tm_stm32f4_usart.o: ..\src\tm_stm32f4_usart.c
 .\discover-more\tm_stm32f4_usart.o: ..\inc\tm_stm32f4_usart.h
 .\discover-more\tm_stm32f4_usart.o: ..\..\..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\misc.h
-.\discover-more\tm_stm32f4_usart.o: D:\Program Files\Keil_v5\ARM\INC\ST\STM32F4xx\stm32f4xx.h
+.\discover-more\tm_stm32f4_usart.o: D:\Program Files\Keil\ARM\INC\ST\STM32F4xx\stm32f4xx.h
 .\discover-more\tm_stm32f4_usart.o: ..\..\..\..\Libraries\CMSIS\Include\core_cm4.h
-.\discover-more\tm_stm32f4_usart.o: D:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\discover-more\tm_stm32f4_usart.o: D:\Program Files\Keil\ARM\ARMCC\Bin\..\include\stdint.h
 .\discover-more\tm_stm32f4_usart.o: ..\..\..\..\Libraries\CMSIS\Include\core_cmInstr.h
 .\discover-more\tm_stm32f4_usart.o: ..\..\..\..\Libraries\CMSIS\Include\core_cmFunc.h
 .\discover-more\tm_stm32f4_usart.o: ..\..\..\..\Libraries\CMSIS\Include\core_cm4_simd.h
-.\discover-more\tm_stm32f4_usart.o: D:\Program Files\Keil_v5\ARM\INC\ST\STM32F4xx\system_stm32f4xx.h
+.\discover-more\tm_stm32f4_usart.o: D:\Program Files\Keil\ARM\INC\ST\STM32F4xx\system_stm32f4xx.h
 .\discover-more\tm_stm32f4_usart.o: ..\inc\stm32f4xx_conf.h
 .\discover-more\tm_stm32f4_usart.o: ..\..\..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_adc.h
-.\discover-more\tm_stm32f4_usart.o: D:\Program Files\Keil_v5\ARM\INC\ST\STM32F4xx\stm32f4xx.h
+.\discover-more\tm_stm32f4_usart.o: D:\Program Files\Keil\ARM\INC\ST\STM32F4xx\stm32f4xx.h
 .\discover-more\tm_stm32f4_usart.o: ..\..\..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_can.h
 .\discover-more\tm_stm32f4_usart.o: ..\..\..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_crc.h
 .\discover-more\tm_stm32f4_usart.o: ..\..\..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_cryp.h

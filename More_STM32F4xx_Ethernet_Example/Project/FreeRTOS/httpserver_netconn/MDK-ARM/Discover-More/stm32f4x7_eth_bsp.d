@@ -1,16 +1,16 @@
 .\discover-more\stm32f4x7_eth_bsp.o: ..\src\stm32f4x7_eth_bsp.c
 .\discover-more\stm32f4x7_eth_bsp.o: ..\..\..\..\Libraries\STM32F4x7_ETH_Driver\inc\stm32f4x7_eth.h
 .\discover-more\stm32f4x7_eth_bsp.o: ..\inc\stm32f4x7_eth_conf.h
-.\discover-more\stm32f4x7_eth_bsp.o: D:\Program Files\Keil_v5\ARM\INC\ST\STM32F4xx\stm32f4xx.h
+.\discover-more\stm32f4x7_eth_bsp.o: D:\Program Files\Keil\ARM\INC\ST\STM32F4xx\stm32f4xx.h
 .\discover-more\stm32f4x7_eth_bsp.o: ..\..\..\..\Libraries\CMSIS\Include\core_cm4.h
-.\discover-more\stm32f4x7_eth_bsp.o: D:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\discover-more\stm32f4x7_eth_bsp.o: D:\Program Files\Keil\ARM\ARMCC\Bin\..\include\stdint.h
 .\discover-more\stm32f4x7_eth_bsp.o: ..\..\..\..\Libraries\CMSIS\Include\core_cmInstr.h
 .\discover-more\stm32f4x7_eth_bsp.o: ..\..\..\..\Libraries\CMSIS\Include\core_cmFunc.h
 .\discover-more\stm32f4x7_eth_bsp.o: ..\..\..\..\Libraries\CMSIS\Include\core_cm4_simd.h
-.\discover-more\stm32f4x7_eth_bsp.o: D:\Program Files\Keil_v5\ARM\INC\ST\STM32F4xx\system_stm32f4xx.h
+.\discover-more\stm32f4x7_eth_bsp.o: D:\Program Files\Keil\ARM\INC\ST\STM32F4xx\system_stm32f4xx.h
 .\discover-more\stm32f4x7_eth_bsp.o: ..\inc\stm32f4xx_conf.h
 .\discover-more\stm32f4x7_eth_bsp.o: ..\..\..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_adc.h
-.\discover-more\stm32f4x7_eth_bsp.o: D:\Program Files\Keil_v5\ARM\INC\ST\STM32F4xx\stm32f4xx.h
+.\discover-more\stm32f4x7_eth_bsp.o: D:\Program Files\Keil\ARM\INC\ST\STM32F4xx\stm32f4xx.h
 .\discover-more\stm32f4x7_eth_bsp.o: ..\..\..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_can.h
 .\discover-more\stm32f4x7_eth_bsp.o: ..\..\..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_crc.h
 .\discover-more\stm32f4x7_eth_bsp.o: ..\..\..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_cryp.h
@@ -48,9 +48,9 @@
 .\discover-more\stm32f4x7_eth_bsp.o: ..\..\..\..\Utilities\lwip_v1.3.2\src\include\lwip/arch.h
 .\discover-more\stm32f4x7_eth_bsp.o: ..\..\..\..\Utilities\lwip_v1.3.2\port\STM32F4x7\arch/cc.h
 .\discover-more\stm32f4x7_eth_bsp.o: ..\..\..\..\Utilities\lwip_v1.3.2\port\STM32F4x7\arch/cpu.h
-.\discover-more\stm32f4x7_eth_bsp.o: D:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\discover-more\stm32f4x7_eth_bsp.o: D:\Program Files\Keil\ARM\ARMCC\Bin\..\include\stdio.h
 .\discover-more\stm32f4x7_eth_bsp.o: ..\..\..\..\Utilities\lwip_v1.3.2\src\include\lwip/api_msg.h
-.\discover-more\stm32f4x7_eth_bsp.o: D:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\discover-more\stm32f4x7_eth_bsp.o: D:\Program Files\Keil\ARM\ARMCC\Bin\..\include\stddef.h
 .\discover-more\stm32f4x7_eth_bsp.o: ..\..\..\..\Utilities\lwip_v1.3.2\src\include\ipv4\lwip/ip_addr.h
 .\discover-more\stm32f4x7_eth_bsp.o: ..\..\..\..\Utilities\lwip_v1.3.2\src\include\ipv4\lwip/inet.h
 .\discover-more\stm32f4x7_eth_bsp.o: ..\..\..\..\Utilities\lwip_v1.3.2\src\include\lwip/err.h

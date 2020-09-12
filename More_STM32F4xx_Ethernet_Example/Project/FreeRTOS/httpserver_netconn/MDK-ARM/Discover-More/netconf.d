@@ -6,7 +6,7 @@
 .\discover-more\netconf.o: ..\..\..\..\Utilities\lwip_v1.3.2\src\include\lwip/arch.h
 .\discover-more\netconf.o: ..\..\..\..\Utilities\lwip_v1.3.2\port\STM32F4x7\arch/cc.h
 .\discover-more\netconf.o: ..\..\..\..\Utilities\lwip_v1.3.2\port\STM32F4x7\arch/cpu.h
-.\discover-more\netconf.o: D:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\discover-more\netconf.o: D:\Program Files\Keil\ARM\ARMCC\Bin\..\include\stdio.h
 .\discover-more\netconf.o: ..\..\..\..\Utilities\lwip_v1.3.2\src\include\lwip/memp.h
 .\discover-more\netconf.o: ..\..\..\..\Utilities\lwip_v1.3.2\src\include\lwip/memp_std.h
 .\discover-more\netconf.o: ..\..\..\..\Utilities\lwip_v1.3.2\src\include\lwip/dhcp.h
@@ -20,16 +20,16 @@
 .\discover-more\netconf.o: ..\..\..\..\Utilities\lwip_v1.3.2\src\include\lwip/def.h
 .\discover-more\netconf.o: ..\..\..\..\Utilities\lwip_v1.3.2\port\STM32F4x7\FreeRTOS\ethernetif.h
 .\discover-more\netconf.o: ..\inc\main.h
-.\discover-more\netconf.o: D:\Program Files\Keil_v5\ARM\INC\ST\STM32F4xx\stm32f4xx.h
+.\discover-more\netconf.o: D:\Program Files\Keil\ARM\INC\ST\STM32F4xx\stm32f4xx.h
 .\discover-more\netconf.o: ..\..\..\..\Libraries\CMSIS\Include\core_cm4.h
-.\discover-more\netconf.o: D:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\discover-more\netconf.o: D:\Program Files\Keil\ARM\ARMCC\Bin\..\include\stdint.h
 .\discover-more\netconf.o: ..\..\..\..\Libraries\CMSIS\Include\core_cmInstr.h
 .\discover-more\netconf.o: ..\..\..\..\Libraries\CMSIS\Include\core_cmFunc.h
 .\discover-more\netconf.o: ..\..\..\..\Libraries\CMSIS\Include\core_cm4_simd.h
-.\discover-more\netconf.o: D:\Program Files\Keil_v5\ARM\INC\ST\STM32F4xx\system_stm32f4xx.h
+.\discover-more\netconf.o: D:\Program Files\Keil\ARM\INC\ST\STM32F4xx\system_stm32f4xx.h
 .\discover-more\netconf.o: ..\inc\stm32f4xx_conf.h
 .\discover-more\netconf.o: ..\..\..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_adc.h
-.\discover-more\netconf.o: D:\Program Files\Keil_v5\ARM\INC\ST\STM32F4xx\stm32f4xx.h
+.\discover-more\netconf.o: D:\Program Files\Keil\ARM\INC\ST\STM32F4xx\stm32f4xx.h
 .\discover-more\netconf.o: ..\..\..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_can.h
 .\discover-more\netconf.o: ..\..\..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_crc.h
 .\discover-more\netconf.o: ..\..\..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_cryp.h
@@ -61,7 +61,7 @@
 .\discover-more\netconf.o: ..\..\..\..\Utilities\STM32F4-Discovery\fonts.h
 .\discover-more\netconf.o: ..\..\..\..\Utilities\lwip_v1.3.2\src\include\lwip\tcpip.h
 .\discover-more\netconf.o: ..\..\..\..\Utilities\lwip_v1.3.2\src\include\lwip/api_msg.h
-.\discover-more\netconf.o: D:\Program Files\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\discover-more\netconf.o: D:\Program Files\Keil\ARM\ARMCC\Bin\..\include\stddef.h
 .\discover-more\netconf.o: ..\..\..\..\Utilities\lwip_v1.3.2\src\include\lwip/sys.h
 .\discover-more\netconf.o: ..\..\..\..\Utilities\lwip_v1.3.2\port\STM32F4x7\arch/sys_arch.h
 .\discover-more\netconf.o: ..\..\..\..\Utilities\FreeRTOS_v6.1.0\include\FreeRTOS.h
