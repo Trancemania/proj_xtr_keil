@@ -200,12 +200,12 @@ void ETH_IRQHandler(void)
 void EXTI0_IRQHandler(void) {
     /* Make sure that interrupt flag is set */
     if (EXTI_GetITStatus(EXTI_Line0) != RESET) {
-        /* Do your stuff when PD0 is changed */
-        
-				GPIOA->ODR = ((GPIOD->ODR)&(~0x20)) | ((~EXTI_GetITStatus(EXTI_Line0))<<5);  //PA5
-        
         /* Clear interrupt flag */
         EXTI_ClearITPendingBit(EXTI_Line0);
+			
+        /* Do your stuff when PD0 is changed */
+				GPIOA->ODR = ((GPIOA->ODR)&(~0x20)) | ((~GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_0))<<5);  //PA5
+        
     }
 }
 
@@ -213,12 +213,12 @@ void EXTI0_IRQHandler(void) {
 void EXTI1_IRQHandler(void) {
     /* Make sure that interrupt flag is set */
     if (EXTI_GetITStatus(EXTI_Line1) != RESET) {
-        /* Do your stuff when PD0 is changed */
-        
-				GPIOA->ODR = ((GPIOD->ODR)&(~0x4)) | ((~EXTI_GetITStatus(EXTI_Line1))<<3);		//PA3
-        
-        /* Clear interrupt flag */
+      /* Clear interrupt flag */
         EXTI_ClearITPendingBit(EXTI_Line1);
+			
+			/* Do your stuff when PD1 is changed */
+				GPIOA->ODR = ((GPIOA->ODR)&(~0x8)) | ((~GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_1))<<3);		//PA3
+        
     }
 }
  
@@ -226,36 +226,36 @@ void EXTI1_IRQHandler(void) {
 void EXTI15_10_IRQHandler(void) {
     /* Make sure that interrupt flag is set */
     if (EXTI_GetITStatus(EXTI_Line10) != RESET) {
-        /* Do your stuff when PC10 is changed */
-			
-				GPIOE->ODR = ((GPIOD->ODR)&(~0x80)) | ((~EXTI_GetITStatus(EXTI_Line10))<<7);		//PE7
-        
         /* Clear interrupt flag */
         EXTI_ClearITPendingBit(EXTI_Line10);
+			
+        /* Do your stuff when PC10 is changed */
+				GPIOE->ODR = ((GPIOE->ODR)&(~0x80)) | ((~GPIO_ReadInputDataBit(GPIOC, GPIO_Pin_10))<<7);		//PE7
+        
     }
     if (EXTI_GetITStatus(EXTI_Line11) != RESET) {
-        /* Do your stuff when PC11 is changed */
-			
-				GPIOD->ODR = ((GPIOD->ODR)&(~0x800)) | ((~EXTI_GetITStatus(EXTI_Line11))<<11);		//PD11
-        
         /* Clear interrupt flag */
         EXTI_ClearITPendingBit(EXTI_Line11);
+			
+        /* Do your stuff when PC11 is changed */
+				GPIOD->ODR = ((GPIOD->ODR)&(~0x800)) | ((~GPIO_ReadInputDataBit(GPIOC, GPIO_Pin_11))<<11);		//PD11
+        
     }
     if (EXTI_GetITStatus(EXTI_Line12) != RESET) {
-        /* Do your stuff when PC12 is changed */
-			
-				GPIOA->ODR = ((GPIOD->ODR)&(~0x100)) | ((~EXTI_GetITStatus(EXTI_Line12))<<8);		//PA8
-        
         /* Clear interrupt flag */
         EXTI_ClearITPendingBit(EXTI_Line12);
+			
+        /* Do your stuff when PC12 is changed */
+				GPIOA->ODR = ((GPIOA->ODR)&(~0x100)) | ((~GPIO_ReadInputDataBit(GPIOC, GPIO_Pin_12))<<8);		//PA8
+        
     }
     if (EXTI_GetITStatus(EXTI_Line13) != RESET) {
-        /* Do your stuff when PC13 is changed */
-        
-				GPIOE->ODR = ((GPIOD->ODR)&(~0x40)) | ((~EXTI_GetITStatus(EXTI_Line13))<<6);		//PE6
-			
         /* Clear interrupt flag */
         EXTI_ClearITPendingBit(EXTI_Line13);
+			
+        /* Do your stuff when PC13 is changed */
+				GPIOE->ODR = ((GPIOE->ODR)&(~0x40)) | ((~GPIO_ReadInputDataBit(GPIOC, GPIO_Pin_13))<<6);		//PE6
+			
     }
 }
 
