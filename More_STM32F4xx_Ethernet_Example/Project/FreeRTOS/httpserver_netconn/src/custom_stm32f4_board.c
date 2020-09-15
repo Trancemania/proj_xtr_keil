@@ -136,6 +136,8 @@ void CUSTOM_PWM_Init() {
 	GPIO_InitTypeDef GPIO_InitStructure; 
 	TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
 	TIM_OCInitTypeDef TIM_OCInitStructure;
+	NVIC_InitTypeDef NVIC_InitStructure;
+	
 	uint16_t Period;
 	Period = 1333; // 20 KHz for 10MHz prescaled
 	
@@ -176,8 +178,18 @@ void CUSTOM_PWM_Init() {
 	TIM_OC1Init(TIM3, &TIM_OCInitStructure);
 	TIM_OC1PreloadConfig(TIM3, TIM_OCPreload_Enable);
 	
-	/* TIM4 enable counter */
-	TIM_Cmd(TIM3, ENABLE);	
+	TIM_ITConfig(TIM3, TIM_FLAG_CC1, ENABLE);
+	
+	/* TIM3 enable counter */
+	TIM_Cmd(TIM3, ENABLE);
+	
+	/* TIM3 NVIC config */
+	//https://community.st.com/s/question/0D50X00009XkXvvSAF/timer-interrupt-irqhandler-error
+	NVIC_InitStructure.NVIC_IRQChannel = TIM3_IRQn;
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+	NVIC_Init(&NVIC_InitStructure);
 }
 
 void CUSTOM_EXTI_Init() {
