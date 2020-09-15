@@ -260,6 +260,17 @@ void EXTI15_10_IRQHandler(void) {
 }
 
 
+/* Handle TIM3 interrupt */
+void TIM3_IRQHandler(void) {
+	if (TIM_GetITStatus(TIM3, TIM_IT_CC1) != RESET){
+		TIM_ClearITPendingBit(TIM3, TIM_IT_CC1);
+		
+		
+		
+		
+	}
+}
+
 /******************************************************************************/
 /*                 STM32F4xx Peripherals Interrupt Handlers                   */
 /*  Add here the Interrupt Handler for the used peripheral(s) (PPP), for the  */
