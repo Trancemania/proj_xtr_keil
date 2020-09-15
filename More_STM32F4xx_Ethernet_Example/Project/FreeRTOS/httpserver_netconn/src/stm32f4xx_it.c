@@ -61,6 +61,7 @@
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 extern xSemaphoreHandle s_xSemaphore;
+extern xSemaphoreHandle exti_xSemaphore;
 /* Private function prototypes -----------------------------------------------*/
 extern void xPortSysTickHandler(void); 
 /* Private functions ---------------------------------------------------------*/
@@ -197,6 +198,7 @@ void ETH_IRQHandler(void)
 
 /* Set interrupt handlers */
 /* Handle PD0 interrupt */
+//https://community.st.com/s/question/0D50X00009XkZzrSAF/how-to-know-if-interrupt-was-triggered-by-falling-or-rising-edge
 void EXTI0_IRQHandler(void) {
     /* Make sure that interrupt flag is set */
     if (EXTI_GetITStatus(EXTI_Line0) != RESET) {
@@ -224,6 +226,8 @@ void EXTI1_IRQHandler(void) {
  
 /* Handle PC10/11/12/13 interrupt */
 void EXTI15_10_IRQHandler(void) {
+	
+		portBASE_TYPE xHigherPriorityTaskWoken;
     /* Make sure that interrupt flag is set */
     if (EXTI_GetITStatus(EXTI_Line10) != RESET) {
         /* Clear interrupt flag */
@@ -238,7 +242,7 @@ void EXTI15_10_IRQHandler(void) {
         EXTI_ClearITPendingBit(EXTI_Line11);
 			
         /* Do your stuff when PC11 is changed */
-				GPIOD->ODR = ((GPIOD->ODR)&(~0x800)) | ((~GPIO_ReadInputDataBit(GPIOC, GPIO_Pin_11))<<11);		//PD11
+				GPIOD->ODR = ((GPIOD->ODR)&(~0x800)) | ((~GPIO_ReadInputDataBit(GPIOC, GPIO_Pin_11))<<11);	//PD11
         
     }
     if (EXTI_GetITStatus(EXTI_Line12) != RESET) {
@@ -250,12 +254,17 @@ void EXTI15_10_IRQHandler(void) {
         
     }
     if (EXTI_GetITStatus(EXTI_Line13) != RESET) {
+			
+				xHigherPriorityTaskWoken = pdFALSE;
         /* Clear interrupt flag */
         EXTI_ClearITPendingBit(EXTI_Line13);
 			
         /* Do your stuff when PC13 is changed */
 				GPIOE->ODR = ((GPIOE->ODR)&(~0x40)) | ((~GPIO_ReadInputDataBit(GPIOC, GPIO_Pin_13))<<6);		//PE6
 			
+				if (GPIO_ReadInputDataBit(GPIOC, GPIO_Pin_13) == 1){
+					xSemaphoreGiveFromISR( exti_xSemaphore, &xHigherPriorityTaskWoken );
+				}
     }
 }
 
