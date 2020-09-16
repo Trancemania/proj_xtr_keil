@@ -72,6 +72,7 @@
 #define PRINTF_TASK_PRIO    ( tskIDLE_PRIORITY + 1 )
 #define UDP_TASK_PRIO		 ( tskIDLE_PRIORITY + 1 )
 #define ETH_PRINTF_TASK_PRIO    ( tskIDLE_PRIORITY + 1 )
+#define PROCESS_COM_TASK_PRIO    ( tskIDLE_PRIORITY + 1 )
 
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
@@ -93,11 +94,13 @@ extern const unsigned short src_port;
 
 uint8_t ETH_send_buffer[128];
 uint8_t ETH_recv_buffer[128];
-uint8_t command_H;
-uint8_t command_L;
+//uint8_t command_H;
+//uint8_t command_L;
+uint8_t command;
 int ETH_length;
 
 xTaskHandle printf_xHandle = NULL;
+xTaskHandle process_command_xHandle = NULL;
 
 //const unsigned short dst_port = 8080;
 
@@ -109,6 +112,7 @@ void ToggleLed4(void * pvParameters);
 void Printf_task(void * pvParameters);
 //void LwIP_UDP_task(void * pvParameters);
 void ETH_Printf_task(void * pvParameters);
+void process_command_task(void * pvParameters);
 
 #ifdef __GNUC__
   /* With GCC/RAISONANCE, small printf (option LD Linker->Libraries->Small printf
@@ -155,8 +159,10 @@ int main(void)
   LCD_LED_Init();
 	CUSTOM_GPIO_Init();
 	CUSTOM_PWM_Init();
-	TIM_SetAutoreload(TIM3, 1333);
-	TIM_SetCompare1(TIM3, 100);
+	
+	//test code
+//	TIM_SetAutoreload(TIM3, 1333);
+//	TIM_SetCompare1(TIM3, 100);
 
   /*Initialize Serial COM */ 
   STM_CUSTOM_COMInit(CUSTOM_NO_COM1, &USART_InitStructure);
@@ -279,524 +285,71 @@ void Printf_task(void * pvParameters)
 
 void udp_recv_fn(void *arg, struct udp_pcb *pcb, struct pbuf *p, struct ip_addr *addr, u16_t port){
 	if (p != NULL) {
+		//check addr port
+		
+		// copy command to buffer
 		memcpy(ETH_recv_buffer, &p->payload, p->len);
-		command_H = ETH_recv_buffer[1];
-		command_L = ETH_recv_buffer[0];
-		if (command_H == 0x00 || command_H == 0xFF) {
-			GPIO_SetBits(GPIOA, GPIO_Pin_3|GPIO_Pin_5|GPIO_Pin_8|GPIO_Pin_15);
-			GPIO_SetBits(GPIOD, GPIO_Pin_11);
-			GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5|GPIO_Pin_6|GPIO_Pin_7);
-			//delete task
-			if( printf_xHandle != NULL ) {
-				vTaskDelete( printf_xHandle );
-			}
-			//pwm duty rate 0%
-			TIM_SetAutoreload(TIM3, 1333);
-			TIM_SetCompare1(TIM3, 0);
-		}
-		else {
-			GPIOE->ODR = ((GPIOE->ODR)&(~0xC0)) | ((((~command_L)&0x01)<<7) | (((~command_L)&0x20)<<1));
-			GPIOA->ODR = ((GPIOA->ODR)&(~0x128)) | ((((~command_L)&0x02)<<2) | (((~command_L)&0x04)<<3) | (((~command_L)&0x08)<<5));
-			GPIOD->ODR = ((GPIOD->ODR)&(~0x800)) | (((~command_L)&0x10)<<7);
-			switch (command_H) {
-				case 0x01:   	//self test
-					//delete task
-					if( printf_xHandle != NULL ) {
-						vTaskDelete( printf_xHandle );
-					}
-						//pwm
-					TIM_SetAutoreload(TIM3, 1330);
-					TIM_SetCompare1(TIM3, 0);
-				  //gpio
-					GPIO_SetBits(GPIOA, GPIO_Pin_15);
-					GPIO_ResetBits(GPIOE, GPIO_Pin_0);
-					GPIO_SetBits(GPIOE, GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
-					break;
-				case 0x02:   	//gyro pulse
-					if( printf_xHandle != NULL ) {
-						vTaskDelete( printf_xHandle );
-					}
-					//pwm
-						TIM_SetAutoreload(TIM3, 1330);
-					TIM_SetCompare1(TIM3, 100);
-				  //gpio
-					GPIO_SetBits(GPIOA, GPIO_Pin_15);
-					GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
-					//l/s field
-
-					break;
-				case 0x03:		//comp 3k
-					//delete task
-				 if( printf_xHandle != NULL ) {
-						vTaskDelete( printf_xHandle );
-					}
-					//pwm
-					TIM_SetAutoreload(TIM3, 1330);
-					TIM_SetCompare1(TIM3, 100);
-				  //gpio
-					GPIO_SetBits(GPIOA, GPIO_Pin_15);
-					GPIO_ResetBits(GPIOE, GPIO_Pin_3);
-					GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4|GPIO_Pin_5);
-					//l/s field
-					
-					break;
-				case 0x04:		//comp 4k
-					//delete task
-				  if( printf_xHandle != NULL ) {
-						vTaskDelete( printf_xHandle );
-					}
-					//pwm
-					TIM_SetAutoreload(TIM3, 1330);
-					TIM_SetCompare1(TIM3, 100);
-				  //gpio
-					GPIO_SetBits(GPIOA, GPIO_Pin_15);
-					GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
-					//l/s field
-					
-					break;
-				case 0x05:		//half circle lock
-					//delete task
-				  if( printf_xHandle != NULL ) {
-						vTaskDelete( printf_xHandle );
-					}
-					//pwm
-					TIM_SetAutoreload(TIM3, 1330);
-					TIM_SetCompare1(TIM3, 100);
-				  //gpio
-					GPIO_SetBits(GPIOA, GPIO_Pin_15);
-					GPIO_ResetBits(GPIOE, GPIO_Pin_4);
-					GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_5);
-					//l/s field
-					
-					break;
-				case 0x06:		//3 loop 48 3k
-					//delete task
-					if( printf_xHandle != NULL ) {
-						vTaskDelete( printf_xHandle );
-					}
-					//pwm
-					TIM_SetAutoreload(TIM3, 1500);
-					TIM_SetCompare1(TIM3, 100);
-				  //gpio
-					GPIO_SetBits(GPIOA, GPIO_Pin_15);
-					GPIO_ResetBits(GPIOE, GPIO_Pin_3);
-					GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4|GPIO_Pin_5);
-					//l/s field
-					
-					break;
-				case 0x07:		//3 loop 52 3k
-					//delete task
-					if( printf_xHandle != NULL ) {
-						vTaskDelete( printf_xHandle );
-					}
-					//pwm
-					TIM_SetAutoreload(TIM3, 1500);
-					TIM_SetCompare1(TIM3, 100);
-				  //gpio
-					GPIO_SetBits(GPIOA, GPIO_Pin_15);
-					GPIO_ResetBits(GPIOE, GPIO_Pin_3);
-					GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4|GPIO_Pin_5);
-					//l/s field
-					
-					break;
-				case 0x08:		//3 loop 68 3k
-					//delete task
-					if( printf_xHandle != NULL ) {
-						vTaskDelete( printf_xHandle );
-					}
-					//pwm
-					TIM_SetAutoreload(TIM3, 1500);
-					TIM_SetCompare1(TIM3, 100);
-				  //gpio
-					GPIO_SetBits(GPIOA, GPIO_Pin_15);
-					GPIO_ResetBits(GPIOE, GPIO_Pin_3);
-					GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4|GPIO_Pin_5);
-					//l/s field
-					
-					break;
-				case 0x09:		//3 loop 72 3k
-					//delete task
-					if( printf_xHandle != NULL ) {
-						vTaskDelete( printf_xHandle );
-					}
-					//pwm
-					TIM_SetAutoreload(TIM3, 1500);
-					TIM_SetCompare1(TIM3, 100);
-				  //gpio
-					GPIO_SetBits(GPIOA, GPIO_Pin_15);
-					GPIO_ResetBits(GPIOE, GPIO_Pin_3);
-					GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4|GPIO_Pin_5);
-					//l/s field
-					
-					break;
-				case 0x0A:		//3 loop 48 4k
-					//delete task
-					if( printf_xHandle != NULL ) {
-						vTaskDelete( printf_xHandle );
-					}
-					//pwm
-					TIM_SetAutoreload(TIM3, 1400);
-					TIM_SetCompare1(TIM3, 100);
-				  //gpio
-					GPIO_SetBits(GPIOA, GPIO_Pin_15);
-					GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
-					//l/s field
-					
-					break;
-				case 0x0B:		//3 loop 52 4k
-					//delete task
-					if( printf_xHandle != NULL ) {
-						vTaskDelete( printf_xHandle );
-					}
-					//pwm
-					TIM_SetAutoreload(TIM3, 1400);
-					TIM_SetCompare1(TIM3, 100);
-				  //gpio
-					GPIO_SetBits(GPIOA, GPIO_Pin_15);
-					GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
-					//l/s field
-					
-					break;
-				case 0x0C:		//3 loop 58 4k
-					//delete task
-					if( printf_xHandle != NULL ) {
-						vTaskDelete( printf_xHandle );
-					}
-					//pwm
-					TIM_SetAutoreload(TIM3, 1400);
-					TIM_SetCompare1(TIM3, 100);
-				  //gpio
-					GPIO_SetBits(GPIOA, GPIO_Pin_15);
-					GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
-					//l/s field
-					
-					break;
-				case 0x0D:		//3 loop 62 4k
-					//delete task
-					if( printf_xHandle != NULL ) {
-						vTaskDelete( printf_xHandle );
-					}
-					//pwm
-					TIM_SetAutoreload(TIM3, 1400);
-					TIM_SetCompare1(TIM3, 100);
-				  //gpio
-					GPIO_SetBits(GPIOA, GPIO_Pin_15);
-					GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
-					//l/s field
-					
-					break;
-				case 0x0E:		//rpm 100
-					//delete task
-					if( printf_xHandle != NULL ) {
-						vTaskDelete( printf_xHandle );
-					}
-					//pwm
-					TIM_SetAutoreload(TIM3, 1000);
-					TIM_SetCompare1(TIM3, 100);
-				  //gpio
-					GPIO_SetBits(GPIOA, GPIO_Pin_15);
-					GPIO_ResetBits(GPIOE, GPIO_Pin_3);
-					GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4|GPIO_Pin_5);
-					//l/s field
-					
-					break;
-				case 0x0F:		//rpm 200
-					//delete task
-					if( printf_xHandle != NULL ) {
-						vTaskDelete( printf_xHandle );
-					}
-					//pwm
-					TIM_SetAutoreload(TIM3, 2000);
-					TIM_SetCompare1(TIM3, 100);
-				  //gpio
-					GPIO_SetBits(GPIOA, GPIO_Pin_15);
-					GPIO_ResetBits(GPIOE, GPIO_Pin_3);
-					GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4|GPIO_Pin_5);
-					//l/s field
-					
-					break;
-				case 0x10:		//rpm 100
-					//delete task
-					if( printf_xHandle != NULL ) {
-						vTaskDelete( printf_xHandle );
-					}
-					//pwm
-					TIM_SetAutoreload(TIM3, 1000);
-					TIM_SetCompare1(TIM3, 100);
-				  //gpio
-					GPIO_SetBits(GPIOA, GPIO_Pin_15);
-					GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
-					//l/s field
-					
-					break;
-				case 0x11:		//rpm 200
-					//delete task
-				  if( printf_xHandle != NULL ) {
-						vTaskDelete( printf_xHandle );
-					}
-					//pwm
-					TIM_SetAutoreload(TIM3, 2000);
-					TIM_SetCompare1(TIM3, 100);
-				  //gpio
-					GPIO_SetBits(GPIOA, GPIO_Pin_15);
-					GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
-					//l/s field
-					
-					break;
-				case 0x12:		//up 3k
-					//delete task
-					if( printf_xHandle != NULL ) {
-						vTaskDelete( printf_xHandle );
-					}
-					//pwm
-					TIM_SetAutoreload(TIM3, 1333);
-					TIM_SetCompare1(TIM3, 100);
-				  //gpio
-					GPIO_SetBits(GPIOA, GPIO_Pin_15);
-					GPIO_ResetBits(GPIOE, GPIO_Pin_3);
-					GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4|GPIO_Pin_5);
-					//l/s field
-					
-					break;
-				case 0x13:		//down 3k
-					//delete task
-					if( printf_xHandle != NULL ) {
-						vTaskDelete( printf_xHandle );
-					}
-					//pwm
-					TIM_SetAutoreload(TIM3, 1333);
-					TIM_SetCompare1(TIM3, 100);
-				  //gpio
-					GPIO_SetBits(GPIOA, GPIO_Pin_15);
-					GPIO_ResetBits(GPIOE, GPIO_Pin_3);
-					GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4|GPIO_Pin_5);
-					//l/s field
-					
-					break;
-				case 0x14:		//left 3k
-					//delete task
-					if( printf_xHandle != NULL ) {
-						vTaskDelete( printf_xHandle );
-					}
-					//pwm
-					TIM_SetAutoreload(TIM3, 1333);
-					TIM_SetCompare1(TIM3, 100);
-				  //gpio
-					GPIO_SetBits(GPIOA, GPIO_Pin_15);
-					GPIO_ResetBits(GPIOE, GPIO_Pin_3);
-					GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4|GPIO_Pin_5);
-					//l/s field
-					
-					break;
-				case 0x15:		//right 3k
-					//delete task
-					if( printf_xHandle != NULL ) {
-						vTaskDelete( printf_xHandle );
-					}
-					//pwm
-					TIM_SetAutoreload(TIM3, 1333);
-					TIM_SetCompare1(TIM3, 100);
-				  //gpio
-					GPIO_SetBits(GPIOA, GPIO_Pin_15);
-					GPIO_ResetBits(GPIOE, GPIO_Pin_3);
-					GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4|GPIO_Pin_5);
-					//l/s field
-					
-					break;
-				case 0x16:		//up 4k
-					//delete task
-				  if( printf_xHandle != NULL ) {
-						vTaskDelete( printf_xHandle );
-					}
-					//pwm
-					TIM_SetAutoreload(TIM3, 1333);
-					TIM_SetCompare1(TIM3, 100);
-				  //gpio
-					GPIO_SetBits(GPIOA, GPIO_Pin_15);
-					GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
-					//l/s field
-					
-					break;
-				case 0x17:		//down 4k
-					//delete task
-				  if( printf_xHandle != NULL ) {
-						vTaskDelete( printf_xHandle );
-					}
-					//pwm
-					TIM_SetAutoreload(TIM3, 1333);
-					TIM_SetCompare1(TIM3, 100);
-				  //gpio
-					GPIO_SetBits(GPIOA, GPIO_Pin_15);
-					GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
-					//l/s field
-					
-					break;
-				case 0x18:		//left 4k
-					//delete task
-				  if( printf_xHandle != NULL ) {
-						vTaskDelete( printf_xHandle );
-					}
-					//pwm
-					TIM_SetAutoreload(TIM3, 1333);
-					TIM_SetCompare1(TIM3, 100);
-				  //gpio
-					GPIO_SetBits(GPIOA, GPIO_Pin_15);
-					GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
-					//l/s field
-					
-					break;
-				case 0x19:		//right 4k
-					//delete task
-				  if( printf_xHandle != NULL ) {
-						vTaskDelete( printf_xHandle );
-					}
-					//pwm
-					TIM_SetAutoreload(TIM3, 1333);
-					TIM_SetCompare1(TIM3, 100);
-				  //gpio
-					GPIO_SetBits(GPIOA, GPIO_Pin_15);
-					GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
-					//l/s field
-					
-					break;
-				case 0x1A:		//lock 3k
-					//delete task
-					if( printf_xHandle != NULL ) {
-						vTaskDelete( printf_xHandle );
-					}
-					//pwm
-					TIM_SetAutoreload(TIM3, 1333);
-					TIM_SetCompare1(TIM3, 100);
-				  //gpio
-					GPIO_SetBits(GPIOA, GPIO_Pin_15);
-					GPIO_ResetBits(GPIOE, GPIO_Pin_3);
-					GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4|GPIO_Pin_5);
-					//l/s field
-					
-					break;
-				case 0x1B:		//lock 4k
-					//delete task
-				  if( printf_xHandle != NULL ) {
-						vTaskDelete( printf_xHandle );
-					}
-					//pwm
-					TIM_SetAutoreload(TIM3, 1333);
-					TIM_SetCompare1(TIM3, 100);
-				  //gpio
-					GPIO_SetBits(GPIOA, GPIO_Pin_15);
-					GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
-					//l/s field
-					
-					break;
-				case 0x1D:		//channel 3k
-					//delete task
-					if( printf_xHandle != NULL ) {
-						vTaskDelete( printf_xHandle );
-					}
-					//pwm Frequency of change
-//					if (T==1) T1=1400; else if (T==2) T1=1510;else if (T==3) T1=1600;else if (T==4) T1=1570;else if (T==5) T1=1510;else if (T==6) T1=1470;else if (T==7) T1=1380;else if (T==8) T1=1300;else if (T==9) T1=1210;else if (T==10) T1=1160;else if (T==11) T1=1130;else if (T==12) T1=1170;else if (T==13) T1=1090;else if (T==14) T1=1090;else T1=1330;
-//					TIM_SetAutoreload(TIM3, T1);
-					TIM_SetCompare1(TIM3, 100);
-				  //gpio
-					GPIO_SetBits(GPIOA, GPIO_Pin_15);
-					GPIO_ResetBits(GPIOE, GPIO_Pin_3);
-					GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4|GPIO_Pin_5);
-					//l/s field
-					
-					break;
-				case 0x1F:		//channel 4k
-					//delete task
-					if( printf_xHandle != NULL ) {
-						vTaskDelete( printf_xHandle );
-					}
-					//pwm  Frequency of change
-//					if (T==1) T1=1400; else if (T==2) T1=1510;else if (T==3) T1=1600;else if (T==4) T1=1570;else if (T==5) T1=1510;else if (T==6) T1=1470;else if (T==7) T1=1380;else if (T==8) T1=1300;else if (T==9) T1=1210;else if (T==10) T1=1160;else if (T==11) T1=1130;else if (T==12) T1=1170;else if (T==13) T1=1090;else if (T==14) T1=1090;else T1=1330;
-//					TIM_SetAutoreload(TIM3, T1);
-					TIM_SetCompare1(TIM3, 100);
-				  //gpio
-					GPIO_SetBits(GPIOA, GPIO_Pin_15);
-					GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
-					//l/s field
-					
-					break;
-				case 0x20:		//test 3k
-					//delete task
-					if( printf_xHandle != NULL ) {
-						vTaskDelete( printf_xHandle );
-					}
-					//pwm
-						TIM_SetAutoreload(TIM3, 1330);
-					TIM_SetCompare1(TIM3, 0);
-				  //gpio
-					GPIO_ResetBits(GPIOA, GPIO_Pin_15);
-					GPIO_ResetBits(GPIOE, GPIO_Pin_3);
-					GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4|GPIO_Pin_5);
-					break;
-				case 0x21:		//test 4k
-					//delete task
-					if( printf_xHandle != NULL ) {
-						vTaskDelete( printf_xHandle );
-					}
-					//pwm
-						TIM_SetAutoreload(TIM3, 1330);
-					TIM_SetCompare1(TIM3, 0);
-				  //gpio
-					GPIO_ResetBits(GPIOA, GPIO_Pin_15);
-					GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
-					
-					break;
-				case 0x22:		//regulate 3k
-					//delete task
-					if( printf_xHandle != NULL ) {
-						vTaskDelete( printf_xHandle );
-					}
-					//pwm
-					TIM_SetAutoreload(TIM3, 1333);
-					TIM_SetCompare1(TIM3, 100);
-				  //gpio
-					GPIO_SetBits(GPIOA, GPIO_Pin_15);
-					GPIO_ResetBits(GPIOE, GPIO_Pin_3);
-					GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4|GPIO_Pin_5);
-					
-					break;
-				case 0x23:		//regulate 4k
-					//delete task
-					if( printf_xHandle != NULL ) {
-						vTaskDelete( printf_xHandle );
-					}
-					//pwm
-					TIM_SetAutoreload(TIM3, 1333);
-					TIM_SetCompare1(TIM3, 100);
-				  //gpio
-					GPIO_SetBits(GPIOA, GPIO_Pin_15);
-					GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
-					
-					break;
-				case 0x24:		//wireless
-					//delete task
-					if( printf_xHandle != NULL ) {
-						vTaskDelete( printf_xHandle );
-					}
-					//pwm
-					TIM_SetAutoreload(TIM3, 1330);
-					TIM_SetCompare1(TIM3, 0);
-				  //gpio
-					GPIO_SetBits(GPIOA, GPIO_Pin_15);
-					GPIO_ResetBits(GPIOE, GPIO_Pin_1);
-					GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
-					//l/s field
-					
-					break;
-				case 0xF0:		//uart send
-					xTaskCreate(Printf_task, "Printf", configMINIMAL_STACK_SIZE * 4, NULL, PRINTF_TASK_PRIO, &printf_xHandle);
-					break;
-				default:
-					break;
+		
+		// for command + last time mode
+//		command_H = ETH_recv_buffer[1];
+//		command_L = ETH_recv_buffer[0];
+		
+		// state machine mode
+		command = ETH_recv_buffer[0];
+		
+		//check if command available
+		if (command == 0x00	||	\
+			  command == 0xFF ||  \
+		    command == 0x01 ||  \
+			  command == 0x02 ||  \
+				command == 0x03 ||  \
+				command == 0x04 ||  \
+				command == 0x05 ||  \
+				command == 0x06 ||  \
+				command == 0x07 ||  \
+				command == 0x08 ||  \
+				command == 0x09 ||  \
+				command == 0x0A ||  \
+				command == 0x0B ||  \
+				command == 0x0C ||  \
+				command == 0x0D ||  \
+				command == 0x0E ||  \
+				command == 0x0F ||  \
+				command == 0x10 ||  \
+				command == 0x11 ||  \
+				command == 0x12 ||  \
+				command == 0x13 ||  \
+				command == 0x14 ||  \
+				command == 0x15 ||  \
+				command == 0x16 ||  \
+				command == 0x17 ||  \
+				command == 0x18 ||  \
+				command == 0x19 ||  \
+				command == 0x1A ||  \
+				command == 0x1B ||  \
+				command == 0x1D ||  \
+				command == 0x1F ||  \
+				command == 0x20 ||  \
+				command == 0x21 ||  \
+				command == 0x22 ||  \
+				command == 0x23 ||  \
+				command == 0x24) {
+			//delete command process task
+			if( process_command_xHandle != NULL ) {
+				vTaskDelete( process_command_xHandle );
 			}
 			
+			//create command process task
+			xTaskCreate(process_command_task, "PROCESS COMMAND", configMINIMAL_STACK_SIZE * 4, NULL, PROCESS_COM_TASK_PRIO, &process_command_xHandle);
+			
+			//free pbuf
+			pbuf_free(p);
 		}
+		else {
+			//free pbuf
+			pbuf_free(p);
 //			udp_sendto(pcb, p, &dst_addr, 1234); //dest port
-		pbuf_free(p);
+		}
 	}
 }
 
