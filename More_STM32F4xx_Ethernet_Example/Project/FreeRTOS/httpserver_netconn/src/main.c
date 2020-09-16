@@ -102,6 +102,11 @@ int ETH_length;
 xTaskHandle printf_xHandle = NULL;
 xTaskHandle process_command_xHandle = NULL;
 
+xSemaphoreHandle exti_xSemaphore = NULL;
+xSemaphoreHandle uart_A1_xSemaphore = NULL;
+xSemaphoreHandle uart_A2_xSemaphore = NULL;
+xSemaphoreHandle uart_A3_xSemaphore = NULL;
+
 //const unsigned short dst_port = 8080;
 
 	
@@ -183,6 +188,13 @@ int main(void)
   
   /* Initialize webserver demo */
   http_server_netconn_init();
+	
+	//create semaphore
+	 vSemaphoreCreateBinary(exti_xSemaphore);
+	 vSemaphoreCreateBinary(uart_A1_xSemaphore);
+	 vSemaphoreCreateBinary(uart_A2_xSemaphore);
+	 vSemaphoreCreateBinary(uart_A3_xSemaphore);
+
 
 #ifdef USE_DHCP
   /* Start DHCPClient */
@@ -191,6 +203,7 @@ int main(void)
 
   /* Start UDP task */
 //  xTaskCreate(LwIP_UDP_task, "UDP", configMINIMAL_STACK_SIZE * 4, NULL, UDP_TASK_PRIO, NULL);
+	
 
   /* Start toogleLed4 task : Toggle LED4  every 250ms */
   xTaskCreate(ToggleLed4, "LED4", configMINIMAL_STACK_SIZE, NULL, LED_TASK_PRIO, NULL);
@@ -352,6 +365,41 @@ void udp_recv_fn(void *arg, struct udp_pcb *pcb, struct pbuf *p, struct ip_addr 
 		}
 	}
 }
+
+
+void process_command_task(void * pvParameters){
+	if (command == 0x00 || command == 0xFF) {
+		//set DO0~12 to 1
+		GPIO_SetBits(GPIOA, GPIO_Pin_3|GPIO_Pin_5|GPIO_Pin_8|GPIO_Pin_15);
+		GPIO_SetBits(GPIOD, GPIO_Pin_11);
+		GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5|GPIO_Pin_6|GPIO_Pin_7);
+		TIM_SetCompare1(TIM3, 0);
+	}
+	else {
+		switch (command) {
+			case 0x1D:   	//channel 3K
+				//config DO6/7/9/10/11/12
+				GPIO_SetBits(GPIOA, GPIO_Pin_15);
+				GPIO_ResetBits(GPIOE, GPIO_Pin_3);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4|GPIO_Pin_5);
+				
+				// wait for uart_A1 semaphore, need adding timeout err
+			  // uart code need to be fulfilled
+				if (xSemaphoreTake( uart_A1_xSemaphore, portMAX_DELAY)==pdTRUE) {
+					
+					// fill buffer
+					
+					
+					TM_USART_DMA_Send(USART2, (uint8_t *)&buffer, 12);
+					
+				}
+				break;
+			default:
+				break;			
+		}
+	}
+}
+
 
 //void ETH_Printf_task(void * pvParameters)
 //{
