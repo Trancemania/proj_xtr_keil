@@ -178,7 +178,7 @@ void CUSTOM_PWM_Init() {
 	TIM_OC1Init(TIM3, &TIM_OCInitStructure);
 	TIM_OC1PreloadConfig(TIM3, TIM_OCPreload_Enable);
 	
-	TIM_ITConfig(TIM3, TIM_FLAG_CC1, ENABLE);
+//	TIM_ITConfig(TIM3, TIM_FLAG_CC1, ENABLE);   //open by varying frequency task
 	
 	/* TIM3 enable counter */
 	TIM_Cmd(TIM3, ENABLE);
