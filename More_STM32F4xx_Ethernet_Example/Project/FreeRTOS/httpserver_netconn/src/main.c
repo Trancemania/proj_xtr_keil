@@ -427,15 +427,23 @@ void process_command_task(void * pvParameters){
 					// wait for exti DI13 
 					if (xSemaphoreTake( exti_xSemaphore, portMAX_DELAY) == pdTRUE) {
 						// real time start
-						time_origin = portTICK_RATE_MS * xTaskGetTickCount();
+						time_origin = xTaskGetTickCount() * portTICK_RATE_MS;
 						
-						//creat large/small field task
-						
+						// creat large/small field task
+
 						// varying frequency
-						// reset and start PWM, duty rate at 0
-						TIM_SetCompare1(TIM3, 0);
+						// disable tim3
+						TIM_Cmd(TIM3, DISABLE);
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
+						// first period value
+						TIM_SetAutoreload(TIM3, 1400);
 						// enable interrupt
 						TIM_ITConfig(TIM3, TIM_FLAG_CC1, ENABLE);
+						// delay 10 ms
+						vTaskDelay(10 * portTICK_RATE_MS);
+						// enable tim3
+						TIM_Cmd(TIM3, ENABLE);
 						
 						// seems no use, set to polling mode
 						if (xSemaphoreTake( pwm_xSemaphore, 0) == pdTRUE) {

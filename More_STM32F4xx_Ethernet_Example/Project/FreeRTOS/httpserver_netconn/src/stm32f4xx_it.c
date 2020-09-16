@@ -278,51 +278,51 @@ void TIM3_IRQHandler(void) {
 		TIM_ClearITPendingBit(TIM3, TIM_IT_CC1);
       switch(pwm_count){
 			case 0 : 
-						TIM_SetAutoreload(TIM3, 1400);
+						TIM_SetAutoreload(TIM3, 1510);
 						pwm_count++;
 						break;
 			case 1 : 
-						TIM_SetAutoreload(TIM3, 1510);
-						pwm_count++;
-						break;
-			case 2 : 
 						TIM_SetAutoreload(TIM3, 1600);
 						pwm_count++;
 						break;
-			case 3 : 
+			case 2 : 
 						TIM_SetAutoreload(TIM3, 1570);
 						pwm_count++;
 						break;
-			case 4 : 
+			case 3 : 
 						TIM_SetAutoreload(TIM3, 1510);
 						pwm_count++;
 						break;
-			case 5 : 
+			case 4 : 
 						TIM_SetAutoreload(TIM3, 1470);
 						pwm_count++;
 						break;
-			case 6 : 
+			case 5 : 
 						TIM_SetAutoreload(TIM3, 1380);
 						pwm_count++;
 						break;
-			case 7 : 
+			case 6 : 
 						TIM_SetAutoreload(TIM3, 1300);
 						pwm_count++;
 						break;
-			case 8 : 
+			case 7 : 
 						TIM_SetAutoreload(TIM3, 1210);
 						pwm_count++;
 						break;
-			case 9 : 
+			case 8 : 
 						TIM_SetAutoreload(TIM3, 1160);
 						pwm_count++;
 						break;
-			case 10 : 
+			case 9 : 
 						TIM_SetAutoreload(TIM3, 1130);
 						pwm_count++;
 						break;
-			case 11 : 
+			case 10 : 
 						TIM_SetAutoreload(TIM3, 1170);
+						pwm_count++;
+						break;
+			case 11 : 
+						TIM_SetAutoreload(TIM3, 1090);
 						pwm_count++;
 						break;
 			case 12 : 
@@ -330,10 +330,6 @@ void TIM3_IRQHandler(void) {
 						pwm_count++;
 						break;
 			case 13 : 
-						TIM_SetAutoreload(TIM3, 1090);
-						pwm_count++;
-						break;
-			case 14 : 
 						TIM_SetAutoreload(TIM3, 1333);
 						pwm_count=0;
 						TIM_ITConfig(TIM3, TIM_FLAG_CC1, DISABLE);
