@@ -60,6 +60,7 @@
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
+volatile int pwm_count = 0;
 extern xSemaphoreHandle s_xSemaphore;
 extern xSemaphoreHandle exti_xSemaphore;
 /* Private function prototypes -----------------------------------------------*/
@@ -273,8 +274,71 @@ void EXTI15_10_IRQHandler(void) {
 void TIM3_IRQHandler(void) {
 	if (TIM_GetITStatus(TIM3, TIM_IT_CC1) != RESET){
 		TIM_ClearITPendingBit(TIM3, TIM_IT_CC1);
-		
-		
+      switch(pwm_count){
+			case 0 : 
+						TIM_SetAutoreload(TIM3, 1400);
+						pwm_count++;
+						break;
+			case 1 : 
+						TIM_SetAutoreload(TIM3, 1510);
+						pwm_count++;
+						break;
+			case 2 : 
+						TIM_SetAutoreload(TIM3, 1600);
+						pwm_count++;
+						break;
+			case 3 : 
+						TIM_SetAutoreload(TIM3, 1570);
+						pwm_count++;
+						break;
+			case 4 : 
+						TIM_SetAutoreload(TIM3, 1510);
+						pwm_count++;
+						break;
+			case 5 : 
+						TIM_SetAutoreload(TIM3, 1470);
+						pwm_count++;
+						break;
+			case 6 : 
+						TIM_SetAutoreload(TIM3, 1380);
+						pwm_count++;
+						break;
+			case 7 : 
+						TIM_SetAutoreload(TIM3, 1300);
+						pwm_count++;
+						break;
+			case 8 : 
+						TIM_SetAutoreload(TIM3, 1210);
+						pwm_count++;
+						break;
+			case 9 : 
+						TIM_SetAutoreload(TIM3, 1160);
+						pwm_count++;
+						break;
+			case 10 : 
+						TIM_SetAutoreload(TIM3, 1130);
+						pwm_count++;
+						break;
+			case 11 : 
+						TIM_SetAutoreload(TIM3, 1170);
+						pwm_count++;
+						break;
+			case 12 : 
+						TIM_SetAutoreload(TIM3, 1090);
+						pwm_count++;
+						break;
+			case 13 : 
+						TIM_SetAutoreload(TIM3, 1090);
+						pwm_count++;
+						break;
+			case 14 : 
+						TIM_SetAutoreload(TIM3, 1333);
+						pwm_count=0;
+						break;
+			default:
+						break;
+
+}		
 		
 		
 	}
