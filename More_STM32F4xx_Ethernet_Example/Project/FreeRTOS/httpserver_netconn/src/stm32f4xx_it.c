@@ -60,6 +60,7 @@
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
+volatile int i=0;
 extern xSemaphoreHandle s_xSemaphore;
 /* Private function prototypes -----------------------------------------------*/
 extern void xPortSysTickHandler(void); 
@@ -265,7 +266,73 @@ void TIM3_IRQHandler(void) {
 	if (TIM_GetITStatus(TIM3, TIM_IT_CC1) != RESET){
 		TIM_ClearITPendingBit(TIM3, TIM_IT_CC1);
 		
-		
+      switch(i)
+{
+case 0 : 
+      TIM_SetAutoreload(TIM3, 1400);
+      i++;
+      break;
+case 1 : 
+      TIM_SetAutoreload(TIM3, 1510);
+      i++;
+      break;
+case 2 : 
+      TIM_SetAutoreload(TIM3, 1600);
+      i++;
+      break;
+case 3 : 
+      TIM_SetAutoreload(TIM3, 1570);
+      i++;
+      break;
+case 4 : 
+      TIM_SetAutoreload(TIM3, 1510);
+      i++;
+      break;
+case 5 : 
+      TIM_SetAutoreload(TIM3, 1470);
+      i++;
+      break;
+case 6 : 
+      TIM_SetAutoreload(TIM3, 1380);
+      i++;
+      break;
+case 7 : 
+      TIM_SetAutoreload(TIM3, 1300);
+      i++;
+      break;
+case 8 : 
+      TIM_SetAutoreload(TIM3, 1210);
+      i++;
+      break;
+case 9 : 
+      TIM_SetAutoreload(TIM3, 1160);
+      i++;
+      break;
+case 10 : 
+      TIM_SetAutoreload(TIM3, 1130);
+      i++;
+      break;
+case 11 : 
+      TIM_SetAutoreload(TIM3, 1170);
+      i++;
+      break;
+case 12 : 
+      TIM_SetAutoreload(TIM3, 1090);
+      i++;
+      break;
+case 13 : 
+      TIM_SetAutoreload(TIM3, 1090);
+      i++;
+      break;
+case 14 : 
+      TIM_SetAutoreload(TIM3, 1333);
+      i=0;
+      break;
+default:
+      break;
+
+
+}
 		
 		
 	}
