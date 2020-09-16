@@ -94,6 +94,8 @@ extern const unsigned short src_port;
 
 uint8_t ETH_send_buffer[128];
 uint8_t ETH_recv_buffer[128];
+uint8_t UART_send_buffer[16];
+uint8_t UART_recv_buffer[16];
 //uint8_t command_H;
 //uint8_t command_L;
 uint8_t command;
@@ -103,6 +105,7 @@ xTaskHandle printf_xHandle = NULL;
 xTaskHandle process_command_xHandle = NULL;
 
 xSemaphoreHandle exti_xSemaphore = NULL;
+xSemaphoreHandle pwm_xSemaphore = NULL;
 xSemaphoreHandle uart_A1_xSemaphore = NULL;
 xSemaphoreHandle uart_A2_xSemaphore = NULL;
 xSemaphoreHandle uart_A3_xSemaphore = NULL;
@@ -191,6 +194,7 @@ int main(void)
 	
 	//create semaphore
 	 vSemaphoreCreateBinary(exti_xSemaphore);
+	 vSemaphoreCreateBinary(pwm_xSemaphore);
 	 vSemaphoreCreateBinary(uart_A1_xSemaphore);
 	 vSemaphoreCreateBinary(uart_A2_xSemaphore);
 	 vSemaphoreCreateBinary(uart_A3_xSemaphore);
@@ -368,6 +372,9 @@ void udp_recv_fn(void *arg, struct udp_pcb *pcb, struct pbuf *p, struct ip_addr 
 
 
 void process_command_task(void * pvParameters){
+	int code_verify;
+	int frame_verify;
+	portTickType time_origin;
 	if (command == 0x00 || command == 0xFF) {
 		//set DO0~12 to 1
 		GPIO_SetBits(GPIOA, GPIO_Pin_3|GPIO_Pin_5|GPIO_Pin_8|GPIO_Pin_15);
@@ -378,6 +385,10 @@ void process_command_task(void * pvParameters){
 	else {
 		switch (command) {
 			case 0x1D:   	//channel 3K
+				
+				// reset pwm
+				TIM_SetCompare1(TIM3, 0);
+			
 				//config DO6/7/9/10/11/12
 				GPIO_SetBits(GPIOA, GPIO_Pin_15);
 				GPIO_ResetBits(GPIOE, GPIO_Pin_3);
@@ -385,12 +396,52 @@ void process_command_task(void * pvParameters){
 				
 				// wait for uart_A1 semaphore, need adding timeout err
 			  // uart code need to be fulfilled
-				if (xSemaphoreTake( uart_A1_xSemaphore, portMAX_DELAY)==pdTRUE) {
+				if (xSemaphoreTake( uart_A1_xSemaphore, portMAX_DELAY) == pdTRUE) {
+					// hand shake
+					// fill buffer as in tab3B1
+					// function start: repeated code of hand shake sent tab3B1
+					UART_send_buffer[0] = 0xA6;
+					UART_send_buffer[1] = 0x0D;
+					UART_send_buffer[2] = 0xAA;
+					//https://zhidao.baidu.com/question/1638675882443131580.html?qbpn=2_2&tx=&word=%E4%BB%8E%E4%B8%80%E4%B8%AA16%E4%BD%8D%E5%8F%98%E9%87%8F%E4%B8%AD%E5%8F%96%E5%87%BA%E9%AB%988%E4%BD%8D%E5%92%8C%E4%BD%8E8%E4%BD%8D%EF%BC%8C%E6%B1%82C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%EF%BC%9F&fr=newsearchlist
+					code_verify = (UART_recv_buffer[3] + UART_recv_buffer[4]) * UART_recv_buffer[5];
+					UART_send_buffer[3] = code_verify & 0xff;
+					UART_send_buffer[4] = (code_verify >> 8) & 0xff;
+					UART_send_buffer[5] = (code_verify >> 16) & 0xff;
+					UART_send_buffer[6] = (code_verify >> 24) & 0xff;
+					UART_send_buffer[7] = 0x0B;
+					UART_send_buffer[8] = 0x00;
+					UART_send_buffer[9] = 0x00;
+					UART_send_buffer[10] = 0x00;
+					UART_send_buffer[11] = 0x00;
+					frame_verify = UART_send_buffer[2] + UART_send_buffer[3] + UART_send_buffer[4] + UART_send_buffer[5] + \
+											   UART_send_buffer[6] + UART_send_buffer[7] + UART_send_buffer[8] + UART_send_buffer[9] + \
+												 UART_send_buffer[10];
+					UART_send_buffer[12] = frame_verify & 0xff;
+					UART_send_buffer[13] = 0x86;
 					
-					// fill buffer
+					// send buffer
+					TM_USART_DMA_Send(USART2, (uint8_t *)&UART_send_buffer, 13);   //choose uart line
+					//function end
 					
-					
-					TM_USART_DMA_Send(USART2, (uint8_t *)&buffer, 12);
+					// wait for exti DI13 
+					if (xSemaphoreTake( exti_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						// real time start
+						time_origin = portTICK_RATE_MS * xTaskGetTickCount();
+						
+						//creat large/small field task
+						
+						// varying frequency
+						// reset and start PWM, duty rate at 0
+						TIM_SetCompare1(TIM3, 0);
+						// enable interrupt
+						TIM_ITConfig(TIM3, TIM_FLAG_CC1, ENABLE);
+						
+						// seems no use, set to polling mode
+						if (xSemaphoreTake( pwm_xSemaphore, 0) == pdTRUE) {
+						}
+						
+					}
 					
 				}
 				break;

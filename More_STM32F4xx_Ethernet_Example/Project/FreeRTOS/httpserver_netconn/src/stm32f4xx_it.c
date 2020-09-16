@@ -63,6 +63,7 @@
 volatile int pwm_count = 0;
 extern xSemaphoreHandle s_xSemaphore;
 extern xSemaphoreHandle exti_xSemaphore;
+extern xSemaphoreHandle pwm_xSemaphore;
 /* Private function prototypes -----------------------------------------------*/
 extern void xPortSysTickHandler(void); 
 /* Private functions ---------------------------------------------------------*/
@@ -272,6 +273,7 @@ void EXTI15_10_IRQHandler(void) {
 
 /* Handle TIM3 interrupt */
 void TIM3_IRQHandler(void) {
+	portBASE_TYPE xHigherPriorityTaskWoken;
 	if (TIM_GetITStatus(TIM3, TIM_IT_CC1) != RESET){
 		TIM_ClearITPendingBit(TIM3, TIM_IT_CC1);
       switch(pwm_count){
@@ -334,6 +336,8 @@ void TIM3_IRQHandler(void) {
 			case 14 : 
 						TIM_SetAutoreload(TIM3, 1333);
 						pwm_count=0;
+						TIM_ITConfig(TIM3, TIM_FLAG_CC1, DISABLE);
+						xSemaphoreGiveFromISR( pwm_xSemaphore, &xHigherPriorityTaskWoken );
 						break;
 			default:
 						break;
