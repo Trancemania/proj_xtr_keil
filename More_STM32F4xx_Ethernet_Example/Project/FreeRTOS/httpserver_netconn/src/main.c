@@ -176,12 +176,12 @@ int main(void)
   STM_CUSTOM_COMInit(CUSTOM_NO_COM1, &USART_InitStructure);
 	STM_CUSTOM_COMInit(CUSTOM_NO_COM2, &USART_InitStructure);
 	STM_CUSTOM_COMInit(CUSTOM_NO_COM3, &USART_InitStructure);
-	STM_CUSTOM_COMInit(CUSTOM_NO_COM4, &USART_InitStructure);
+//	STM_CUSTOM_COMInit(CUSTOM_NO_COM4, &USART_InitStructure);
 	TM_USART_DMA_Init(USART1);
 	TM_USART_DMA_Init(USART2);
 	TM_USART_DMA_Init(USART3);
-	TM_USART_DMA_Init(UART4);
-  DMA_printf(USART1, "\n\rSerial communication complete!\n\r");
+//	TM_USART_DMA_Init(UART4);
+//  DMA_printf(USART1, "\n\rSerial communication complete!\n\r");
 	
   /* configure Ethernet (GPIOs, clocks, MAC, DMA) */ 
   ETH_BSP_Config();
@@ -301,7 +301,7 @@ void Printf_task(void * pvParameters)
 
 
 void udp_recv_fn(void *arg, struct udp_pcb *pcb, struct pbuf *p, struct ip_addr *addr, u16_t port){
-	if (p != NULL) {
+	if (p != NULL) {   //&& p->len == 2?
 		//check addr port
 		
 		// copy command to buffer
@@ -350,11 +350,13 @@ void udp_recv_fn(void *arg, struct udp_pcb *pcb, struct pbuf *p, struct ip_addr 
 				command == 0x21 ||  \
 				command == 0x22 ||  \
 				command == 0x23 ||  \
-				command == 0x24) {
+				command == 0x24 ||  \
+				command == 0xF0 ) {
 			//delete command process task
 			if( process_command_xHandle != NULL ) {
 				vTaskDelete( process_command_xHandle );
 			}
+			//delete large/small field task
 			
 			//create command process task
 			xTaskCreate(process_command_task, "PROCESS COMMAND", configMINIMAL_STACK_SIZE * 4, NULL, PROCESS_COM_TASK_PRIO, &process_command_xHandle);
@@ -421,7 +423,7 @@ void process_command_task(void * pvParameters){
 					UART_send_buffer[13] = 0x86;
 					
 					// send buffer
-					TM_USART_DMA_Send(USART2, (uint8_t *)&UART_send_buffer, 13);   //choose uart line
+					TM_USART_DMA_Send(USART1, (uint8_t *)&UART_send_buffer, 13);   //choose uart line
 					//function end
 					
 					// wait for exti DI13 
@@ -446,7 +448,11 @@ void process_command_task(void * pvParameters){
 						TIM_Cmd(TIM3, ENABLE);
 						
 						// seems no use, set to polling mode
-						if (xSemaphoreTake( pwm_xSemaphore, 0) == pdTRUE) {
+						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						}
+						
+						if( process_command_xHandle != NULL ) {
+							vTaskDelete( process_command_xHandle );
 						}
 						
 					}
