@@ -519,7 +519,7 @@ void field_task(void * pvParameters){
 					UART_field_buffer[7] = epsilon & 0xff;
 					UART_field_buffer[8] = (epsilon >> 8) & 0xff;
 					UART_field_buffer[9] = beta & 0xff;
-					UART_field_buffer[8] = (beta >> 8) & 0xff;
+					UART_field_buffer[10] = (beta >> 8) & 0xff;
 					break;
 				default:
 					UART_field_buffer[7] = 0;
@@ -554,7 +554,7 @@ void field_task(void * pvParameters){
 					UART_field_buffer[7] = epsilon & 0xff;
 					UART_field_buffer[8] = (epsilon >> 8) & 0xff;
 					UART_field_buffer[9] = beta & 0xff;
-					UART_field_buffer[8] = (beta >> 8) & 0xff;
+					UART_field_buffer[10] = (beta >> 8) & 0xff;
 					break;
 				default:
 					UART_field_buffer[7] = 0;
