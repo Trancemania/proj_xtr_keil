@@ -73,6 +73,7 @@
 #define UDP_TASK_PRIO		 ( tskIDLE_PRIORITY + 1 )
 #define ETH_PRINTF_TASK_PRIO    ( tskIDLE_PRIORITY + 1 )
 #define PROCESS_COM_TASK_PRIO    ( tskIDLE_PRIORITY + 1 )
+#define FIELD_TASK_PRIO    ( tskIDLE_PRIORITY + 1 )
 
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
@@ -96,13 +97,16 @@ uint8_t ETH_send_buffer[128];
 uint8_t ETH_recv_buffer[128];
 uint8_t UART_send_buffer[16];
 uint8_t UART_recv_buffer[16];
+uint8_t UART_field_buffer[16];
 //uint8_t command_H;
 //uint8_t command_L;
-uint8_t command;
+volatile uint8_t command;
 int ETH_length;
+portTickType time_origin;
 
 xTaskHandle printf_xHandle = NULL;
 xTaskHandle process_command_xHandle = NULL;
+xTaskHandle field_xHandle = NULL;
 
 xSemaphoreHandle exti_xSemaphore = NULL;
 xSemaphoreHandle pwm_xSemaphore = NULL;
@@ -121,6 +125,7 @@ void Printf_task(void * pvParameters);
 //void LwIP_UDP_task(void * pvParameters);
 void ETH_Printf_task(void * pvParameters);
 void process_command_task(void * pvParameters);
+void field_task(void * pvParameters);
 
 #ifdef __GNUC__
   /* With GCC/RAISONANCE, small printf (option LD Linker->Libraries->Small printf
@@ -352,6 +357,10 @@ void udp_recv_fn(void *arg, struct udp_pcb *pcb, struct pbuf *p, struct ip_addr 
 				command == 0x23 ||  \
 				command == 0x24 ||  \
 				command == 0xF0 ) {
+			//delete filed task
+			if( field_xHandle != NULL ) {
+				vTaskDelete( field_xHandle );
+			}
 			//delete command process task
 			if( process_command_xHandle != NULL ) {
 				vTaskDelete( process_command_xHandle );
@@ -374,9 +383,8 @@ void udp_recv_fn(void *arg, struct udp_pcb *pcb, struct pbuf *p, struct ip_addr 
 
 
 void process_command_task(void * pvParameters){
-	int code_verify;
-	int frame_verify;
-	portTickType time_origin;
+	unsigned int code_verify;
+	unsigned int frame_verify;
 	if (command == 0x00 || command == 0xFF) {
 		//set DO0~12 to 1
 		GPIO_SetBits(GPIOA, GPIO_Pin_3|GPIO_Pin_5|GPIO_Pin_8|GPIO_Pin_15);
@@ -432,6 +440,7 @@ void process_command_task(void * pvParameters){
 						time_origin = xTaskGetTickCount() * portTICK_RATE_MS;
 						
 						// creat large/small field task
+						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
 
 						// varying frequency
 						// disable tim3
@@ -447,7 +456,7 @@ void process_command_task(void * pvParameters){
 						// enable tim3
 						TIM_Cmd(TIM3, ENABLE);
 						
-						// seems no use, set to polling mode
+						// seems no use
 						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
 						}
 						
@@ -465,6 +474,86 @@ void process_command_task(void * pvParameters){
 	}
 }
 
+void field_task(void * pvParameters){
+	portTickType temp_t;
+	int16_t epsilon;
+	int16_t beta;
+	unsigned int frame_verify;
+	do {
+		temp_t = xTaskGetTickCount() * portTICK_RATE_MS - time_origin;
+		//large field
+		if ( temp_t <= 3520 ) {
+			UART_field_buffer[0] = 0xA6;
+			UART_field_buffer[1] = 0x10;
+			UART_field_buffer[2] = 0x81;
+			UART_field_buffer[3] = temp_t & 0xff;
+			UART_field_buffer[4] = (temp_t >> 8) & 0xff;
+			UART_field_buffer[5] = (temp_t >> 16) & 0xff;
+			UART_field_buffer[6] = (temp_t >> 24) & 0xff;
+			switch (command) {
+				case 0x1D:
+					epsilon = 0;
+					beta = -21537;
+					UART_field_buffer[7] = epsilon & 0xff;
+					UART_field_buffer[8] = (epsilon >> 8) & 0xff;
+					UART_field_buffer[9] = beta & 0xff;
+					UART_field_buffer[8] = (beta >> 8) & 0xff;
+					break;
+				default:
+					UART_field_buffer[7] = 0;
+					UART_field_buffer[8] = 0;
+					UART_field_buffer[9] = 0;
+					UART_field_buffer[10] = 0;
+					break;
+			}
+			UART_field_buffer[11] = 0x00;
+			UART_field_buffer[12] = 2;
+			UART_field_buffer[13] = 0x00;
+			frame_verify = UART_field_buffer[2] + UART_field_buffer[3] + UART_field_buffer[4] + UART_field_buffer[5] + \
+										 UART_field_buffer[6] + UART_field_buffer[7] + UART_field_buffer[8] + UART_field_buffer[9] + \
+										 UART_field_buffer[10] + UART_field_buffer[11] + UART_field_buffer[12] + UART_field_buffer[13];
+			UART_field_buffer[14] = frame_verify & 0xff;
+			UART_field_buffer[15] = 0x86;
+			TM_USART_DMA_Send(USART1, (uint8_t *)&UART_field_buffer, 16);
+		}
+		//small field
+		else {
+			UART_field_buffer[0] = 0xA6;
+			UART_field_buffer[1] = 0x10;
+			UART_field_buffer[2] = 0x81;
+			UART_field_buffer[3] = temp_t & 0xff;
+			UART_field_buffer[4] = (temp_t >> 8) & 0xff;
+			UART_field_buffer[5] = (temp_t >> 16) & 0xff;
+			UART_field_buffer[6] = (temp_t >> 24) & 0xff;
+			switch (command) {
+				case 0x1D:
+					epsilon = 0;
+					beta = -16383;
+					UART_field_buffer[7] = epsilon & 0xff;
+					UART_field_buffer[8] = (epsilon >> 8) & 0xff;
+					UART_field_buffer[9] = beta & 0xff;
+					UART_field_buffer[8] = (beta >> 8) & 0xff;
+					break;
+				default:
+					UART_field_buffer[7] = 0;
+					UART_field_buffer[8] = 0;
+					UART_field_buffer[9] = 0;
+					UART_field_buffer[10] = 0;
+					break;
+			}
+			UART_field_buffer[11] = 0x00;
+			UART_field_buffer[12] = 2;
+			UART_field_buffer[13] = 0x00;
+			frame_verify = UART_field_buffer[2] + UART_field_buffer[3] + UART_field_buffer[4] + UART_field_buffer[5] + \
+										 UART_field_buffer[6] + UART_field_buffer[7] + UART_field_buffer[8] + UART_field_buffer[9] + \
+										 UART_field_buffer[10] + UART_field_buffer[11] + UART_field_buffer[12] + UART_field_buffer[13];
+			UART_field_buffer[14] = frame_verify & 0xff;
+			UART_field_buffer[15] = 0x86;
+			TM_USART_DMA_Send(USART1, (uint8_t *)&UART_field_buffer, 16);
+		}
+		vTaskDelay(20 * portTICK_RATE_MS);
+	} while(xSemaphoreTake( uart_A1_xSemaphore, 0) != pdTRUE);
+}
 
 //void ETH_Printf_task(void * pvParameters)
 //{
