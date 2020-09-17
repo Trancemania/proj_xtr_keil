@@ -69,7 +69,7 @@
 /*--------------- Tasks Priority -------------*/
 #define DHCP_TASK_PRIO   ( tskIDLE_PRIORITY + 2 )      
 #define LED_TASK_PRIO    ( tskIDLE_PRIORITY + 1 )
-#define PRINTF_TASK_PRIO    ( tskIDLE_PRIORITY + 1 )
+#define UART_TASK_PRIO    ( tskIDLE_PRIORITY + 1 )
 #define UDP_TASK_PRIO		 ( tskIDLE_PRIORITY + 1 )
 #define ETH_PRINTF_TASK_PRIO    ( tskIDLE_PRIORITY + 1 )
 #define PROCESS_COM_TASK_PRIO    ( tskIDLE_PRIORITY + 1 )
@@ -104,7 +104,7 @@ volatile uint8_t command;
 int ETH_length;
 portTickType time_origin;
 
-xTaskHandle printf_xHandle = NULL;
+//xTaskHandle printf_xHandle = NULL;
 xTaskHandle process_command_xHandle = NULL;
 xTaskHandle field_xHandle = NULL;
 
@@ -121,7 +121,7 @@ xSemaphoreHandle uart_A3_xSemaphore = NULL;
 						
 void LCD_LED_Init(void);
 void ToggleLed4(void * pvParameters);
-void Printf_task(void * pvParameters);
+void uart_task(void * pvParameters);
 //void LwIP_UDP_task(void * pvParameters);
 void ETH_Printf_task(void * pvParameters);
 void process_command_task(void * pvParameters);
@@ -218,7 +218,7 @@ int main(void)
   xTaskCreate(ToggleLed4, "LED4", configMINIMAL_STACK_SIZE, NULL, LED_TASK_PRIO, NULL);
 	
   /* Start custom task : printf */
-  xTaskCreate(Printf_task, "Printf", configMINIMAL_STACK_SIZE * 4, NULL, PRINTF_TASK_PRIO, NULL);
+  xTaskCreate(uart_task, "UART", configMINIMAL_STACK_SIZE * 4, NULL, UART_TASK_PRIO, NULL);
 
   /* Start custom task : ETH_printf */
 //  xTaskCreate(ETH_Printf_task, "ETH_Printf", configMINIMAL_STACK_SIZE * 4, NULL, ETH_PRINTF_TASK_PRIO, NULL);
@@ -234,49 +234,71 @@ int main(void)
 }
 
 /**
-  * @brief  custom printf task
+  * @brief  custom uart task
   * @param  pvParameters not used
   * @retval None
   */
-void Printf_task(void * pvParameters)
+void uart_task(void * pvParameters)
 {
   int ch;
 	int cnt = 0;
 	uint8_t buffer[128];
+	portBASE_TYPE xHigherPriorityTaskWoken;
   for ( ;; ) {
     
     while (USART_GetFlagStatus(CUSTOM_COM1, USART_FLAG_RXNE) == RESET);
   	
     ch = USART_ReceiveData(CUSTOM_COM1);
 		
-		if (ch == 0x0A){
+		//flag for frame, data and misbehave
+		
+		if (ch == 0xA6) {
 				cnt = 0;
-				buffer[cnt] = ch;
+				UART_recv_buffer[cnt] = ch;
 				cnt++;
-				while (buffer[cnt-1] != 0x0D){
+				while (cnt <= 12) {
 					while (USART_GetFlagStatus(CUSTOM_COM1, USART_FLAG_RXNE) == RESET);
-					ch = USART_ReceiveData(CUSTOM_COM1);
-					switch (ch){
-						case 0x0D:   //0A send 
-							buffer[cnt] = ch;
-							ETH_length = cnt + 1;
-							p = pbuf_alloc(PBUF_TRANSPORT, ETH_length, PBUF_RAM);
-							memcpy(p->payload, &buffer, ETH_length);
-							p->len = ETH_length;
-							udp_sendto_if(pcb, p, &dst_addr, dst_port, &xnetif);
-							pbuf_free(p);
-							cnt++;
+					UART_recv_buffer[cnt] = USART_ReceiveData(CUSTOM_COM1);
+//					switch (ch){
+//						case 0x0D:   //0A send 
+//							buffer[cnt] = ch;
+//							ETH_length = cnt + 1;
+//							p = pbuf_alloc(PBUF_TRANSPORT, ETH_length, PBUF_RAM);
+//							memcpy(p->payload, &buffer, ETH_length);
+//							p->len = ETH_length;
+//							udp_sendto_if(pcb, p, &dst_addr, dst_port, &xnetif);
+//							pbuf_free(p);
+//							cnt++;
+//							break;
+//						default:
+//							//if cnt>=127
+//							buffer[cnt] = ch;
+//							cnt++;
+//							break;
+//					}
+				}
+				if ( UART_recv_buffer[12] == 0x86) {
+					switch ( UART_recv_buffer[2]) {
+						case 0x55:
+							xSemaphoreGiveFromISR( uart_A1_xSemaphore, &xHigherPriorityTaskWoken );
+							break;
+						case 0x71:
+							switch ( UART_recv_buffer[7]) {
+								case 1:
+//									xSemaphoreGiveFromISR( uart_A2_xSemaphore, &xHigherPriorityTaskWoken );
+									break;
+								case 2:
+//									xSemaphoreGiveFromISR( uart_A3_xSemaphore, &xHigherPriorityTaskWoken );
+									break;
+								default:
+									break;
+							}
 							break;
 						default:
-							//if cnt>=127
-							buffer[cnt] = ch;
-							cnt++;
 							break;
 					}
-
 				}
-			
-			
+				//else err fun
 		}
 	  
 //    switch (ch){
