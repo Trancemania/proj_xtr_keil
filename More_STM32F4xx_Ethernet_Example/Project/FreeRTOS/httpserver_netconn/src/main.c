@@ -490,6 +490,2220 @@ void process_command_task(void * pvParameters){
 					
 				}
 				break;
+			case 0x1F:  //channel 4K
+				
+				// reset pwm
+				TIM_SetCompare1(TIM3, 0);
+			
+				//config DO6/7/9/10/11/12
+				GPIO_SetBits(GPIOA, GPIO_Pin_15);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
+			
+        // wait for uart_A1 semaphore, need adding timeout err
+			  // uart code need to be fulfilled
+				if (xSemaphoreTake( uart_A1_xSemaphore, portMAX_DELAY) == pdTRUE) {
+					// hand shake
+					// fill buffer as in tab3B1
+					// function start: repeated code of hand shake sent tab3B1
+					UART_send_buffer[0] = 0xA6;
+					UART_send_buffer[1] = 0x0D;
+					UART_send_buffer[2] = 0xAA;
+					//https://zhidao.baidu.com/question/1638675882443131580.html?qbpn=2_2&tx=&word=%E4%BB%8E%E4%B8%80%E4%B8%AA16%E4%BD%8D%E5%8F%98%E9%87%8F%E4%B8%AD%E5%8F%96%E5%87%BA%E9%AB%988%E4%BD%8D%E5%92%8C%E4%BD%8E8%E4%BD%8D%EF%BC%8C%E6%B1%82C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%EF%BC%9F&fr=newsearchlist
+					code_verify = (UART_recv_buffer[3] + UART_recv_buffer[4]) * UART_recv_buffer[5];
+					UART_send_buffer[3] = code_verify & 0xff;
+					UART_send_buffer[4] = (code_verify >> 8) & 0xff;
+					UART_send_buffer[5] = (code_verify >> 16) & 0xff;
+					UART_send_buffer[6] = (code_verify >> 24) & 0xff;
+					UART_send_buffer[7] = 0x0B;
+					UART_send_buffer[8] = 0x00;
+					UART_send_buffer[9] = 0x00;
+					UART_send_buffer[10] = 0x00;
+					UART_send_buffer[11] = 0x00;
+					frame_verify = UART_send_buffer[2] + UART_send_buffer[3] + UART_send_buffer[4] + UART_send_buffer[5] + \
+											   UART_send_buffer[6] + UART_send_buffer[7] + UART_send_buffer[8] + UART_send_buffer[9] + \
+												 UART_send_buffer[10];
+					UART_send_buffer[12] = frame_verify & 0xff;
+					UART_send_buffer[13] = 0x86;
+					
+					// send buffer
+					TM_USART_DMA_Send(USART1, (uint8_t *)&UART_send_buffer, 13);   //choose uart line
+					//function end
+					
+					// wait for exti DI13 
+					if (xSemaphoreTake( exti_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						// real time start
+						time_origin = xTaskGetTickCount() * portTICK_RATE_MS;
+						
+						// creat large/small field task
+						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
+
+						// varying frequency
+						// disable tim3
+						TIM_Cmd(TIM3, DISABLE);
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
+						// first period value
+						TIM_SetAutoreload(TIM3, 1400);
+						// enable interrupt
+						TIM_ITConfig(TIM3, TIM_FLAG_CC1, ENABLE);
+						// delay 10 ms
+						vTaskDelay(10 * portTICK_RATE_MS);
+						// enable tim3
+						TIM_Cmd(TIM3, ENABLE);
+						
+						// seems no use
+						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						}
+						
+						if( process_command_xHandle != NULL ) {
+							vTaskDelete( process_command_xHandle );
+						}
+						
+					}
+					
+				}
+				break;
+        
+			case 0x01:      //Self-examination
+				
+				//config DO6/7/9/10/11/12
+				GPIO_SetBits(GPIOA, GPIO_Pin_15);
+				GPIO_SetBits(GPIOE, GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4);
+				GPIO_ResetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_5);
+			
+        // wait for uart_A1 semaphore, need adding timeout err
+			  // uart code need to be fulfilled
+				if (xSemaphoreTake( uart_A1_xSemaphore, portMAX_DELAY) == pdTRUE) {
+					// hand shake
+					// fill buffer as in tab3B1
+					// function start: repeated code of hand shake sent tab3B1
+					UART_send_buffer[0] = 0xA6;
+					UART_send_buffer[1] = 0x0D;
+					UART_send_buffer[2] = 0xAA;
+					//https://zhidao.baidu.com/question/1638675882443131580.html?qbpn=2_2&tx=&word=%E4%BB%8E%E4%B8%80%E4%B8%AA16%E4%BD%8D%E5%8F%98%E9%87%8F%E4%B8%AD%E5%8F%96%E5%87%BA%E9%AB%988%E4%BD%8D%E5%92%8C%E4%BD%8E8%E4%BD%8D%EF%BC%8C%E6%B1%82C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%EF%BC%9F&fr=newsearchlist
+					code_verify = (UART_recv_buffer[3] + UART_recv_buffer[4]) * UART_recv_buffer[5];
+					UART_send_buffer[3] = code_verify & 0xff;
+					UART_send_buffer[4] = (code_verify >> 8) & 0xff;
+					UART_send_buffer[5] = (code_verify >> 16) & 0xff;
+					UART_send_buffer[6] = (code_verify >> 24) & 0xff;
+					UART_send_buffer[7] = 0x0B;
+					UART_send_buffer[8] = 0x00;
+					UART_send_buffer[9] = 0x00;
+					UART_send_buffer[10] = 0x00;
+					UART_send_buffer[11] = 0x00;
+					frame_verify = UART_send_buffer[2] + UART_send_buffer[3] + UART_send_buffer[4] + UART_send_buffer[5] + \
+											   UART_send_buffer[6] + UART_send_buffer[7] + UART_send_buffer[8] + UART_send_buffer[9] + \
+												 UART_send_buffer[10];
+					UART_send_buffer[12] = frame_verify & 0xff;
+					UART_send_buffer[13] = 0x86;
+					
+					// send buffer
+					TM_USART_DMA_Send(USART1, (uint8_t *)&UART_send_buffer, 13);   //choose uart line
+					//function end
+					
+					// wait for exti DI13 
+					if (xSemaphoreTake( exti_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						// real time start
+						time_origin = xTaskGetTickCount() * portTICK_RATE_MS;
+						
+						// creat large/small field task
+						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
+
+
+						// reset duty step to 0
+						TIM_SetCompare1(TIM3, 0);
+						// first period value
+						TIM_SetAutoreload(TIM3, 1330);
+						// delay 10 ms
+						vTaskDelay(10 * portTICK_RATE_MS);
+						// enable tim3
+						TIM_Cmd(TIM3, ENABLE);
+						
+						// seems no use
+						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						}
+						
+						if( process_command_xHandle != NULL ) {
+							vTaskDelete( process_command_xHandle );
+						}
+						
+					}
+					
+				}
+				break;
+			case 0x02:   	//gyro pulse
+				
+				//config DO6/7/9/10/11/12
+			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4);
+			  GPIO_ResetBits(GPIOE, GPIO_Pin_5);
+			
+        // wait for uart_A1 semaphore, need adding timeout err
+			  // uart code need to be fulfilled
+				if (xSemaphoreTake( uart_A1_xSemaphore, portMAX_DELAY) == pdTRUE) {
+					// hand shake
+					// fill buffer as in tab3B1
+					// function start: repeated code of hand shake sent tab3B1
+					UART_send_buffer[0] = 0xA6;
+					UART_send_buffer[1] = 0x0D;
+					UART_send_buffer[2] = 0xAA;
+					//https://zhidao.baidu.com/question/1638675882443131580.html?qbpn=2_2&tx=&word=%E4%BB%8E%E4%B8%80%E4%B8%AA16%E4%BD%8D%E5%8F%98%E9%87%8F%E4%B8%AD%E5%8F%96%E5%87%BA%E9%AB%988%E4%BD%8D%E5%92%8C%E4%BD%8E8%E4%BD%8D%EF%BC%8C%E6%B1%82C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%EF%BC%9F&fr=newsearchlist
+					code_verify = (UART_recv_buffer[3] + UART_recv_buffer[4]) * UART_recv_buffer[5];
+					UART_send_buffer[3] = code_verify & 0xff;
+					UART_send_buffer[4] = (code_verify >> 8) & 0xff;
+					UART_send_buffer[5] = (code_verify >> 16) & 0xff;
+					UART_send_buffer[6] = (code_verify >> 24) & 0xff;
+					UART_send_buffer[7] = 0x0B;
+					UART_send_buffer[8] = 0x00;
+					UART_send_buffer[9] = 0x00;
+					UART_send_buffer[10] = 0x00;
+					UART_send_buffer[11] = 0x00;
+					frame_verify = UART_send_buffer[2] + UART_send_buffer[3] + UART_send_buffer[4] + UART_send_buffer[5] + \
+											   UART_send_buffer[6] + UART_send_buffer[7] + UART_send_buffer[8] + UART_send_buffer[9] + \
+												 UART_send_buffer[10];
+					UART_send_buffer[12] = frame_verify & 0xff;
+					UART_send_buffer[13] = 0x86;
+					
+					// send buffer
+					TM_USART_DMA_Send(USART1, (uint8_t *)&UART_send_buffer, 13);   //choose uart line
+					//function end
+					
+					// wait for exti DI13 
+					if (xSemaphoreTake( exti_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						// real time start
+						time_origin = xTaskGetTickCount() * portTICK_RATE_MS;
+						
+						// creat large/small field task
+						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
+
+
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
+						// first period value
+						TIM_SetAutoreload(TIM3, 1330);
+						// delay 10 ms
+						vTaskDelay(10 * portTICK_RATE_MS);
+						// enable tim3
+						TIM_Cmd(TIM3, ENABLE);
+						
+						// seems no use
+						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						}
+						
+						if( process_command_xHandle != NULL ) {
+							vTaskDelete( process_command_xHandle );
+						}
+						
+					}
+					
+				}
+				break;
+
+			case 0x03:     //comp 3k
+
+				//config DO6/7/9/10/11/12
+			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4);
+			  GPIO_ResetBits(GPIOE, GPIO_Pin_3|GPIO_Pin_5);			
+			
+        // wait for uart_A1 semaphore, need adding timeout err
+			  // uart code need to be fulfilled
+				if (xSemaphoreTake( uart_A1_xSemaphore, portMAX_DELAY) == pdTRUE) {
+					// hand shake
+					// fill buffer as in tab3B1
+					// function start: repeated code of hand shake sent tab3B1
+					UART_send_buffer[0] = 0xA6;
+					UART_send_buffer[1] = 0x0D;
+					UART_send_buffer[2] = 0xAA;
+					//https://zhidao.baidu.com/question/1638675882443131580.html?qbpn=2_2&tx=&word=%E4%BB%8E%E4%B8%80%E4%B8%AA16%E4%BD%8D%E5%8F%98%E9%87%8F%E4%B8%AD%E5%8F%96%E5%87%BA%E9%AB%988%E4%BD%8D%E5%92%8C%E4%BD%8E8%E4%BD%8D%EF%BC%8C%E6%B1%82C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%EF%BC%9F&fr=newsearchlist
+					code_verify = (UART_recv_buffer[3] + UART_recv_buffer[4]) * UART_recv_buffer[5];
+					UART_send_buffer[3] = code_verify & 0xff;
+					UART_send_buffer[4] = (code_verify >> 8) & 0xff;
+					UART_send_buffer[5] = (code_verify >> 16) & 0xff;
+					UART_send_buffer[6] = (code_verify >> 24) & 0xff;
+					UART_send_buffer[7] = 0x0B;
+					UART_send_buffer[8] = 0x00;
+					UART_send_buffer[9] = 0x00;
+					UART_send_buffer[10] = 0x00;
+					UART_send_buffer[11] = 0x00;
+					frame_verify = UART_send_buffer[2] + UART_send_buffer[3] + UART_send_buffer[4] + UART_send_buffer[5] + \
+											   UART_send_buffer[6] + UART_send_buffer[7] + UART_send_buffer[8] + UART_send_buffer[9] + \
+												 UART_send_buffer[10];
+					UART_send_buffer[12] = frame_verify & 0xff;
+					UART_send_buffer[13] = 0x86;
+					
+					// send buffer
+					TM_USART_DMA_Send(USART1, (uint8_t *)&UART_send_buffer, 13);   //choose uart line
+					//function end
+					
+					// wait for exti DI13 
+					if (xSemaphoreTake( exti_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						// real time start
+						time_origin = xTaskGetTickCount() * portTICK_RATE_MS;
+						
+						// creat large/small field task
+						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
+
+
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
+						// first period value
+						TIM_SetAutoreload(TIM3, 1330);
+						// delay 10 ms
+						vTaskDelay(10 * portTICK_RATE_MS);
+						// enable tim3
+						TIM_Cmd(TIM3, ENABLE);
+						
+						// seems no use
+						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						}
+						
+						if( process_command_xHandle != NULL ) {
+							vTaskDelete( process_command_xHandle );
+						}
+						
+					}
+					
+				}
+				break;
+
+			case 0x04:  //comp 4k
+
+				//config DO6/7/9/10/11/12
+			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4);
+			  GPIO_ResetBits(GPIOE, GPIO_Pin_5);
+			
+        // wait for uart_A1 semaphore, need adding timeout err
+			  // uart code need to be fulfilled
+				if (xSemaphoreTake( uart_A1_xSemaphore, portMAX_DELAY) == pdTRUE) {
+					// hand shake
+					// fill buffer as in tab3B1
+					// function start: repeated code of hand shake sent tab3B1
+					UART_send_buffer[0] = 0xA6;
+					UART_send_buffer[1] = 0x0D;
+					UART_send_buffer[2] = 0xAA;
+					//https://zhidao.baidu.com/question/1638675882443131580.html?qbpn=2_2&tx=&word=%E4%BB%8E%E4%B8%80%E4%B8%AA16%E4%BD%8D%E5%8F%98%E9%87%8F%E4%B8%AD%E5%8F%96%E5%87%BA%E9%AB%988%E4%BD%8D%E5%92%8C%E4%BD%8E8%E4%BD%8D%EF%BC%8C%E6%B1%82C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%EF%BC%9F&fr=newsearchlist
+					code_verify = (UART_recv_buffer[3] + UART_recv_buffer[4]) * UART_recv_buffer[5];
+					UART_send_buffer[3] = code_verify & 0xff;
+					UART_send_buffer[4] = (code_verify >> 8) & 0xff;
+					UART_send_buffer[5] = (code_verify >> 16) & 0xff;
+					UART_send_buffer[6] = (code_verify >> 24) & 0xff;
+					UART_send_buffer[7] = 0x0B;
+					UART_send_buffer[8] = 0x00;
+					UART_send_buffer[9] = 0x00;
+					UART_send_buffer[10] = 0x00;
+					UART_send_buffer[11] = 0x00;
+					frame_verify = UART_send_buffer[2] + UART_send_buffer[3] + UART_send_buffer[4] + UART_send_buffer[5] + \
+											   UART_send_buffer[6] + UART_send_buffer[7] + UART_send_buffer[8] + UART_send_buffer[9] + \
+												 UART_send_buffer[10];
+					UART_send_buffer[12] = frame_verify & 0xff;
+					UART_send_buffer[13] = 0x86;
+					
+					// send buffer
+					TM_USART_DMA_Send(USART1, (uint8_t *)&UART_send_buffer, 13);   //choose uart line
+					//function end
+					
+					// wait for exti DI13 
+					if (xSemaphoreTake( exti_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						// real time start
+						time_origin = xTaskGetTickCount() * portTICK_RATE_MS;
+						
+						// creat large/small field task
+						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
+
+
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
+						// first period value
+						TIM_SetAutoreload(TIM3, 1333);
+						// delay 10 ms
+						vTaskDelay(10 * portTICK_RATE_MS);
+						// enable tim3
+						TIM_Cmd(TIM3, ENABLE);
+						
+						// seems no use
+						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						}
+						
+						if( process_command_xHandle != NULL ) {
+							vTaskDelete( process_command_xHandle );
+						}
+						
+					}
+					
+				}
+				break;
+				
+			case 0x05:  // half circle lock
+				
+				//config DO6/7/9/10/11/12
+			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3);
+			  GPIO_ResetBits(GPIOE, GPIO_Pin_4|GPIO_Pin_5);
+			
+        // wait for uart_A1 semaphore, need adding timeout err
+			  // uart code need to be fulfilled
+				if (xSemaphoreTake( uart_A1_xSemaphore, portMAX_DELAY) == pdTRUE) {
+					// hand shake
+					// fill buffer as in tab3B1
+					// function start: repeated code of hand shake sent tab3B1
+					UART_send_buffer[0] = 0xA6;
+					UART_send_buffer[1] = 0x0D;
+					UART_send_buffer[2] = 0xAA;
+					//https://zhidao.baidu.com/question/1638675882443131580.html?qbpn=2_2&tx=&word=%E4%BB%8E%E4%B8%80%E4%B8%AA16%E4%BD%8D%E5%8F%98%E9%87%8F%E4%B8%AD%E5%8F%96%E5%87%BA%E9%AB%988%E4%BD%8D%E5%92%8C%E4%BD%8E8%E4%BD%8D%EF%BC%8C%E6%B1%82C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%EF%BC%9F&fr=newsearchlist
+					code_verify = (UART_recv_buffer[3] + UART_recv_buffer[4]) * UART_recv_buffer[5];
+					UART_send_buffer[3] = code_verify & 0xff;
+					UART_send_buffer[4] = (code_verify >> 8) & 0xff;
+					UART_send_buffer[5] = (code_verify >> 16) & 0xff;
+					UART_send_buffer[6] = (code_verify >> 24) & 0xff;
+					UART_send_buffer[7] = 0x0B;
+					UART_send_buffer[8] = 0x00;
+					UART_send_buffer[9] = 0x00;
+					UART_send_buffer[10] = 0x00;
+					UART_send_buffer[11] = 0x00;
+					frame_verify = UART_send_buffer[2] + UART_send_buffer[3] + UART_send_buffer[4] + UART_send_buffer[5] + \
+											   UART_send_buffer[6] + UART_send_buffer[7] + UART_send_buffer[8] + UART_send_buffer[9] + \
+												 UART_send_buffer[10];
+					UART_send_buffer[12] = frame_verify & 0xff;
+					UART_send_buffer[13] = 0x86;
+					
+					// send buffer
+					TM_USART_DMA_Send(USART1, (uint8_t *)&UART_send_buffer, 13);   //choose uart line
+					//function end
+					
+					// wait for exti DI13 
+					if (xSemaphoreTake( exti_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						// real time start
+						time_origin = xTaskGetTickCount() * portTICK_RATE_MS;
+						
+						// creat large/small field task
+						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
+
+
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
+						// first period value
+						TIM_SetAutoreload(TIM3, 1333);
+						// delay 10 ms
+						vTaskDelay(10 * portTICK_RATE_MS);
+						// enable tim3
+						TIM_Cmd(TIM3, ENABLE);
+						
+						// seems no use
+						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						}
+						
+						if( process_command_xHandle != NULL ) {
+							vTaskDelete( process_command_xHandle );
+						}
+						
+					}
+					
+				}
+				break;
+
+      case 0x06:    //3 loop 48 3k
+				
+				//config DO6/7/9/10/11/12
+			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4);
+			  GPIO_ResetBits(GPIOE, GPIO_Pin_3|GPIO_Pin_5);
+
+        // wait for uart_A1 semaphore, need adding timeout err
+			  // uart code need to be fulfilled
+				if (xSemaphoreTake( uart_A1_xSemaphore, portMAX_DELAY) == pdTRUE) {
+					// hand shake
+					// fill buffer as in tab3B1
+					// function start: repeated code of hand shake sent tab3B1
+					UART_send_buffer[0] = 0xA6;
+					UART_send_buffer[1] = 0x0D;
+					UART_send_buffer[2] = 0xAA;
+					//https://zhidao.baidu.com/question/1638675882443131580.html?qbpn=2_2&tx=&word=%E4%BB%8E%E4%B8%80%E4%B8%AA16%E4%BD%8D%E5%8F%98%E9%87%8F%E4%B8%AD%E5%8F%96%E5%87%BA%E9%AB%988%E4%BD%8D%E5%92%8C%E4%BD%8E8%E4%BD%8D%EF%BC%8C%E6%B1%82C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%EF%BC%9F&fr=newsearchlist
+					code_verify = (UART_recv_buffer[3] + UART_recv_buffer[4]) * UART_recv_buffer[5];
+					UART_send_buffer[3] = code_verify & 0xff;
+					UART_send_buffer[4] = (code_verify >> 8) & 0xff;
+					UART_send_buffer[5] = (code_verify >> 16) & 0xff;
+					UART_send_buffer[6] = (code_verify >> 24) & 0xff;
+					UART_send_buffer[7] = 0x0B;
+					UART_send_buffer[8] = 0x00;
+					UART_send_buffer[9] = 0x00;
+					UART_send_buffer[10] = 0x00;
+					UART_send_buffer[11] = 0x00;
+					frame_verify = UART_send_buffer[2] + UART_send_buffer[3] + UART_send_buffer[4] + UART_send_buffer[5] + \
+											   UART_send_buffer[6] + UART_send_buffer[7] + UART_send_buffer[8] + UART_send_buffer[9] + \
+												 UART_send_buffer[10];
+					UART_send_buffer[12] = frame_verify & 0xff;
+					UART_send_buffer[13] = 0x86;
+					
+					// send buffer
+					TM_USART_DMA_Send(USART1, (uint8_t *)&UART_send_buffer, 13);   //choose uart line
+					//function end
+					
+					// wait for exti DI13 
+					if (xSemaphoreTake( exti_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						// real time start
+						time_origin = xTaskGetTickCount() * portTICK_RATE_MS;
+						
+						// creat large/small field task
+						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
+
+
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
+						// first period value
+						TIM_SetAutoreload(TIM3, 1500);
+						// delay 10 ms
+						vTaskDelay(10 * portTICK_RATE_MS);
+						// enable tim3
+						TIM_Cmd(TIM3, ENABLE);
+						
+						// seems no use
+						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						}
+						
+						if( process_command_xHandle != NULL ) {
+							vTaskDelete( process_command_xHandle );
+						}
+						
+					}
+					
+				}
+				break;
+
+			case 0x07:    //3 loop 52 3k	
+				
+				//config DO6/7/9/10/11/12
+			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4);
+			  GPIO_ResetBits(GPIOE, GPIO_Pin_3|GPIO_Pin_5);	
+
+        // wait for uart_A1 semaphore, need adding timeout err
+			  // uart code need to be fulfilled
+				if (xSemaphoreTake( uart_A1_xSemaphore, portMAX_DELAY) == pdTRUE) {
+					// hand shake
+					// fill buffer as in tab3B1
+					// function start: repeated code of hand shake sent tab3B1
+					UART_send_buffer[0] = 0xA6;
+					UART_send_buffer[1] = 0x0D;
+					UART_send_buffer[2] = 0xAA;
+					//https://zhidao.baidu.com/question/1638675882443131580.html?qbpn=2_2&tx=&word=%E4%BB%8E%E4%B8%80%E4%B8%AA16%E4%BD%8D%E5%8F%98%E9%87%8F%E4%B8%AD%E5%8F%96%E5%87%BA%E9%AB%988%E4%BD%8D%E5%92%8C%E4%BD%8E8%E4%BD%8D%EF%BC%8C%E6%B1%82C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%EF%BC%9F&fr=newsearchlist
+					code_verify = (UART_recv_buffer[3] + UART_recv_buffer[4]) * UART_recv_buffer[5];
+					UART_send_buffer[3] = code_verify & 0xff;
+					UART_send_buffer[4] = (code_verify >> 8) & 0xff;
+					UART_send_buffer[5] = (code_verify >> 16) & 0xff;
+					UART_send_buffer[6] = (code_verify >> 24) & 0xff;
+					UART_send_buffer[7] = 0x0B;
+					UART_send_buffer[8] = 0x00;
+					UART_send_buffer[9] = 0x00;
+					UART_send_buffer[10] = 0x00;
+					UART_send_buffer[11] = 0x00;
+					frame_verify = UART_send_buffer[2] + UART_send_buffer[3] + UART_send_buffer[4] + UART_send_buffer[5] + \
+											   UART_send_buffer[6] + UART_send_buffer[7] + UART_send_buffer[8] + UART_send_buffer[9] + \
+												 UART_send_buffer[10];
+					UART_send_buffer[12] = frame_verify & 0xff;
+					UART_send_buffer[13] = 0x86;
+					
+					// send buffer
+					TM_USART_DMA_Send(USART1, (uint8_t *)&UART_send_buffer, 13);   //choose uart line
+					//function end
+					
+					// wait for exti DI13 
+					if (xSemaphoreTake( exti_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						// real time start
+						time_origin = xTaskGetTickCount() * portTICK_RATE_MS;
+						
+						// creat large/small field task
+						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
+
+
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
+						// first period value
+						TIM_SetAutoreload(TIM3, 1500);
+						// delay 10 ms
+						vTaskDelay(10 * portTICK_RATE_MS);
+						// enable tim3
+						TIM_Cmd(TIM3, ENABLE);
+						
+						// seems no use
+						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						}
+						
+						if( process_command_xHandle != NULL ) {
+							vTaskDelete( process_command_xHandle );
+						}
+						
+					}
+					
+				}
+				break;
+
+      case 0x08:  //3 loop 68 3k		
+
+				//config DO6/7/9/10/11/12
+			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4|GPIO_Pin_5);
+			  GPIO_ResetBits(GPIOE, GPIO_Pin_3);
+
+        // wait for uart_A1 semaphore, need adding timeout err
+			  // uart code need to be fulfilled
+				if (xSemaphoreTake( uart_A1_xSemaphore, portMAX_DELAY) == pdTRUE) {
+					// hand shake
+					// fill buffer as in tab3B1
+					// function start: repeated code of hand shake sent tab3B1
+					UART_send_buffer[0] = 0xA6;
+					UART_send_buffer[1] = 0x0D;
+					UART_send_buffer[2] = 0xAA;
+					//https://zhidao.baidu.com/question/1638675882443131580.html?qbpn=2_2&tx=&word=%E4%BB%8E%E4%B8%80%E4%B8%AA16%E4%BD%8D%E5%8F%98%E9%87%8F%E4%B8%AD%E5%8F%96%E5%87%BA%E9%AB%988%E4%BD%8D%E5%92%8C%E4%BD%8E8%E4%BD%8D%EF%BC%8C%E6%B1%82C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%EF%BC%9F&fr=newsearchlist
+					code_verify = (UART_recv_buffer[3] + UART_recv_buffer[4]) * UART_recv_buffer[5];
+					UART_send_buffer[3] = code_verify & 0xff;
+					UART_send_buffer[4] = (code_verify >> 8) & 0xff;
+					UART_send_buffer[5] = (code_verify >> 16) & 0xff;
+					UART_send_buffer[6] = (code_verify >> 24) & 0xff;
+					UART_send_buffer[7] = 0x0B;
+					UART_send_buffer[8] = 0x00;
+					UART_send_buffer[9] = 0x00;
+					UART_send_buffer[10] = 0x00;
+					UART_send_buffer[11] = 0x00;
+					frame_verify = UART_send_buffer[2] + UART_send_buffer[3] + UART_send_buffer[4] + UART_send_buffer[5] + \
+											   UART_send_buffer[6] + UART_send_buffer[7] + UART_send_buffer[8] + UART_send_buffer[9] + \
+												 UART_send_buffer[10];
+					UART_send_buffer[12] = frame_verify & 0xff;
+					UART_send_buffer[13] = 0x86;
+					
+					// send buffer
+					TM_USART_DMA_Send(USART1, (uint8_t *)&UART_send_buffer, 13);   //choose uart line
+					//function end
+					
+					// wait for exti DI13 
+					if (xSemaphoreTake( exti_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						// real time start
+						time_origin = xTaskGetTickCount() * portTICK_RATE_MS;
+						
+						// creat large/small field task
+						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
+
+
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
+						// first period value
+						TIM_SetAutoreload(TIM3, 1500);
+						// delay 10 ms
+						vTaskDelay(10 * portTICK_RATE_MS);
+						// enable tim3
+						TIM_Cmd(TIM3, ENABLE);
+						
+						// seems no use
+						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						}
+						
+						if( process_command_xHandle != NULL ) {
+							vTaskDelete( process_command_xHandle );
+						}
+						
+					}
+					
+				}
+				break;
+
+			case 0x09:		//3 loop 72 3k	
+
+				//config DO6/7/9/10/11/12
+			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4|GPIO_Pin_5);
+			  GPIO_ResetBits(GPIOE, GPIO_Pin_3);
+			
+        // wait for uart_A1 semaphore, need adding timeout err
+			  // uart code need to be fulfilled
+				if (xSemaphoreTake( uart_A1_xSemaphore, portMAX_DELAY) == pdTRUE) {
+					// hand shake
+					// fill buffer as in tab3B1
+					// function start: repeated code of hand shake sent tab3B1
+					UART_send_buffer[0] = 0xA6;
+					UART_send_buffer[1] = 0x0D;
+					UART_send_buffer[2] = 0xAA;
+					//https://zhidao.baidu.com/question/1638675882443131580.html?qbpn=2_2&tx=&word=%E4%BB%8E%E4%B8%80%E4%B8%AA16%E4%BD%8D%E5%8F%98%E9%87%8F%E4%B8%AD%E5%8F%96%E5%87%BA%E9%AB%988%E4%BD%8D%E5%92%8C%E4%BD%8E8%E4%BD%8D%EF%BC%8C%E6%B1%82C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%EF%BC%9F&fr=newsearchlist
+					code_verify = (UART_recv_buffer[3] + UART_recv_buffer[4]) * UART_recv_buffer[5];
+					UART_send_buffer[3] = code_verify & 0xff;
+					UART_send_buffer[4] = (code_verify >> 8) & 0xff;
+					UART_send_buffer[5] = (code_verify >> 16) & 0xff;
+					UART_send_buffer[6] = (code_verify >> 24) & 0xff;
+					UART_send_buffer[7] = 0x0B;
+					UART_send_buffer[8] = 0x00;
+					UART_send_buffer[9] = 0x00;
+					UART_send_buffer[10] = 0x00;
+					UART_send_buffer[11] = 0x00;
+					frame_verify = UART_send_buffer[2] + UART_send_buffer[3] + UART_send_buffer[4] + UART_send_buffer[5] + \
+											   UART_send_buffer[6] + UART_send_buffer[7] + UART_send_buffer[8] + UART_send_buffer[9] + \
+												 UART_send_buffer[10];
+					UART_send_buffer[12] = frame_verify & 0xff;
+					UART_send_buffer[13] = 0x86;
+					
+					// send buffer
+					TM_USART_DMA_Send(USART1, (uint8_t *)&UART_send_buffer, 13);   //choose uart line
+					//function end
+					
+					// wait for exti DI13 
+					if (xSemaphoreTake( exti_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						// real time start
+						time_origin = xTaskGetTickCount() * portTICK_RATE_MS;
+						
+						// creat large/small field task
+						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
+
+
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
+						// first period value
+						TIM_SetAutoreload(TIM3, 1500);
+						// delay 10 ms
+						vTaskDelay(10 * portTICK_RATE_MS);
+						// enable tim3
+						TIM_Cmd(TIM3, ENABLE);
+						
+						// seems no use
+						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						}
+						
+						if( process_command_xHandle != NULL ) {
+							vTaskDelete( process_command_xHandle );
+						}
+						
+					}
+					
+				}
+				break;
+				
+      case 0x0A:		//3 loop 48 4k
+
+				//config DO6/7/9/10/11/12
+			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
+	
+        // wait for uart_A1 semaphore, need adding timeout err
+			  // uart code need to be fulfilled
+				if (xSemaphoreTake( uart_A1_xSemaphore, portMAX_DELAY) == pdTRUE) {
+					// hand shake
+					// fill buffer as in tab3B1
+					// function start: repeated code of hand shake sent tab3B1
+					UART_send_buffer[0] = 0xA6;
+					UART_send_buffer[1] = 0x0D;
+					UART_send_buffer[2] = 0xAA;
+					//https://zhidao.baidu.com/question/1638675882443131580.html?qbpn=2_2&tx=&word=%E4%BB%8E%E4%B8%80%E4%B8%AA16%E4%BD%8D%E5%8F%98%E9%87%8F%E4%B8%AD%E5%8F%96%E5%87%BA%E9%AB%988%E4%BD%8D%E5%92%8C%E4%BD%8E8%E4%BD%8D%EF%BC%8C%E6%B1%82C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%EF%BC%9F&fr=newsearchlist
+					code_verify = (UART_recv_buffer[3] + UART_recv_buffer[4]) * UART_recv_buffer[5];
+					UART_send_buffer[3] = code_verify & 0xff;
+					UART_send_buffer[4] = (code_verify >> 8) & 0xff;
+					UART_send_buffer[5] = (code_verify >> 16) & 0xff;
+					UART_send_buffer[6] = (code_verify >> 24) & 0xff;
+					UART_send_buffer[7] = 0x0B;
+					UART_send_buffer[8] = 0x00;
+					UART_send_buffer[9] = 0x00;
+					UART_send_buffer[10] = 0x00;
+					UART_send_buffer[11] = 0x00;
+					frame_verify = UART_send_buffer[2] + UART_send_buffer[3] + UART_send_buffer[4] + UART_send_buffer[5] + \
+											   UART_send_buffer[6] + UART_send_buffer[7] + UART_send_buffer[8] + UART_send_buffer[9] + \
+												 UART_send_buffer[10];
+					UART_send_buffer[12] = frame_verify & 0xff;
+					UART_send_buffer[13] = 0x86;
+					
+					// send buffer
+					TM_USART_DMA_Send(USART1, (uint8_t *)&UART_send_buffer, 13);   //choose uart line
+					//function end
+					
+					// wait for exti DI13 
+					if (xSemaphoreTake( exti_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						// real time start
+						time_origin = xTaskGetTickCount() * portTICK_RATE_MS;
+						
+						// creat large/small field task
+						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
+
+
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
+						// first period value
+						TIM_SetAutoreload(TIM3, 1400);
+						// delay 10 ms
+						vTaskDelay(10 * portTICK_RATE_MS);
+						// enable tim3
+						TIM_Cmd(TIM3, ENABLE);
+						
+						// seems no use
+						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						}
+						
+						if( process_command_xHandle != NULL ) {
+							vTaskDelete( process_command_xHandle );
+						}
+						
+					}
+					
+				}
+				break;	
+
+      case 0x0B:		//3 loop 52 4k
+
+				//config DO6/7/9/10/11/12
+			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
+	
+        // wait for uart_A1 semaphore, need adding timeout err
+			  // uart code need to be fulfilled
+				if (xSemaphoreTake( uart_A1_xSemaphore, portMAX_DELAY) == pdTRUE) {
+					// hand shake
+					// fill buffer as in tab3B1
+					// function start: repeated code of hand shake sent tab3B1
+					UART_send_buffer[0] = 0xA6;
+					UART_send_buffer[1] = 0x0D;
+					UART_send_buffer[2] = 0xAA;
+					//https://zhidao.baidu.com/question/1638675882443131580.html?qbpn=2_2&tx=&word=%E4%BB%8E%E4%B8%80%E4%B8%AA16%E4%BD%8D%E5%8F%98%E9%87%8F%E4%B8%AD%E5%8F%96%E5%87%BA%E9%AB%988%E4%BD%8D%E5%92%8C%E4%BD%8E8%E4%BD%8D%EF%BC%8C%E6%B1%82C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%EF%BC%9F&fr=newsearchlist
+					code_verify = (UART_recv_buffer[3] + UART_recv_buffer[4]) * UART_recv_buffer[5];
+					UART_send_buffer[3] = code_verify & 0xff;
+					UART_send_buffer[4] = (code_verify >> 8) & 0xff;
+					UART_send_buffer[5] = (code_verify >> 16) & 0xff;
+					UART_send_buffer[6] = (code_verify >> 24) & 0xff;
+					UART_send_buffer[7] = 0x0B;
+					UART_send_buffer[8] = 0x00;
+					UART_send_buffer[9] = 0x00;
+					UART_send_buffer[10] = 0x00;
+					UART_send_buffer[11] = 0x00;
+					frame_verify = UART_send_buffer[2] + UART_send_buffer[3] + UART_send_buffer[4] + UART_send_buffer[5] + \
+											   UART_send_buffer[6] + UART_send_buffer[7] + UART_send_buffer[8] + UART_send_buffer[9] + \
+												 UART_send_buffer[10];
+					UART_send_buffer[12] = frame_verify & 0xff;
+					UART_send_buffer[13] = 0x86;
+					
+					// send buffer
+					TM_USART_DMA_Send(USART1, (uint8_t *)&UART_send_buffer, 13);   //choose uart line
+					//function end
+					
+					// wait for exti DI13 
+					if (xSemaphoreTake( exti_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						// real time start
+						time_origin = xTaskGetTickCount() * portTICK_RATE_MS;
+						
+						// creat large/small field task
+						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
+
+
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
+						// first period value
+						TIM_SetAutoreload(TIM3, 1400);
+						// delay 10 ms
+						vTaskDelay(10 * portTICK_RATE_MS);
+						// enable tim3
+						TIM_Cmd(TIM3, ENABLE);
+						
+						// seems no use
+						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						}
+						
+						if( process_command_xHandle != NULL ) {
+							vTaskDelete( process_command_xHandle );
+						}
+						
+					}
+					
+				}
+				break;
+      case 0x0C:		//3 loop 58 4k
+
+				//config DO6/7/9/10/11/12
+			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
+	
+        // wait for uart_A1 semaphore, need adding timeout err
+			  // uart code need to be fulfilled
+				if (xSemaphoreTake( uart_A1_xSemaphore, portMAX_DELAY) == pdTRUE) {
+					// hand shake
+					// fill buffer as in tab3B1
+					// function start: repeated code of hand shake sent tab3B1
+					UART_send_buffer[0] = 0xA6;
+					UART_send_buffer[1] = 0x0D;
+					UART_send_buffer[2] = 0xAA;
+					//https://zhidao.baidu.com/question/1638675882443131580.html?qbpn=2_2&tx=&word=%E4%BB%8E%E4%B8%80%E4%B8%AA16%E4%BD%8D%E5%8F%98%E9%87%8F%E4%B8%AD%E5%8F%96%E5%87%BA%E9%AB%988%E4%BD%8D%E5%92%8C%E4%BD%8E8%E4%BD%8D%EF%BC%8C%E6%B1%82C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%EF%BC%9F&fr=newsearchlist
+					code_verify = (UART_recv_buffer[3] + UART_recv_buffer[4]) * UART_recv_buffer[5];
+					UART_send_buffer[3] = code_verify & 0xff;
+					UART_send_buffer[4] = (code_verify >> 8) & 0xff;
+					UART_send_buffer[5] = (code_verify >> 16) & 0xff;
+					UART_send_buffer[6] = (code_verify >> 24) & 0xff;
+					UART_send_buffer[7] = 0x0B;
+					UART_send_buffer[8] = 0x00;
+					UART_send_buffer[9] = 0x00;
+					UART_send_buffer[10] = 0x00;
+					UART_send_buffer[11] = 0x00;
+					frame_verify = UART_send_buffer[2] + UART_send_buffer[3] + UART_send_buffer[4] + UART_send_buffer[5] + \
+											   UART_send_buffer[6] + UART_send_buffer[7] + UART_send_buffer[8] + UART_send_buffer[9] + \
+												 UART_send_buffer[10];
+					UART_send_buffer[12] = frame_verify & 0xff;
+					UART_send_buffer[13] = 0x86;
+					
+					// send buffer
+					TM_USART_DMA_Send(USART1, (uint8_t *)&UART_send_buffer, 13);   //choose uart line
+					//function end
+					
+					// wait for exti DI13 
+					if (xSemaphoreTake( exti_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						// real time start
+						time_origin = xTaskGetTickCount() * portTICK_RATE_MS;
+						
+						// creat large/small field task
+						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
+
+
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
+						// first period value
+						TIM_SetAutoreload(TIM3, 1400);
+						// delay 10 ms
+						vTaskDelay(10 * portTICK_RATE_MS);
+						// enable tim3
+						TIM_Cmd(TIM3, ENABLE);
+						
+						// seems no use
+						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						}
+						
+						if( process_command_xHandle != NULL ) {
+							vTaskDelete( process_command_xHandle );
+						}
+						
+					}
+					
+				}
+				break;
+      case 0x0D:		//3 loop 62 4k
+
+				//config DO6/7/9/10/11/12
+			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
+	
+        // wait for uart_A1 semaphore, need adding timeout err
+			  // uart code need to be fulfilled
+				if (xSemaphoreTake( uart_A1_xSemaphore, portMAX_DELAY) == pdTRUE) {
+					// hand shake
+					// fill buffer as in tab3B1
+					// function start: repeated code of hand shake sent tab3B1
+					UART_send_buffer[0] = 0xA6;
+					UART_send_buffer[1] = 0x0D;
+					UART_send_buffer[2] = 0xAA;
+					//https://zhidao.baidu.com/question/1638675882443131580.html?qbpn=2_2&tx=&word=%E4%BB%8E%E4%B8%80%E4%B8%AA16%E4%BD%8D%E5%8F%98%E9%87%8F%E4%B8%AD%E5%8F%96%E5%87%BA%E9%AB%988%E4%BD%8D%E5%92%8C%E4%BD%8E8%E4%BD%8D%EF%BC%8C%E6%B1%82C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%EF%BC%9F&fr=newsearchlist
+					code_verify = (UART_recv_buffer[3] + UART_recv_buffer[4]) * UART_recv_buffer[5];
+					UART_send_buffer[3] = code_verify & 0xff;
+					UART_send_buffer[4] = (code_verify >> 8) & 0xff;
+					UART_send_buffer[5] = (code_verify >> 16) & 0xff;
+					UART_send_buffer[6] = (code_verify >> 24) & 0xff;
+					UART_send_buffer[7] = 0x0B;
+					UART_send_buffer[8] = 0x00;
+					UART_send_buffer[9] = 0x00;
+					UART_send_buffer[10] = 0x00;
+					UART_send_buffer[11] = 0x00;
+					frame_verify = UART_send_buffer[2] + UART_send_buffer[3] + UART_send_buffer[4] + UART_send_buffer[5] + \
+											   UART_send_buffer[6] + UART_send_buffer[7] + UART_send_buffer[8] + UART_send_buffer[9] + \
+												 UART_send_buffer[10];
+					UART_send_buffer[12] = frame_verify & 0xff;
+					UART_send_buffer[13] = 0x86;
+					
+					// send buffer
+					TM_USART_DMA_Send(USART1, (uint8_t *)&UART_send_buffer, 13);   //choose uart line
+					//function end
+					
+					// wait for exti DI13 
+					if (xSemaphoreTake( exti_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						// real time start
+						time_origin = xTaskGetTickCount() * portTICK_RATE_MS;
+						
+						// creat large/small field task
+						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
+
+
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
+						// first period value
+						TIM_SetAutoreload(TIM3, 1400);
+						// delay 10 ms
+						vTaskDelay(10 * portTICK_RATE_MS);
+						// enable tim3
+						TIM_Cmd(TIM3, ENABLE);
+						
+						// seems no use
+						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						}
+						
+						if( process_command_xHandle != NULL ) {
+							vTaskDelete( process_command_xHandle );
+						}
+						
+					}
+					
+				}
+				break;	
+      case 0x0E:		//rpm 100
+
+				//config DO6/7/9/10/11/12
+			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4|GPIO_Pin_5);
+			  GPIO_ResetBits(GPIOE, GPIO_Pin_3);
+			
+        // wait for uart_A1 semaphore, need adding timeout err
+			  // uart code need to be fulfilled
+				if (xSemaphoreTake( uart_A1_xSemaphore, portMAX_DELAY) == pdTRUE) {
+					// hand shake
+					// fill buffer as in tab3B1
+					// function start: repeated code of hand shake sent tab3B1
+					UART_send_buffer[0] = 0xA6;
+					UART_send_buffer[1] = 0x0D;
+					UART_send_buffer[2] = 0xAA;
+					//https://zhidao.baidu.com/question/1638675882443131580.html?qbpn=2_2&tx=&word=%E4%BB%8E%E4%B8%80%E4%B8%AA16%E4%BD%8D%E5%8F%98%E9%87%8F%E4%B8%AD%E5%8F%96%E5%87%BA%E9%AB%988%E4%BD%8D%E5%92%8C%E4%BD%8E8%E4%BD%8D%EF%BC%8C%E6%B1%82C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%EF%BC%9F&fr=newsearchlist
+					code_verify = (UART_recv_buffer[3] + UART_recv_buffer[4]) * UART_recv_buffer[5];
+					UART_send_buffer[3] = code_verify & 0xff;
+					UART_send_buffer[4] = (code_verify >> 8) & 0xff;
+					UART_send_buffer[5] = (code_verify >> 16) & 0xff;
+					UART_send_buffer[6] = (code_verify >> 24) & 0xff;
+					UART_send_buffer[7] = 0x0B;
+					UART_send_buffer[8] = 0x00;
+					UART_send_buffer[9] = 0x00;
+					UART_send_buffer[10] = 0x00;
+					UART_send_buffer[11] = 0x00;
+					frame_verify = UART_send_buffer[2] + UART_send_buffer[3] + UART_send_buffer[4] + UART_send_buffer[5] + \
+											   UART_send_buffer[6] + UART_send_buffer[7] + UART_send_buffer[8] + UART_send_buffer[9] + \
+												 UART_send_buffer[10];
+					UART_send_buffer[12] = frame_verify & 0xff;
+					UART_send_buffer[13] = 0x86;
+					
+					// send buffer
+					TM_USART_DMA_Send(USART1, (uint8_t *)&UART_send_buffer, 13);   //choose uart line
+					//function end
+					
+					// wait for exti DI13 
+					if (xSemaphoreTake( exti_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						// real time start
+						time_origin = xTaskGetTickCount() * portTICK_RATE_MS;
+						
+						// creat large/small field task
+						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
+
+
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
+						// first period value
+						TIM_SetAutoreload(TIM3, 1000);
+						// delay 10 ms
+						vTaskDelay(10 * portTICK_RATE_MS);
+						// enable tim3
+						TIM_Cmd(TIM3, ENABLE);
+						
+						// seems no use
+						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						}
+						
+						if( process_command_xHandle != NULL ) {
+							vTaskDelete( process_command_xHandle );
+						}
+						
+					}
+					
+				}
+				break;
+      case 0x0F:		//rpm 200
+
+				//config DO6/7/9/10/11/12
+			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4|GPIO_Pin_5);
+			  GPIO_ResetBits(GPIOE, GPIO_Pin_3);
+			
+        // wait for uart_A1 semaphore, need adding timeout err
+			  // uart code need to be fulfilled
+				if (xSemaphoreTake( uart_A1_xSemaphore, portMAX_DELAY) == pdTRUE) {
+					// hand shake
+					// fill buffer as in tab3B1
+					// function start: repeated code of hand shake sent tab3B1
+					UART_send_buffer[0] = 0xA6;
+					UART_send_buffer[1] = 0x0D;
+					UART_send_buffer[2] = 0xAA;
+					//https://zhidao.baidu.com/question/1638675882443131580.html?qbpn=2_2&tx=&word=%E4%BB%8E%E4%B8%80%E4%B8%AA16%E4%BD%8D%E5%8F%98%E9%87%8F%E4%B8%AD%E5%8F%96%E5%87%BA%E9%AB%988%E4%BD%8D%E5%92%8C%E4%BD%8E8%E4%BD%8D%EF%BC%8C%E6%B1%82C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%EF%BC%9F&fr=newsearchlist
+					code_verify = (UART_recv_buffer[3] + UART_recv_buffer[4]) * UART_recv_buffer[5];
+					UART_send_buffer[3] = code_verify & 0xff;
+					UART_send_buffer[4] = (code_verify >> 8) & 0xff;
+					UART_send_buffer[5] = (code_verify >> 16) & 0xff;
+					UART_send_buffer[6] = (code_verify >> 24) & 0xff;
+					UART_send_buffer[7] = 0x0B;
+					UART_send_buffer[8] = 0x00;
+					UART_send_buffer[9] = 0x00;
+					UART_send_buffer[10] = 0x00;
+					UART_send_buffer[11] = 0x00;
+					frame_verify = UART_send_buffer[2] + UART_send_buffer[3] + UART_send_buffer[4] + UART_send_buffer[5] + \
+											   UART_send_buffer[6] + UART_send_buffer[7] + UART_send_buffer[8] + UART_send_buffer[9] + \
+												 UART_send_buffer[10];
+					UART_send_buffer[12] = frame_verify & 0xff;
+					UART_send_buffer[13] = 0x86;
+					
+					// send buffer
+					TM_USART_DMA_Send(USART1, (uint8_t *)&UART_send_buffer, 13);   //choose uart line
+					//function end
+					
+					// wait for exti DI13 
+					if (xSemaphoreTake( exti_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						// real time start
+						time_origin = xTaskGetTickCount() * portTICK_RATE_MS;
+						
+						// creat large/small field task
+						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
+
+
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
+						// first period value
+						TIM_SetAutoreload(TIM3, 2000);
+						// delay 10 ms
+						vTaskDelay(10 * portTICK_RATE_MS);
+						// enable tim3
+						TIM_Cmd(TIM3, ENABLE);
+						
+						// seems no use
+						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						}
+						
+						if( process_command_xHandle != NULL ) {
+							vTaskDelete( process_command_xHandle );
+						}
+						
+					}
+					
+				}
+				break;
+      case 0x10:		//rpm 100
+
+				//config DO6/7/9/10/11/12
+			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
+			
+        // wait for uart_A1 semaphore, need adding timeout err
+			  // uart code need to be fulfilled
+				if (xSemaphoreTake( uart_A1_xSemaphore, portMAX_DELAY) == pdTRUE) {
+					// hand shake
+					// fill buffer as in tab3B1
+					// function start: repeated code of hand shake sent tab3B1
+					UART_send_buffer[0] = 0xA6;
+					UART_send_buffer[1] = 0x0D;
+					UART_send_buffer[2] = 0xAA;
+					//https://zhidao.baidu.com/question/1638675882443131580.html?qbpn=2_2&tx=&word=%E4%BB%8E%E4%B8%80%E4%B8%AA16%E4%BD%8D%E5%8F%98%E9%87%8F%E4%B8%AD%E5%8F%96%E5%87%BA%E9%AB%988%E4%BD%8D%E5%92%8C%E4%BD%8E8%E4%BD%8D%EF%BC%8C%E6%B1%82C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%EF%BC%9F&fr=newsearchlist
+					code_verify = (UART_recv_buffer[3] + UART_recv_buffer[4]) * UART_recv_buffer[5];
+					UART_send_buffer[3] = code_verify & 0xff;
+					UART_send_buffer[4] = (code_verify >> 8) & 0xff;
+					UART_send_buffer[5] = (code_verify >> 16) & 0xff;
+					UART_send_buffer[6] = (code_verify >> 24) & 0xff;
+					UART_send_buffer[7] = 0x0B;
+					UART_send_buffer[8] = 0x00;
+					UART_send_buffer[9] = 0x00;
+					UART_send_buffer[10] = 0x00;
+					UART_send_buffer[11] = 0x00;
+					frame_verify = UART_send_buffer[2] + UART_send_buffer[3] + UART_send_buffer[4] + UART_send_buffer[5] + \
+											   UART_send_buffer[6] + UART_send_buffer[7] + UART_send_buffer[8] + UART_send_buffer[9] + \
+												 UART_send_buffer[10];
+					UART_send_buffer[12] = frame_verify & 0xff;
+					UART_send_buffer[13] = 0x86;
+					
+					// send buffer
+					TM_USART_DMA_Send(USART1, (uint8_t *)&UART_send_buffer, 13);   //choose uart line
+					//function end
+					
+					// wait for exti DI13 
+					if (xSemaphoreTake( exti_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						// real time start
+						time_origin = xTaskGetTickCount() * portTICK_RATE_MS;
+						
+						// creat large/small field task
+						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
+
+
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
+						// first period value
+						TIM_SetAutoreload(TIM3, 1000);
+						// delay 10 ms
+						vTaskDelay(10 * portTICK_RATE_MS);
+						// enable tim3
+						TIM_Cmd(TIM3, ENABLE);
+						
+						// seems no use
+						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						}
+						
+						if( process_command_xHandle != NULL ) {
+							vTaskDelete( process_command_xHandle );
+						}
+						
+					}
+					
+				}
+				break;
+      case 0x11:		//rpm 200
+
+				//config DO6/7/9/10/11/12
+			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
+			
+        // wait for uart_A1 semaphore, need adding timeout err
+			  // uart code need to be fulfilled
+				if (xSemaphoreTake( uart_A1_xSemaphore, portMAX_DELAY) == pdTRUE) {
+					// hand shake
+					// fill buffer as in tab3B1
+					// function start: repeated code of hand shake sent tab3B1
+					UART_send_buffer[0] = 0xA6;
+					UART_send_buffer[1] = 0x0D;
+					UART_send_buffer[2] = 0xAA;
+					//https://zhidao.baidu.com/question/1638675882443131580.html?qbpn=2_2&tx=&word=%E4%BB%8E%E4%B8%80%E4%B8%AA16%E4%BD%8D%E5%8F%98%E9%87%8F%E4%B8%AD%E5%8F%96%E5%87%BA%E9%AB%988%E4%BD%8D%E5%92%8C%E4%BD%8E8%E4%BD%8D%EF%BC%8C%E6%B1%82C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%EF%BC%9F&fr=newsearchlist
+					code_verify = (UART_recv_buffer[3] + UART_recv_buffer[4]) * UART_recv_buffer[5];
+					UART_send_buffer[3] = code_verify & 0xff;
+					UART_send_buffer[4] = (code_verify >> 8) & 0xff;
+					UART_send_buffer[5] = (code_verify >> 16) & 0xff;
+					UART_send_buffer[6] = (code_verify >> 24) & 0xff;
+					UART_send_buffer[7] = 0x0B;
+					UART_send_buffer[8] = 0x00;
+					UART_send_buffer[9] = 0x00;
+					UART_send_buffer[10] = 0x00;
+					UART_send_buffer[11] = 0x00;
+					frame_verify = UART_send_buffer[2] + UART_send_buffer[3] + UART_send_buffer[4] + UART_send_buffer[5] + \
+											   UART_send_buffer[6] + UART_send_buffer[7] + UART_send_buffer[8] + UART_send_buffer[9] + \
+												 UART_send_buffer[10];
+					UART_send_buffer[12] = frame_verify & 0xff;
+					UART_send_buffer[13] = 0x86;
+					
+					// send buffer
+					TM_USART_DMA_Send(USART1, (uint8_t *)&UART_send_buffer, 13);   //choose uart line
+					//function end
+					
+					// wait for exti DI13 
+					if (xSemaphoreTake( exti_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						// real time start
+						time_origin = xTaskGetTickCount() * portTICK_RATE_MS;
+						
+						// creat large/small field task
+						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
+
+
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
+						// first period value
+						TIM_SetAutoreload(TIM3, 2000);
+						// delay 10 ms
+						vTaskDelay(10 * portTICK_RATE_MS);
+						// enable tim3
+						TIM_Cmd(TIM3, ENABLE);
+						
+						// seems no use
+						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						}
+						
+						if( process_command_xHandle != NULL ) {
+							vTaskDelete( process_command_xHandle );
+						}
+						
+					}
+					
+				}
+				break;	
+      case 0x12:		//up 3k
+
+				//config DO6/7/9/10/11/12
+			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4|GPIO_Pin_5);
+			  GPIO_ResetBits(GPIOE,GPIO_Pin_3);
+			
+        // wait for uart_A1 semaphore, need adding timeout err
+			  // uart code need to be fulfilled
+				if (xSemaphoreTake( uart_A1_xSemaphore, portMAX_DELAY) == pdTRUE) {
+					// hand shake
+					// fill buffer as in tab3B1
+					// function start: repeated code of hand shake sent tab3B1
+					UART_send_buffer[0] = 0xA6;
+					UART_send_buffer[1] = 0x0D;
+					UART_send_buffer[2] = 0xAA;
+					//https://zhidao.baidu.com/question/1638675882443131580.html?qbpn=2_2&tx=&word=%E4%BB%8E%E4%B8%80%E4%B8%AA16%E4%BD%8D%E5%8F%98%E9%87%8F%E4%B8%AD%E5%8F%96%E5%87%BA%E9%AB%988%E4%BD%8D%E5%92%8C%E4%BD%8E8%E4%BD%8D%EF%BC%8C%E6%B1%82C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%EF%BC%9F&fr=newsearchlist
+					code_verify = (UART_recv_buffer[3] + UART_recv_buffer[4]) * UART_recv_buffer[5];
+					UART_send_buffer[3] = code_verify & 0xff;
+					UART_send_buffer[4] = (code_verify >> 8) & 0xff;
+					UART_send_buffer[5] = (code_verify >> 16) & 0xff;
+					UART_send_buffer[6] = (code_verify >> 24) & 0xff;
+					UART_send_buffer[7] = 0x0B;
+					UART_send_buffer[8] = 0x00;
+					UART_send_buffer[9] = 0x00;
+					UART_send_buffer[10] = 0x00;
+					UART_send_buffer[11] = 0x00;
+					frame_verify = UART_send_buffer[2] + UART_send_buffer[3] + UART_send_buffer[4] + UART_send_buffer[5] + \
+											   UART_send_buffer[6] + UART_send_buffer[7] + UART_send_buffer[8] + UART_send_buffer[9] + \
+												 UART_send_buffer[10];
+					UART_send_buffer[12] = frame_verify & 0xff;
+					UART_send_buffer[13] = 0x86;
+					
+					// send buffer
+					TM_USART_DMA_Send(USART1, (uint8_t *)&UART_send_buffer, 13);   //choose uart line
+					//function end
+					
+					// wait for exti DI13 
+					if (xSemaphoreTake( exti_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						// real time start
+						time_origin = xTaskGetTickCount() * portTICK_RATE_MS;
+						
+						// creat large/small field task
+						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
+
+
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
+						// first period value
+						TIM_SetAutoreload(TIM3, 1333);
+						// delay 10 ms
+						vTaskDelay(10 * portTICK_RATE_MS);
+						// enable tim3
+						TIM_Cmd(TIM3, ENABLE);
+						
+						// seems no use
+						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						}
+						
+						if( process_command_xHandle != NULL ) {
+							vTaskDelete( process_command_xHandle );
+						}
+						
+					}
+					
+				}
+				break;	
+      case 0x13:		//down 3k
+
+				//config DO6/7/9/10/11/12
+			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4|GPIO_Pin_5);
+			  GPIO_ResetBits(GPIOE,GPIO_Pin_3);
+			
+        // wait for uart_A1 semaphore, need adding timeout err
+			  // uart code need to be fulfilled
+				if (xSemaphoreTake( uart_A1_xSemaphore, portMAX_DELAY) == pdTRUE) {
+					// hand shake
+					// fill buffer as in tab3B1
+					// function start: repeated code of hand shake sent tab3B1
+					UART_send_buffer[0] = 0xA6;
+					UART_send_buffer[1] = 0x0D;
+					UART_send_buffer[2] = 0xAA;
+					//https://zhidao.baidu.com/question/1638675882443131580.html?qbpn=2_2&tx=&word=%E4%BB%8E%E4%B8%80%E4%B8%AA16%E4%BD%8D%E5%8F%98%E9%87%8F%E4%B8%AD%E5%8F%96%E5%87%BA%E9%AB%988%E4%BD%8D%E5%92%8C%E4%BD%8E8%E4%BD%8D%EF%BC%8C%E6%B1%82C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%EF%BC%9F&fr=newsearchlist
+					code_verify = (UART_recv_buffer[3] + UART_recv_buffer[4]) * UART_recv_buffer[5];
+					UART_send_buffer[3] = code_verify & 0xff;
+					UART_send_buffer[4] = (code_verify >> 8) & 0xff;
+					UART_send_buffer[5] = (code_verify >> 16) & 0xff;
+					UART_send_buffer[6] = (code_verify >> 24) & 0xff;
+					UART_send_buffer[7] = 0x0B;
+					UART_send_buffer[8] = 0x00;
+					UART_send_buffer[9] = 0x00;
+					UART_send_buffer[10] = 0x00;
+					UART_send_buffer[11] = 0x00;
+					frame_verify = UART_send_buffer[2] + UART_send_buffer[3] + UART_send_buffer[4] + UART_send_buffer[5] + \
+											   UART_send_buffer[6] + UART_send_buffer[7] + UART_send_buffer[8] + UART_send_buffer[9] + \
+												 UART_send_buffer[10];
+					UART_send_buffer[12] = frame_verify & 0xff;
+					UART_send_buffer[13] = 0x86;
+					
+					// send buffer
+					TM_USART_DMA_Send(USART1, (uint8_t *)&UART_send_buffer, 13);   //choose uart line
+					//function end
+					
+					// wait for exti DI13 
+					if (xSemaphoreTake( exti_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						// real time start
+						time_origin = xTaskGetTickCount() * portTICK_RATE_MS;
+						
+						// creat large/small field task
+						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
+
+
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
+						// first period value
+						TIM_SetAutoreload(TIM3, 1333);
+						// delay 10 ms
+						vTaskDelay(10 * portTICK_RATE_MS);
+						// enable tim3
+						TIM_Cmd(TIM3, ENABLE);
+						
+						// seems no use
+						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						}
+						
+						if( process_command_xHandle != NULL ) {
+							vTaskDelete( process_command_xHandle );
+						}
+						
+					}
+					
+				}
+				break;
+      case 0x14:		//left 3k
+
+				//config DO6/7/9/10/11/12
+			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4|GPIO_Pin_5);
+			  GPIO_ResetBits(GPIOE,GPIO_Pin_3);
+			
+        // wait for uart_A1 semaphore, need adding timeout err
+			  // uart code need to be fulfilled
+				if (xSemaphoreTake( uart_A1_xSemaphore, portMAX_DELAY) == pdTRUE) {
+					// hand shake
+					// fill buffer as in tab3B1
+					// function start: repeated code of hand shake sent tab3B1
+					UART_send_buffer[0] = 0xA6;
+					UART_send_buffer[1] = 0x0D;
+					UART_send_buffer[2] = 0xAA;
+					//https://zhidao.baidu.com/question/1638675882443131580.html?qbpn=2_2&tx=&word=%E4%BB%8E%E4%B8%80%E4%B8%AA16%E4%BD%8D%E5%8F%98%E9%87%8F%E4%B8%AD%E5%8F%96%E5%87%BA%E9%AB%988%E4%BD%8D%E5%92%8C%E4%BD%8E8%E4%BD%8D%EF%BC%8C%E6%B1%82C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%EF%BC%9F&fr=newsearchlist
+					code_verify = (UART_recv_buffer[3] + UART_recv_buffer[4]) * UART_recv_buffer[5];
+					UART_send_buffer[3] = code_verify & 0xff;
+					UART_send_buffer[4] = (code_verify >> 8) & 0xff;
+					UART_send_buffer[5] = (code_verify >> 16) & 0xff;
+					UART_send_buffer[6] = (code_verify >> 24) & 0xff;
+					UART_send_buffer[7] = 0x0B;
+					UART_send_buffer[8] = 0x00;
+					UART_send_buffer[9] = 0x00;
+					UART_send_buffer[10] = 0x00;
+					UART_send_buffer[11] = 0x00;
+					frame_verify = UART_send_buffer[2] + UART_send_buffer[3] + UART_send_buffer[4] + UART_send_buffer[5] + \
+											   UART_send_buffer[6] + UART_send_buffer[7] + UART_send_buffer[8] + UART_send_buffer[9] + \
+												 UART_send_buffer[10];
+					UART_send_buffer[12] = frame_verify & 0xff;
+					UART_send_buffer[13] = 0x86;
+					
+					// send buffer
+					TM_USART_DMA_Send(USART1, (uint8_t *)&UART_send_buffer, 13);   //choose uart line
+					//function end
+					
+					// wait for exti DI13 
+					if (xSemaphoreTake( exti_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						// real time start
+						time_origin = xTaskGetTickCount() * portTICK_RATE_MS;
+						
+						// creat large/small field task
+						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
+
+
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
+						// first period value
+						TIM_SetAutoreload(TIM3, 1333);
+						// delay 10 ms
+						vTaskDelay(10 * portTICK_RATE_MS);
+						// enable tim3
+						TIM_Cmd(TIM3, ENABLE);
+						
+						// seems no use
+						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						}
+						
+						if( process_command_xHandle != NULL ) {
+							vTaskDelete( process_command_xHandle );
+						}
+						
+					}
+					
+				}
+				break;	
+      case 0x15:		//right 3k
+
+				//config DO6/7/9/10/11/12
+			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4|GPIO_Pin_5);
+			  GPIO_ResetBits(GPIOE,GPIO_Pin_3);
+			
+        // wait for uart_A1 semaphore, need adding timeout err
+			  // uart code need to be fulfilled
+				if (xSemaphoreTake( uart_A1_xSemaphore, portMAX_DELAY) == pdTRUE) {
+					// hand shake
+					// fill buffer as in tab3B1
+					// function start: repeated code of hand shake sent tab3B1
+					UART_send_buffer[0] = 0xA6;
+					UART_send_buffer[1] = 0x0D;
+					UART_send_buffer[2] = 0xAA;
+					//https://zhidao.baidu.com/question/1638675882443131580.html?qbpn=2_2&tx=&word=%E4%BB%8E%E4%B8%80%E4%B8%AA16%E4%BD%8D%E5%8F%98%E9%87%8F%E4%B8%AD%E5%8F%96%E5%87%BA%E9%AB%988%E4%BD%8D%E5%92%8C%E4%BD%8E8%E4%BD%8D%EF%BC%8C%E6%B1%82C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%EF%BC%9F&fr=newsearchlist
+					code_verify = (UART_recv_buffer[3] + UART_recv_buffer[4]) * UART_recv_buffer[5];
+					UART_send_buffer[3] = code_verify & 0xff;
+					UART_send_buffer[4] = (code_verify >> 8) & 0xff;
+					UART_send_buffer[5] = (code_verify >> 16) & 0xff;
+					UART_send_buffer[6] = (code_verify >> 24) & 0xff;
+					UART_send_buffer[7] = 0x0B;
+					UART_send_buffer[8] = 0x00;
+					UART_send_buffer[9] = 0x00;
+					UART_send_buffer[10] = 0x00;
+					UART_send_buffer[11] = 0x00;
+					frame_verify = UART_send_buffer[2] + UART_send_buffer[3] + UART_send_buffer[4] + UART_send_buffer[5] + \
+											   UART_send_buffer[6] + UART_send_buffer[7] + UART_send_buffer[8] + UART_send_buffer[9] + \
+												 UART_send_buffer[10];
+					UART_send_buffer[12] = frame_verify & 0xff;
+					UART_send_buffer[13] = 0x86;
+					
+					// send buffer
+					TM_USART_DMA_Send(USART1, (uint8_t *)&UART_send_buffer, 13);   //choose uart line
+					//function end
+					
+					// wait for exti DI13 
+					if (xSemaphoreTake( exti_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						// real time start
+						time_origin = xTaskGetTickCount() * portTICK_RATE_MS;
+						
+						// creat large/small field task
+						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
+
+
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
+						// first period value
+						TIM_SetAutoreload(TIM3, 1333);
+						// delay 10 ms
+						vTaskDelay(10 * portTICK_RATE_MS);
+						// enable tim3
+						TIM_Cmd(TIM3, ENABLE);
+						
+						// seems no use
+						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						}
+						
+						if( process_command_xHandle != NULL ) {
+							vTaskDelete( process_command_xHandle );
+						}
+						
+					}
+					
+				}
+				break;
+      case 0x16:		//up 4k
+
+				//config DO6/7/9/10/11/12
+			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
+			
+        // wait for uart_A1 semaphore, need adding timeout err
+			  // uart code need to be fulfilled
+				if (xSemaphoreTake( uart_A1_xSemaphore, portMAX_DELAY) == pdTRUE) {
+					// hand shake
+					// fill buffer as in tab3B1
+					// function start: repeated code of hand shake sent tab3B1
+					UART_send_buffer[0] = 0xA6;
+					UART_send_buffer[1] = 0x0D;
+					UART_send_buffer[2] = 0xAA;
+					//https://zhidao.baidu.com/question/1638675882443131580.html?qbpn=2_2&tx=&word=%E4%BB%8E%E4%B8%80%E4%B8%AA16%E4%BD%8D%E5%8F%98%E9%87%8F%E4%B8%AD%E5%8F%96%E5%87%BA%E9%AB%988%E4%BD%8D%E5%92%8C%E4%BD%8E8%E4%BD%8D%EF%BC%8C%E6%B1%82C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%EF%BC%9F&fr=newsearchlist
+					code_verify = (UART_recv_buffer[3] + UART_recv_buffer[4]) * UART_recv_buffer[5];
+					UART_send_buffer[3] = code_verify & 0xff;
+					UART_send_buffer[4] = (code_verify >> 8) & 0xff;
+					UART_send_buffer[5] = (code_verify >> 16) & 0xff;
+					UART_send_buffer[6] = (code_verify >> 24) & 0xff;
+					UART_send_buffer[7] = 0x0B;
+					UART_send_buffer[8] = 0x00;
+					UART_send_buffer[9] = 0x00;
+					UART_send_buffer[10] = 0x00;
+					UART_send_buffer[11] = 0x00;
+					frame_verify = UART_send_buffer[2] + UART_send_buffer[3] + UART_send_buffer[4] + UART_send_buffer[5] + \
+											   UART_send_buffer[6] + UART_send_buffer[7] + UART_send_buffer[8] + UART_send_buffer[9] + \
+												 UART_send_buffer[10];
+					UART_send_buffer[12] = frame_verify & 0xff;
+					UART_send_buffer[13] = 0x86;
+					
+					// send buffer
+					TM_USART_DMA_Send(USART1, (uint8_t *)&UART_send_buffer, 13);   //choose uart line
+					//function end
+					
+					// wait for exti DI13 
+					if (xSemaphoreTake( exti_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						// real time start
+						time_origin = xTaskGetTickCount() * portTICK_RATE_MS;
+						
+						// creat large/small field task
+						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
+
+
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
+						// first period value
+						TIM_SetAutoreload(TIM3, 1333);
+						// delay 10 ms
+						vTaskDelay(10 * portTICK_RATE_MS);
+						// enable tim3
+						TIM_Cmd(TIM3, ENABLE);
+						
+						// seems no use
+						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						}
+						
+						if( process_command_xHandle != NULL ) {
+							vTaskDelete( process_command_xHandle );
+						}
+						
+					}
+					
+				}
+				break;	
+      case 0x17:		//down 4k
+
+				//config DO6/7/9/10/11/12
+			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
+			
+        // wait for uart_A1 semaphore, need adding timeout err
+			  // uart code need to be fulfilled
+				if (xSemaphoreTake( uart_A1_xSemaphore, portMAX_DELAY) == pdTRUE) {
+					// hand shake
+					// fill buffer as in tab3B1
+					// function start: repeated code of hand shake sent tab3B1
+					UART_send_buffer[0] = 0xA6;
+					UART_send_buffer[1] = 0x0D;
+					UART_send_buffer[2] = 0xAA;
+					//https://zhidao.baidu.com/question/1638675882443131580.html?qbpn=2_2&tx=&word=%E4%BB%8E%E4%B8%80%E4%B8%AA16%E4%BD%8D%E5%8F%98%E9%87%8F%E4%B8%AD%E5%8F%96%E5%87%BA%E9%AB%988%E4%BD%8D%E5%92%8C%E4%BD%8E8%E4%BD%8D%EF%BC%8C%E6%B1%82C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%EF%BC%9F&fr=newsearchlist
+					code_verify = (UART_recv_buffer[3] + UART_recv_buffer[4]) * UART_recv_buffer[5];
+					UART_send_buffer[3] = code_verify & 0xff;
+					UART_send_buffer[4] = (code_verify >> 8) & 0xff;
+					UART_send_buffer[5] = (code_verify >> 16) & 0xff;
+					UART_send_buffer[6] = (code_verify >> 24) & 0xff;
+					UART_send_buffer[7] = 0x0B;
+					UART_send_buffer[8] = 0x00;
+					UART_send_buffer[9] = 0x00;
+					UART_send_buffer[10] = 0x00;
+					UART_send_buffer[11] = 0x00;
+					frame_verify = UART_send_buffer[2] + UART_send_buffer[3] + UART_send_buffer[4] + UART_send_buffer[5] + \
+											   UART_send_buffer[6] + UART_send_buffer[7] + UART_send_buffer[8] + UART_send_buffer[9] + \
+												 UART_send_buffer[10];
+					UART_send_buffer[12] = frame_verify & 0xff;
+					UART_send_buffer[13] = 0x86;
+					
+					// send buffer
+					TM_USART_DMA_Send(USART1, (uint8_t *)&UART_send_buffer, 13);   //choose uart line
+					//function end
+					
+					// wait for exti DI13 
+					if (xSemaphoreTake( exti_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						// real time start
+						time_origin = xTaskGetTickCount() * portTICK_RATE_MS;
+						
+						// creat large/small field task
+						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
+
+
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
+						// first period value
+						TIM_SetAutoreload(TIM3, 1333);
+						// delay 10 ms
+						vTaskDelay(10 * portTICK_RATE_MS);
+						// enable tim3
+						TIM_Cmd(TIM3, ENABLE);
+						
+						// seems no use
+						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						}
+						
+						if( process_command_xHandle != NULL ) {
+							vTaskDelete( process_command_xHandle );
+						}
+						
+					}
+					
+				}
+				break;
+      case 0x18:		//left 4k
+
+				//config DO6/7/9/10/11/12
+			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
+			
+        // wait for uart_A1 semaphore, need adding timeout err
+			  // uart code need to be fulfilled
+				if (xSemaphoreTake( uart_A1_xSemaphore, portMAX_DELAY) == pdTRUE) {
+					// hand shake
+					// fill buffer as in tab3B1
+					// function start: repeated code of hand shake sent tab3B1
+					UART_send_buffer[0] = 0xA6;
+					UART_send_buffer[1] = 0x0D;
+					UART_send_buffer[2] = 0xAA;
+					//https://zhidao.baidu.com/question/1638675882443131580.html?qbpn=2_2&tx=&word=%E4%BB%8E%E4%B8%80%E4%B8%AA16%E4%BD%8D%E5%8F%98%E9%87%8F%E4%B8%AD%E5%8F%96%E5%87%BA%E9%AB%988%E4%BD%8D%E5%92%8C%E4%BD%8E8%E4%BD%8D%EF%BC%8C%E6%B1%82C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%EF%BC%9F&fr=newsearchlist
+					code_verify = (UART_recv_buffer[3] + UART_recv_buffer[4]) * UART_recv_buffer[5];
+					UART_send_buffer[3] = code_verify & 0xff;
+					UART_send_buffer[4] = (code_verify >> 8) & 0xff;
+					UART_send_buffer[5] = (code_verify >> 16) & 0xff;
+					UART_send_buffer[6] = (code_verify >> 24) & 0xff;
+					UART_send_buffer[7] = 0x0B;
+					UART_send_buffer[8] = 0x00;
+					UART_send_buffer[9] = 0x00;
+					UART_send_buffer[10] = 0x00;
+					UART_send_buffer[11] = 0x00;
+					frame_verify = UART_send_buffer[2] + UART_send_buffer[3] + UART_send_buffer[4] + UART_send_buffer[5] + \
+											   UART_send_buffer[6] + UART_send_buffer[7] + UART_send_buffer[8] + UART_send_buffer[9] + \
+												 UART_send_buffer[10];
+					UART_send_buffer[12] = frame_verify & 0xff;
+					UART_send_buffer[13] = 0x86;
+					
+					// send buffer
+					TM_USART_DMA_Send(USART1, (uint8_t *)&UART_send_buffer, 13);   //choose uart line
+					//function end
+					
+					// wait for exti DI13 
+					if (xSemaphoreTake( exti_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						// real time start
+						time_origin = xTaskGetTickCount() * portTICK_RATE_MS;
+						
+						// creat large/small field task
+						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
+
+
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
+						// first period value
+						TIM_SetAutoreload(TIM3, 1333);
+						// delay 10 ms
+						vTaskDelay(10 * portTICK_RATE_MS);
+						// enable tim3
+						TIM_Cmd(TIM3, ENABLE);
+						
+						// seems no use
+						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						}
+						
+						if( process_command_xHandle != NULL ) {
+							vTaskDelete( process_command_xHandle );
+						}
+						
+					}
+					
+				}
+				break;
+      case 0x19:		//right 4k
+
+				//config DO6/7/9/10/11/12
+			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
+			
+        // wait for uart_A1 semaphore, need adding timeout err
+			  // uart code need to be fulfilled
+				if (xSemaphoreTake( uart_A1_xSemaphore, portMAX_DELAY) == pdTRUE) {
+					// hand shake
+					// fill buffer as in tab3B1
+					// function start: repeated code of hand shake sent tab3B1
+					UART_send_buffer[0] = 0xA6;
+					UART_send_buffer[1] = 0x0D;
+					UART_send_buffer[2] = 0xAA;
+					//https://zhidao.baidu.com/question/1638675882443131580.html?qbpn=2_2&tx=&word=%E4%BB%8E%E4%B8%80%E4%B8%AA16%E4%BD%8D%E5%8F%98%E9%87%8F%E4%B8%AD%E5%8F%96%E5%87%BA%E9%AB%988%E4%BD%8D%E5%92%8C%E4%BD%8E8%E4%BD%8D%EF%BC%8C%E6%B1%82C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%EF%BC%9F&fr=newsearchlist
+					code_verify = (UART_recv_buffer[3] + UART_recv_buffer[4]) * UART_recv_buffer[5];
+					UART_send_buffer[3] = code_verify & 0xff;
+					UART_send_buffer[4] = (code_verify >> 8) & 0xff;
+					UART_send_buffer[5] = (code_verify >> 16) & 0xff;
+					UART_send_buffer[6] = (code_verify >> 24) & 0xff;
+					UART_send_buffer[7] = 0x0B;
+					UART_send_buffer[8] = 0x00;
+					UART_send_buffer[9] = 0x00;
+					UART_send_buffer[10] = 0x00;
+					UART_send_buffer[11] = 0x00;
+					frame_verify = UART_send_buffer[2] + UART_send_buffer[3] + UART_send_buffer[4] + UART_send_buffer[5] + \
+											   UART_send_buffer[6] + UART_send_buffer[7] + UART_send_buffer[8] + UART_send_buffer[9] + \
+												 UART_send_buffer[10];
+					UART_send_buffer[12] = frame_verify & 0xff;
+					UART_send_buffer[13] = 0x86;
+					
+					// send buffer
+					TM_USART_DMA_Send(USART1, (uint8_t *)&UART_send_buffer, 13);   //choose uart line
+					//function end
+					
+					// wait for exti DI13 
+					if (xSemaphoreTake( exti_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						// real time start
+						time_origin = xTaskGetTickCount() * portTICK_RATE_MS;
+						
+						// creat large/small field task
+						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
+
+
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
+						// first period value
+						TIM_SetAutoreload(TIM3, 1333);
+						// delay 10 ms
+						vTaskDelay(10 * portTICK_RATE_MS);
+						// enable tim3
+						TIM_Cmd(TIM3, ENABLE);
+						
+						// seems no use
+						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						}
+						
+						if( process_command_xHandle != NULL ) {
+							vTaskDelete( process_command_xHandle );
+						}
+						
+					}
+					
+				}
+				break;
+      case 0x1A:		//lock 3k
+
+				//config DO6/7/9/10/11/12
+			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4|GPIO_Pin_5);
+			  GPIO_ResetBits(GPIOE,GPIO_Pin_3);
+			
+        // wait for uart_A1 semaphore, need adding timeout err
+			  // uart code need to be fulfilled
+				if (xSemaphoreTake( uart_A1_xSemaphore, portMAX_DELAY) == pdTRUE) {
+					// hand shake
+					// fill buffer as in tab3B1
+					// function start: repeated code of hand shake sent tab3B1
+					UART_send_buffer[0] = 0xA6;
+					UART_send_buffer[1] = 0x0D;
+					UART_send_buffer[2] = 0xAA;
+					//https://zhidao.baidu.com/question/1638675882443131580.html?qbpn=2_2&tx=&word=%E4%BB%8E%E4%B8%80%E4%B8%AA16%E4%BD%8D%E5%8F%98%E9%87%8F%E4%B8%AD%E5%8F%96%E5%87%BA%E9%AB%988%E4%BD%8D%E5%92%8C%E4%BD%8E8%E4%BD%8D%EF%BC%8C%E6%B1%82C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%EF%BC%9F&fr=newsearchlist
+					code_verify = (UART_recv_buffer[3] + UART_recv_buffer[4]) * UART_recv_buffer[5];
+					UART_send_buffer[3] = code_verify & 0xff;
+					UART_send_buffer[4] = (code_verify >> 8) & 0xff;
+					UART_send_buffer[5] = (code_verify >> 16) & 0xff;
+					UART_send_buffer[6] = (code_verify >> 24) & 0xff;
+					UART_send_buffer[7] = 0x0B;
+					UART_send_buffer[8] = 0x00;
+					UART_send_buffer[9] = 0x00;
+					UART_send_buffer[10] = 0x00;
+					UART_send_buffer[11] = 0x00;
+					frame_verify = UART_send_buffer[2] + UART_send_buffer[3] + UART_send_buffer[4] + UART_send_buffer[5] + \
+											   UART_send_buffer[6] + UART_send_buffer[7] + UART_send_buffer[8] + UART_send_buffer[9] + \
+												 UART_send_buffer[10];
+					UART_send_buffer[12] = frame_verify & 0xff;
+					UART_send_buffer[13] = 0x86;
+					
+					// send buffer
+					TM_USART_DMA_Send(USART1, (uint8_t *)&UART_send_buffer, 13);   //choose uart line
+					//function end
+					
+					// wait for exti DI13 
+					if (xSemaphoreTake( exti_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						// real time start
+						time_origin = xTaskGetTickCount() * portTICK_RATE_MS;
+						
+						// creat large/small field task
+						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
+
+
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
+						// first period value
+						TIM_SetAutoreload(TIM3, 1333);
+						// delay 10 ms
+						vTaskDelay(10 * portTICK_RATE_MS);
+						// enable tim3
+						TIM_Cmd(TIM3, ENABLE);
+						
+						// seems no use
+						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						}
+						
+						if( process_command_xHandle != NULL ) {
+							vTaskDelete( process_command_xHandle );
+						}
+						
+					}
+					
+				}
+				break;
+      case 0x1B:		//lock 4k
+
+				//config DO6/7/9/10/11/12
+			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
+			
+        // wait for uart_A1 semaphore, need adding timeout err
+			  // uart code need to be fulfilled
+				if (xSemaphoreTake( uart_A1_xSemaphore, portMAX_DELAY) == pdTRUE) {
+					// hand shake
+					// fill buffer as in tab3B1
+					// function start: repeated code of hand shake sent tab3B1
+					UART_send_buffer[0] = 0xA6;
+					UART_send_buffer[1] = 0x0D;
+					UART_send_buffer[2] = 0xAA;
+					//https://zhidao.baidu.com/question/1638675882443131580.html?qbpn=2_2&tx=&word=%E4%BB%8E%E4%B8%80%E4%B8%AA16%E4%BD%8D%E5%8F%98%E9%87%8F%E4%B8%AD%E5%8F%96%E5%87%BA%E9%AB%988%E4%BD%8D%E5%92%8C%E4%BD%8E8%E4%BD%8D%EF%BC%8C%E6%B1%82C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%EF%BC%9F&fr=newsearchlist
+					code_verify = (UART_recv_buffer[3] + UART_recv_buffer[4]) * UART_recv_buffer[5];
+					UART_send_buffer[3] = code_verify & 0xff;
+					UART_send_buffer[4] = (code_verify >> 8) & 0xff;
+					UART_send_buffer[5] = (code_verify >> 16) & 0xff;
+					UART_send_buffer[6] = (code_verify >> 24) & 0xff;
+					UART_send_buffer[7] = 0x0B;
+					UART_send_buffer[8] = 0x00;
+					UART_send_buffer[9] = 0x00;
+					UART_send_buffer[10] = 0x00;
+					UART_send_buffer[11] = 0x00;
+					frame_verify = UART_send_buffer[2] + UART_send_buffer[3] + UART_send_buffer[4] + UART_send_buffer[5] + \
+											   UART_send_buffer[6] + UART_send_buffer[7] + UART_send_buffer[8] + UART_send_buffer[9] + \
+												 UART_send_buffer[10];
+					UART_send_buffer[12] = frame_verify & 0xff;
+					UART_send_buffer[13] = 0x86;
+					
+					// send buffer
+					TM_USART_DMA_Send(USART1, (uint8_t *)&UART_send_buffer, 13);   //choose uart line
+					//function end
+					
+					// wait for exti DI13 
+					if (xSemaphoreTake( exti_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						// real time start
+						time_origin = xTaskGetTickCount() * portTICK_RATE_MS;
+						
+						// creat large/small field task
+						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
+
+
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
+						// first period value
+						TIM_SetAutoreload(TIM3, 1333);
+						// delay 10 ms
+						vTaskDelay(10 * portTICK_RATE_MS);
+						// enable tim3
+						TIM_Cmd(TIM3, ENABLE);
+						
+						// seems no use
+						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						}
+						
+						if( process_command_xHandle != NULL ) {
+							vTaskDelete( process_command_xHandle );
+						}
+						
+					}
+					
+				}
+				break;
+      case 0x20:		//test 3k
+
+				//config DO6/7/9/10/11/12
+			  GPIO_ResetBits(GPIOA, GPIO_Pin_15);
+				GPIO_ResetBits(GPIOE, GPIO_Pin_3);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4|GPIO_Pin_5);
+			
+        // wait for uart_A1 semaphore, need adding timeout err
+			  // uart code need to be fulfilled
+				if (xSemaphoreTake( uart_A1_xSemaphore, portMAX_DELAY) == pdTRUE) {
+					// hand shake
+					// fill buffer as in tab3B1
+					// function start: repeated code of hand shake sent tab3B1
+					UART_send_buffer[0] = 0xA6;
+					UART_send_buffer[1] = 0x0D;
+					UART_send_buffer[2] = 0xAA;
+					//https://zhidao.baidu.com/question/1638675882443131580.html?qbpn=2_2&tx=&word=%E4%BB%8E%E4%B8%80%E4%B8%AA16%E4%BD%8D%E5%8F%98%E9%87%8F%E4%B8%AD%E5%8F%96%E5%87%BA%E9%AB%988%E4%BD%8D%E5%92%8C%E4%BD%8E8%E4%BD%8D%EF%BC%8C%E6%B1%82C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%EF%BC%9F&fr=newsearchlist
+					code_verify = (UART_recv_buffer[3] + UART_recv_buffer[4]) * UART_recv_buffer[5];
+					UART_send_buffer[3] = code_verify & 0xff;
+					UART_send_buffer[4] = (code_verify >> 8) & 0xff;
+					UART_send_buffer[5] = (code_verify >> 16) & 0xff;
+					UART_send_buffer[6] = (code_verify >> 24) & 0xff;
+					UART_send_buffer[7] = 0x0B;
+					UART_send_buffer[8] = 0x00;
+					UART_send_buffer[9] = 0x00;
+					UART_send_buffer[10] = 0x00;
+					UART_send_buffer[11] = 0x00;
+					frame_verify = UART_send_buffer[2] + UART_send_buffer[3] + UART_send_buffer[4] + UART_send_buffer[5] + \
+											   UART_send_buffer[6] + UART_send_buffer[7] + UART_send_buffer[8] + UART_send_buffer[9] + \
+												 UART_send_buffer[10];
+					UART_send_buffer[12] = frame_verify & 0xff;
+					UART_send_buffer[13] = 0x86;
+					
+					// send buffer
+					TM_USART_DMA_Send(USART1, (uint8_t *)&UART_send_buffer, 13);   //choose uart line
+					//function end
+					
+					// wait for exti DI13 
+					if (xSemaphoreTake( exti_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						// real time start
+						time_origin = xTaskGetTickCount() * portTICK_RATE_MS;
+						
+						// creat large/small field task
+						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
+
+
+						// reset duty step to 0
+						TIM_SetCompare1(TIM3, 0);
+						// first period value
+						TIM_SetAutoreload(TIM3, 1330);
+						// delay 10 ms
+						vTaskDelay(10 * portTICK_RATE_MS);
+						// enable tim3
+						TIM_Cmd(TIM3, ENABLE);
+						
+						// seems no use
+						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						}
+						
+						if( process_command_xHandle != NULL ) {
+							vTaskDelete( process_command_xHandle );
+						}
+						
+					}
+					
+				}
+				break;	
+      case 0x21:		//test 4k
+
+				//config DO6/7/9/10/11/12
+			  GPIO_ResetBits(GPIOA, GPIO_Pin_15);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
+			
+        // wait for uart_A1 semaphore, need adding timeout err
+			  // uart code need to be fulfilled
+				if (xSemaphoreTake( uart_A1_xSemaphore, portMAX_DELAY) == pdTRUE) {
+					// hand shake
+					// fill buffer as in tab3B1
+					// function start: repeated code of hand shake sent tab3B1
+					UART_send_buffer[0] = 0xA6;
+					UART_send_buffer[1] = 0x0D;
+					UART_send_buffer[2] = 0xAA;
+					//https://zhidao.baidu.com/question/1638675882443131580.html?qbpn=2_2&tx=&word=%E4%BB%8E%E4%B8%80%E4%B8%AA16%E4%BD%8D%E5%8F%98%E9%87%8F%E4%B8%AD%E5%8F%96%E5%87%BA%E9%AB%988%E4%BD%8D%E5%92%8C%E4%BD%8E8%E4%BD%8D%EF%BC%8C%E6%B1%82C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%EF%BC%9F&fr=newsearchlist
+					code_verify = (UART_recv_buffer[3] + UART_recv_buffer[4]) * UART_recv_buffer[5];
+					UART_send_buffer[3] = code_verify & 0xff;
+					UART_send_buffer[4] = (code_verify >> 8) & 0xff;
+					UART_send_buffer[5] = (code_verify >> 16) & 0xff;
+					UART_send_buffer[6] = (code_verify >> 24) & 0xff;
+					UART_send_buffer[7] = 0x0B;
+					UART_send_buffer[8] = 0x00;
+					UART_send_buffer[9] = 0x00;
+					UART_send_buffer[10] = 0x00;
+					UART_send_buffer[11] = 0x00;
+					frame_verify = UART_send_buffer[2] + UART_send_buffer[3] + UART_send_buffer[4] + UART_send_buffer[5] + \
+											   UART_send_buffer[6] + UART_send_buffer[7] + UART_send_buffer[8] + UART_send_buffer[9] + \
+												 UART_send_buffer[10];
+					UART_send_buffer[12] = frame_verify & 0xff;
+					UART_send_buffer[13] = 0x86;
+					
+					// send buffer
+					TM_USART_DMA_Send(USART1, (uint8_t *)&UART_send_buffer, 13);   //choose uart line
+					//function end
+					
+					// wait for exti DI13 
+					if (xSemaphoreTake( exti_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						// real time start
+						time_origin = xTaskGetTickCount() * portTICK_RATE_MS;
+						
+						// creat large/small field task
+						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
+
+
+						// reset duty step to 0
+						TIM_SetCompare1(TIM3, 0);
+						// first period value
+						TIM_SetAutoreload(TIM3, 1330);
+						// delay 10 ms
+						vTaskDelay(10 * portTICK_RATE_MS);
+						// enable tim3
+						TIM_Cmd(TIM3, ENABLE);
+						
+						// seems no use
+						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						}
+						
+						if( process_command_xHandle != NULL ) {
+							vTaskDelete( process_command_xHandle );
+						}
+						
+					}
+					
+				}
+				break;		
+      case 0x22:		//regulate 3k
+
+				//config DO6/7/9/10/11/12
+			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
+			  GPIO_ResetBits(GPIOE, GPIO_Pin_3);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4|GPIO_Pin_5);
+			
+        // wait for uart_A1 semaphore, need adding timeout err
+			  // uart code need to be fulfilled
+				if (xSemaphoreTake( uart_A1_xSemaphore, portMAX_DELAY) == pdTRUE) {
+					// hand shake
+					// fill buffer as in tab3B1
+					// function start: repeated code of hand shake sent tab3B1
+					UART_send_buffer[0] = 0xA6;
+					UART_send_buffer[1] = 0x0D;
+					UART_send_buffer[2] = 0xAA;
+					//https://zhidao.baidu.com/question/1638675882443131580.html?qbpn=2_2&tx=&word=%E4%BB%8E%E4%B8%80%E4%B8%AA16%E4%BD%8D%E5%8F%98%E9%87%8F%E4%B8%AD%E5%8F%96%E5%87%BA%E9%AB%988%E4%BD%8D%E5%92%8C%E4%BD%8E8%E4%BD%8D%EF%BC%8C%E6%B1%82C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%EF%BC%9F&fr=newsearchlist
+					code_verify = (UART_recv_buffer[3] + UART_recv_buffer[4]) * UART_recv_buffer[5];
+					UART_send_buffer[3] = code_verify & 0xff;
+					UART_send_buffer[4] = (code_verify >> 8) & 0xff;
+					UART_send_buffer[5] = (code_verify >> 16) & 0xff;
+					UART_send_buffer[6] = (code_verify >> 24) & 0xff;
+					UART_send_buffer[7] = 0x0B;
+					UART_send_buffer[8] = 0x00;
+					UART_send_buffer[9] = 0x00;
+					UART_send_buffer[10] = 0x00;
+					UART_send_buffer[11] = 0x00;
+					frame_verify = UART_send_buffer[2] + UART_send_buffer[3] + UART_send_buffer[4] + UART_send_buffer[5] + \
+											   UART_send_buffer[6] + UART_send_buffer[7] + UART_send_buffer[8] + UART_send_buffer[9] + \
+												 UART_send_buffer[10];
+					UART_send_buffer[12] = frame_verify & 0xff;
+					UART_send_buffer[13] = 0x86;
+					
+					// send buffer
+					TM_USART_DMA_Send(USART1, (uint8_t *)&UART_send_buffer, 13);   //choose uart line
+					//function end
+					
+					// wait for exti DI13 
+					if (xSemaphoreTake( exti_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						// real time start
+						time_origin = xTaskGetTickCount() * portTICK_RATE_MS;
+						
+						// creat large/small field task
+						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
+
+
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
+						// first period value
+						TIM_SetAutoreload(TIM3, 1333);
+						// delay 10 ms
+						vTaskDelay(10 * portTICK_RATE_MS);
+						// enable tim3
+						TIM_Cmd(TIM3, ENABLE);
+						
+						// seems no use
+						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						}
+						
+						if( process_command_xHandle != NULL ) {
+							vTaskDelete( process_command_xHandle );
+						}
+						
+					}
+					
+				}
+				break;		
+      case 0x23:		//regulate 4k
+
+				//config DO6/7/9/10/11/12
+			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
+			
+        // wait for uart_A1 semaphore, need adding timeout err
+			  // uart code need to be fulfilled
+				if (xSemaphoreTake( uart_A1_xSemaphore, portMAX_DELAY) == pdTRUE) {
+					// hand shake
+					// fill buffer as in tab3B1
+					// function start: repeated code of hand shake sent tab3B1
+					UART_send_buffer[0] = 0xA6;
+					UART_send_buffer[1] = 0x0D;
+					UART_send_buffer[2] = 0xAA;
+					//https://zhidao.baidu.com/question/1638675882443131580.html?qbpn=2_2&tx=&word=%E4%BB%8E%E4%B8%80%E4%B8%AA16%E4%BD%8D%E5%8F%98%E9%87%8F%E4%B8%AD%E5%8F%96%E5%87%BA%E9%AB%988%E4%BD%8D%E5%92%8C%E4%BD%8E8%E4%BD%8D%EF%BC%8C%E6%B1%82C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%EF%BC%9F&fr=newsearchlist
+					code_verify = (UART_recv_buffer[3] + UART_recv_buffer[4]) * UART_recv_buffer[5];
+					UART_send_buffer[3] = code_verify & 0xff;
+					UART_send_buffer[4] = (code_verify >> 8) & 0xff;
+					UART_send_buffer[5] = (code_verify >> 16) & 0xff;
+					UART_send_buffer[6] = (code_verify >> 24) & 0xff;
+					UART_send_buffer[7] = 0x0B;
+					UART_send_buffer[8] = 0x00;
+					UART_send_buffer[9] = 0x00;
+					UART_send_buffer[10] = 0x00;
+					UART_send_buffer[11] = 0x00;
+					frame_verify = UART_send_buffer[2] + UART_send_buffer[3] + UART_send_buffer[4] + UART_send_buffer[5] + \
+											   UART_send_buffer[6] + UART_send_buffer[7] + UART_send_buffer[8] + UART_send_buffer[9] + \
+												 UART_send_buffer[10];
+					UART_send_buffer[12] = frame_verify & 0xff;
+					UART_send_buffer[13] = 0x86;
+					
+					// send buffer
+					TM_USART_DMA_Send(USART1, (uint8_t *)&UART_send_buffer, 13);   //choose uart line
+					//function end
+					
+					// wait for exti DI13 
+					if (xSemaphoreTake( exti_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						// real time start
+						time_origin = xTaskGetTickCount() * portTICK_RATE_MS;
+						
+						// creat large/small field task
+						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
+
+
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
+						// first period value
+						TIM_SetAutoreload(TIM3, 1333);
+						// delay 10 ms
+						vTaskDelay(10 * portTICK_RATE_MS);
+						// enable tim3
+						TIM_Cmd(TIM3, ENABLE);
+						
+						// seems no use
+						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						}
+						
+						if( process_command_xHandle != NULL ) {
+							vTaskDelete( process_command_xHandle );
+						}
+						
+					}
+					
+				}
+				break;	
+      case 0x24:		//wireless
+
+				//config DO6/7/9/10/11/12
+			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
+			  GPIO_ResetBits(GPIOE,GPIO_Pin_1);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
+			
+        // wait for uart_A1 semaphore, need adding timeout err
+			  // uart code need to be fulfilled
+				if (xSemaphoreTake( uart_A1_xSemaphore, portMAX_DELAY) == pdTRUE) {
+					// hand shake
+					// fill buffer as in tab3B1
+					// function start: repeated code of hand shake sent tab3B1
+					UART_send_buffer[0] = 0xA6;
+					UART_send_buffer[1] = 0x0D;
+					UART_send_buffer[2] = 0xAA;
+					//https://zhidao.baidu.com/question/1638675882443131580.html?qbpn=2_2&tx=&word=%E4%BB%8E%E4%B8%80%E4%B8%AA16%E4%BD%8D%E5%8F%98%E9%87%8F%E4%B8%AD%E5%8F%96%E5%87%BA%E9%AB%988%E4%BD%8D%E5%92%8C%E4%BD%8E8%E4%BD%8D%EF%BC%8C%E6%B1%82C%E8%AF%AD%E8%A8%80%E7%A8%8B%E5%BA%8F%EF%BC%9F&fr=newsearchlist
+					code_verify = (UART_recv_buffer[3] + UART_recv_buffer[4]) * UART_recv_buffer[5];
+					UART_send_buffer[3] = code_verify & 0xff;
+					UART_send_buffer[4] = (code_verify >> 8) & 0xff;
+					UART_send_buffer[5] = (code_verify >> 16) & 0xff;
+					UART_send_buffer[6] = (code_verify >> 24) & 0xff;
+					UART_send_buffer[7] = 0x0B;
+					UART_send_buffer[8] = 0x00;
+					UART_send_buffer[9] = 0x00;
+					UART_send_buffer[10] = 0x00;
+					UART_send_buffer[11] = 0x00;
+					frame_verify = UART_send_buffer[2] + UART_send_buffer[3] + UART_send_buffer[4] + UART_send_buffer[5] + \
+											   UART_send_buffer[6] + UART_send_buffer[7] + UART_send_buffer[8] + UART_send_buffer[9] + \
+												 UART_send_buffer[10];
+					UART_send_buffer[12] = frame_verify & 0xff;
+					UART_send_buffer[13] = 0x86;
+					
+					// send buffer
+					TM_USART_DMA_Send(USART1, (uint8_t *)&UART_send_buffer, 13);   //choose uart line
+					//function end
+					
+					// wait for exti DI13 
+					if (xSemaphoreTake( exti_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						// real time start
+						time_origin = xTaskGetTickCount() * portTICK_RATE_MS;
+						
+						// creat large/small field task
+						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
+
+
+						// reset duty step to 0
+						TIM_SetCompare1(TIM3, 0);
+						// first period value
+						TIM_SetAutoreload(TIM3, 1330);
+						// delay 10 ms
+						vTaskDelay(10 * portTICK_RATE_MS);
+						// enable tim3
+						TIM_Cmd(TIM3, ENABLE);
+						
+						// seems no use
+						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+						}
+						
+						if( process_command_xHandle != NULL ) {
+							vTaskDelete( process_command_xHandle );
+						}
+						
+					}
+					
+				}
+				break;				
 			default:
 				break;			
 		}
