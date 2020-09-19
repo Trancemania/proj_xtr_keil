@@ -331,10 +331,13 @@ void uart_task(void * pvParameters)
 
 void udp_recv_fn(void *arg, struct udp_pcb *pcb, struct pbuf *p, struct ip_addr *addr, u16_t port){
 	if (p != NULL) {   //&& p->len == 2?
+		uint8_t buffer[10];
 		//check addr port
 		
 		// copy command to buffer
-		memcpy(ETH_recv_buffer, &p->payload, p->len);
+//		memcpy(ETH_recv_buffer, &p->payload, p->len);
+		memcpy(ETH_recv_buffer, p->payload, p->len);
+
 		
 		// for command + last time mode
 //		command_H = ETH_recv_buffer[1];
@@ -342,6 +345,17 @@ void udp_recv_fn(void *arg, struct udp_pcb *pcb, struct pbuf *p, struct ip_addr 
 		
 		// state machine mode
 		command = ETH_recv_buffer[0];
+		
+		TM_USART_DMA_Send(USART1, (uint8_t *)&ETH_recv_buffer, p->len);
+//		DMA_printf(USART1, "%c", command);
+		
+		pbuf_free(p);
+//		
+//		buffer[0] = command;
+//		memcpy(p->payload, &ETH_recv_buffer, p->len);
+//		udp_sendto_if(pcb, p, &dst_addr, dst_port, &xnetif);
+//		
+//		pbuf_free(p);
 		
 		//check if command available
 		if (command == 0x00	||	\
@@ -409,6 +423,7 @@ void udp_recv_fn(void *arg, struct udp_pcb *pcb, struct pbuf *p, struct ip_addr 
 void process_command_task(void * pvParameters){
 	unsigned int code_verify;
 	unsigned int frame_verify;
+	
 	if (command == 0x00 || command == 0xFF) {
 		//set DO0~12 to 1
 		GPIO_SetBits(GPIOA, GPIO_Pin_3|GPIO_Pin_5|GPIO_Pin_8|GPIO_Pin_15);
@@ -576,6 +591,7 @@ void process_command_task(void * pvParameters){
         
 			case 0x01:      //Self-examination
 				
+				DMA_printf(USART1, "\n\rGOOD\n\r");
 				// reset pwm
 				TIM_ITConfig(TIM3, TIM_FLAG_CC1, DISABLE);
 				TIM_SetCompare1(TIM3, 0);
