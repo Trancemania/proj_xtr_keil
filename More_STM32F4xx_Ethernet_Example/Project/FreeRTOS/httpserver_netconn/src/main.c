@@ -93,6 +93,8 @@ extern struct netif xnetif;
 extern const unsigned short dst_port;
 extern const unsigned short src_port;
 
+extern volatile int pwm_count;
+
 uint8_t ETH_send_buffer[128];
 uint8_t ETH_recv_buffer[128];
 uint8_t UART_send_buffer[16];
@@ -412,19 +414,24 @@ void process_command_task(void * pvParameters){
 		GPIO_SetBits(GPIOA, GPIO_Pin_3|GPIO_Pin_5|GPIO_Pin_8|GPIO_Pin_15);
 		GPIO_SetBits(GPIOD, GPIO_Pin_11);
 		GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5|GPIO_Pin_6|GPIO_Pin_7);
+		TIM_ITConfig(TIM3, TIM_FLAG_CC1, DISABLE);
 		TIM_SetCompare1(TIM3, 0);
+		
 	}
 	else {
 		switch (command) {
 			case 0x1D:   	//channel 3K
 				
 				// reset pwm
+				TIM_ITConfig(TIM3, TIM_FLAG_CC1, DISABLE);
 				TIM_SetCompare1(TIM3, 0);
+				pwm_count = 0;
 			
 				//config DO6/7/9/10/11/12
 				GPIO_SetBits(GPIOA, GPIO_Pin_15);
 				GPIO_ResetBits(GPIOE, GPIO_Pin_3);
-				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4|GPIO_Pin_5);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4);
+				GPIO_ResetBits(GPIOE, GPIO_Pin_5);
 				
 				// wait for uart_A1 semaphore, need adding timeout err
 			  // uart code need to be fulfilled
@@ -467,10 +474,10 @@ void process_command_task(void * pvParameters){
 						// varying frequency
 						// disable tim3
 						TIM_Cmd(TIM3, DISABLE);
-						// reset duty step to 100
-						TIM_SetCompare1(TIM3, 100);
 						// first period value
 						TIM_SetAutoreload(TIM3, 1400);
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
 						// enable interrupt
 						TIM_ITConfig(TIM3, TIM_FLAG_CC1, ENABLE);
 						// delay 10 ms
@@ -493,11 +500,14 @@ void process_command_task(void * pvParameters){
 			case 0x1F:  //channel 4K
 				
 				// reset pwm
+				TIM_ITConfig(TIM3, TIM_FLAG_CC1, DISABLE);
 				TIM_SetCompare1(TIM3, 0);
+				pwm_count = 0;
 			
 				//config DO6/7/9/10/11/12
 				GPIO_SetBits(GPIOA, GPIO_Pin_15);
-				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4);
+				GPIO_ResetBits(GPIOE, GPIO_Pin_5);
 			
         // wait for uart_A1 semaphore, need adding timeout err
 			  // uart code need to be fulfilled
@@ -540,10 +550,10 @@ void process_command_task(void * pvParameters){
 						// varying frequency
 						// disable tim3
 						TIM_Cmd(TIM3, DISABLE);
-						// reset duty step to 100
-						TIM_SetCompare1(TIM3, 100);
 						// first period value
 						TIM_SetAutoreload(TIM3, 1400);
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
 						// enable interrupt
 						TIM_ITConfig(TIM3, TIM_FLAG_CC1, ENABLE);
 						// delay 10 ms
@@ -565,6 +575,11 @@ void process_command_task(void * pvParameters){
 				break;
         
 			case 0x01:      //Self-examination
+				
+				// reset pwm
+				TIM_ITConfig(TIM3, TIM_FLAG_CC1, DISABLE);
+				TIM_SetCompare1(TIM3, 0);
+				pwm_count = 0;
 				
 				//config DO6/7/9/10/11/12
 				GPIO_SetBits(GPIOA, GPIO_Pin_15);
@@ -607,22 +622,21 @@ void process_command_task(void * pvParameters){
 						time_origin = xTaskGetTickCount() * portTICK_RATE_MS;
 						
 						// creat large/small field task
-						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
+//						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
 
-
+						// first period value
+						TIM_SetAutoreload(TIM3, 1333);
 						// reset duty step to 0
 						TIM_SetCompare1(TIM3, 0);
-						// first period value
-						TIM_SetAutoreload(TIM3, 1330);
 						// delay 10 ms
-						vTaskDelay(10 * portTICK_RATE_MS);
+//						vTaskDelay(10 * portTICK_RATE_MS);
 						// enable tim3
-						TIM_Cmd(TIM3, ENABLE);
+//						TIM_Cmd(TIM3, ENABLE);
 						
 						// seems no use
-						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
-						}
-						
+//						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+//						}
+//						
 						if( process_command_xHandle != NULL ) {
 							vTaskDelete( process_command_xHandle );
 						}
@@ -700,6 +714,11 @@ void process_command_task(void * pvParameters){
 				break;
 
 			case 0x03:     //comp 3k
+				
+				// reset pwm
+				TIM_ITConfig(TIM3, TIM_FLAG_CC1, DISABLE);
+				TIM_SetCompare1(TIM3, 0);
+				pwm_count = 0;
 
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
@@ -744,19 +763,18 @@ void process_command_task(void * pvParameters){
 						// creat large/small field task
 						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
 
-
+						// first period value
+						TIM_SetAutoreload(TIM3, 1333);
 						// reset duty step to 100
 						TIM_SetCompare1(TIM3, 100);
-						// first period value
-						TIM_SetAutoreload(TIM3, 1330);
 						// delay 10 ms
-						vTaskDelay(10 * portTICK_RATE_MS);
+//						vTaskDelay(10 * portTICK_RATE_MS);
 						// enable tim3
-						TIM_Cmd(TIM3, ENABLE);
+//						TIM_Cmd(TIM3, ENABLE);
 						
 						// seems no use
-						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
-						}
+//						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+//						}
 						
 						if( process_command_xHandle != NULL ) {
 							vTaskDelete( process_command_xHandle );
