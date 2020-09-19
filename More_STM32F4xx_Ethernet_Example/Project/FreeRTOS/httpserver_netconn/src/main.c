@@ -647,6 +647,11 @@ void process_command_task(void * pvParameters){
 				break;
 			case 0x02:   	//gyro pulse
 				
+				// reset pwm
+				TIM_ITConfig(TIM3, TIM_FLAG_CC1, DISABLE);
+				TIM_SetCompare1(TIM3, 0);
+				pwm_count = 0;				
+			
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
 				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4);
@@ -687,22 +692,21 @@ void process_command_task(void * pvParameters){
 						// real time start
 						time_origin = xTaskGetTickCount() * portTICK_RATE_MS;
 						
-						// creat large/small field task
-						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
+//						// creat large/small field task
+//						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
 
-
-						// reset duty step to 100
-						TIM_SetCompare1(TIM3, 100);
 						// first period value
 						TIM_SetAutoreload(TIM3, 1330);
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
 						// delay 10 ms
-						vTaskDelay(10 * portTICK_RATE_MS);
-						// enable tim3
-						TIM_Cmd(TIM3, ENABLE);
-						
-						// seems no use
-						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
-						}
+//						vTaskDelay(10 * portTICK_RATE_MS);
+//						// enable tim3
+//						TIM_Cmd(TIM3, ENABLE);
+//						
+//						// seems no use
+//						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+//						}
 						
 						if( process_command_xHandle != NULL ) {
 							vTaskDelete( process_command_xHandle );
@@ -786,7 +790,12 @@ void process_command_task(void * pvParameters){
 				break;
 
 			case 0x04:  //comp 4k
-
+				
+				// reset pwm
+				TIM_ITConfig(TIM3, TIM_FLAG_CC1, DISABLE);
+				TIM_SetCompare1(TIM3, 0);
+				pwm_count = 0;
+			
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
 				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4);
@@ -830,19 +839,18 @@ void process_command_task(void * pvParameters){
 						// creat large/small field task
 						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
 
-
-						// reset duty step to 100
-						TIM_SetCompare1(TIM3, 100);
 						// first period value
 						TIM_SetAutoreload(TIM3, 1333);
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
 						// delay 10 ms
-						vTaskDelay(10 * portTICK_RATE_MS);
-						// enable tim3
-						TIM_Cmd(TIM3, ENABLE);
-						
-						// seems no use
-						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
-						}
+//						vTaskDelay(10 * portTICK_RATE_MS);
+//						// enable tim3
+//						TIM_Cmd(TIM3, ENABLE);
+//						
+//						// seems no use
+//						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+//						}
 						
 						if( process_command_xHandle != NULL ) {
 							vTaskDelete( process_command_xHandle );
@@ -855,6 +863,11 @@ void process_command_task(void * pvParameters){
 				
 			case 0x05:  // half circle lock
 				
+				// reset pwm
+				TIM_ITConfig(TIM3, TIM_FLAG_CC1, DISABLE);
+				TIM_SetCompare1(TIM3, 0);
+				pwm_count = 0;		
+			
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
 				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3);
@@ -898,19 +911,18 @@ void process_command_task(void * pvParameters){
 						// creat large/small field task
 						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
 
-
-						// reset duty step to 100
-						TIM_SetCompare1(TIM3, 100);
 						// first period value
 						TIM_SetAutoreload(TIM3, 1333);
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
 						// delay 10 ms
-						vTaskDelay(10 * portTICK_RATE_MS);
-						// enable tim3
-						TIM_Cmd(TIM3, ENABLE);
-						
-						// seems no use
-						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
-						}
+//						vTaskDelay(10 * portTICK_RATE_MS);
+//						// enable tim3
+//						TIM_Cmd(TIM3, ENABLE);
+//						
+//						// seems no use
+//						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+//						}
 						
 						if( process_command_xHandle != NULL ) {
 							vTaskDelete( process_command_xHandle );
@@ -923,6 +935,11 @@ void process_command_task(void * pvParameters){
 
       case 0x06:    //3 loop 48 3k
 				
+				// reset pwm
+				TIM_ITConfig(TIM3, TIM_FLAG_CC1, DISABLE);
+				TIM_SetCompare1(TIM3, 0);
+				pwm_count = 0;	
+			
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
 				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4);
@@ -966,19 +983,18 @@ void process_command_task(void * pvParameters){
 						// creat large/small field task
 						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
 
-
-						// reset duty step to 100
-						TIM_SetCompare1(TIM3, 100);
 						// first period value
 						TIM_SetAutoreload(TIM3, 1500);
-						// delay 10 ms
-						vTaskDelay(10 * portTICK_RATE_MS);
-						// enable tim3
-						TIM_Cmd(TIM3, ENABLE);
-						
-						// seems no use
-						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
-						}
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
+//						// delay 10 ms
+//						vTaskDelay(10 * portTICK_RATE_MS);
+//						// enable tim3
+//						TIM_Cmd(TIM3, ENABLE);
+//						
+//						// seems no use
+//						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+//						}
 						
 						if( process_command_xHandle != NULL ) {
 							vTaskDelete( process_command_xHandle );
@@ -991,6 +1007,11 @@ void process_command_task(void * pvParameters){
 
 			case 0x07:    //3 loop 52 3k	
 				
+				// reset pwm
+				TIM_ITConfig(TIM3, TIM_FLAG_CC1, DISABLE);
+				TIM_SetCompare1(TIM3, 0);
+				pwm_count = 0;	
+			
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
 				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4);
@@ -1034,19 +1055,18 @@ void process_command_task(void * pvParameters){
 						// creat large/small field task
 						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
 
-
-						// reset duty step to 100
-						TIM_SetCompare1(TIM3, 100);
 						// first period value
 						TIM_SetAutoreload(TIM3, 1500);
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
 						// delay 10 ms
-						vTaskDelay(10 * portTICK_RATE_MS);
-						// enable tim3
-						TIM_Cmd(TIM3, ENABLE);
-						
-						// seems no use
-						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
-						}
+//						vTaskDelay(10 * portTICK_RATE_MS);
+//						// enable tim3
+//						TIM_Cmd(TIM3, ENABLE);
+//						
+//						// seems no use
+//						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+//						}
 						
 						if( process_command_xHandle != NULL ) {
 							vTaskDelete( process_command_xHandle );
@@ -1057,8 +1077,13 @@ void process_command_task(void * pvParameters){
 				}
 				break;
 
-      case 0x08:  //3 loop 68 3k		
-
+      case 0x08:  //3 loop 68 3k	
+				
+				// reset pwm
+				TIM_ITConfig(TIM3, TIM_FLAG_CC1, DISABLE);
+				TIM_SetCompare1(TIM3, 0);
+				pwm_count = 0;	
+			
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
 				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4|GPIO_Pin_5);
@@ -1102,19 +1127,18 @@ void process_command_task(void * pvParameters){
 						// creat large/small field task
 						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
 
-
-						// reset duty step to 100
-						TIM_SetCompare1(TIM3, 100);
 						// first period value
 						TIM_SetAutoreload(TIM3, 1500);
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
 						// delay 10 ms
-						vTaskDelay(10 * portTICK_RATE_MS);
-						// enable tim3
-						TIM_Cmd(TIM3, ENABLE);
-						
-						// seems no use
-						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
-						}
+//						vTaskDelay(10 * portTICK_RATE_MS);
+//						// enable tim3
+//						TIM_Cmd(TIM3, ENABLE);
+//						
+//						// seems no use
+//						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+//						}
 						
 						if( process_command_xHandle != NULL ) {
 							vTaskDelete( process_command_xHandle );
@@ -1126,7 +1150,12 @@ void process_command_task(void * pvParameters){
 				break;
 
 			case 0x09:		//3 loop 72 3k	
-
+				
+				// reset pwm
+				TIM_ITConfig(TIM3, TIM_FLAG_CC1, DISABLE);
+				TIM_SetCompare1(TIM3, 0);
+				pwm_count = 0;	
+			
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
 				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4|GPIO_Pin_5);
@@ -1170,19 +1199,18 @@ void process_command_task(void * pvParameters){
 						// creat large/small field task
 						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
 
-
-						// reset duty step to 100
-						TIM_SetCompare1(TIM3, 100);
 						// first period value
 						TIM_SetAutoreload(TIM3, 1500);
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
 						// delay 10 ms
-						vTaskDelay(10 * portTICK_RATE_MS);
-						// enable tim3
-						TIM_Cmd(TIM3, ENABLE);
-						
-						// seems no use
-						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
-						}
+//						vTaskDelay(10 * portTICK_RATE_MS);
+//						// enable tim3
+//						TIM_Cmd(TIM3, ENABLE);
+//						
+//						// seems no use
+//						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+//						}
 						
 						if( process_command_xHandle != NULL ) {
 							vTaskDelete( process_command_xHandle );
@@ -1194,7 +1222,12 @@ void process_command_task(void * pvParameters){
 				break;
 				
       case 0x0A:		//3 loop 48 4k
-
+				
+				// reset pwm
+				TIM_ITConfig(TIM3, TIM_FLAG_CC1, DISABLE);
+				TIM_SetCompare1(TIM3, 0);
+				pwm_count = 0;	
+			
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
 				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
@@ -1237,19 +1270,18 @@ void process_command_task(void * pvParameters){
 						// creat large/small field task
 						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
 
-
-						// reset duty step to 100
-						TIM_SetCompare1(TIM3, 100);
 						// first period value
 						TIM_SetAutoreload(TIM3, 1400);
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
 						// delay 10 ms
-						vTaskDelay(10 * portTICK_RATE_MS);
-						// enable tim3
-						TIM_Cmd(TIM3, ENABLE);
-						
-						// seems no use
-						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
-						}
+//						vTaskDelay(10 * portTICK_RATE_MS);
+//						// enable tim3
+//						TIM_Cmd(TIM3, ENABLE);
+//						
+//						// seems no use
+//						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+//						}
 						
 						if( process_command_xHandle != NULL ) {
 							vTaskDelete( process_command_xHandle );
@@ -1261,7 +1293,12 @@ void process_command_task(void * pvParameters){
 				break;	
 
       case 0x0B:		//3 loop 52 4k
-
+				
+				// reset pwm
+				TIM_ITConfig(TIM3, TIM_FLAG_CC1, DISABLE);
+				TIM_SetCompare1(TIM3, 0);
+				pwm_count = 0;	
+			
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
 				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
@@ -1304,19 +1341,18 @@ void process_command_task(void * pvParameters){
 						// creat large/small field task
 						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
 
-
-						// reset duty step to 100
-						TIM_SetCompare1(TIM3, 100);
 						// first period value
 						TIM_SetAutoreload(TIM3, 1400);
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
 						// delay 10 ms
-						vTaskDelay(10 * portTICK_RATE_MS);
-						// enable tim3
-						TIM_Cmd(TIM3, ENABLE);
-						
-						// seems no use
-						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
-						}
+//						vTaskDelay(10 * portTICK_RATE_MS);
+//						// enable tim3
+//						TIM_Cmd(TIM3, ENABLE);
+//						
+//						// seems no use
+//						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+//						}
 						
 						if( process_command_xHandle != NULL ) {
 							vTaskDelete( process_command_xHandle );
@@ -1327,7 +1363,12 @@ void process_command_task(void * pvParameters){
 				}
 				break;
       case 0x0C:		//3 loop 58 4k
-
+				
+				// reset pwm
+				TIM_ITConfig(TIM3, TIM_FLAG_CC1, DISABLE);
+				TIM_SetCompare1(TIM3, 0);
+				pwm_count = 0;	
+	
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
 				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
@@ -1370,19 +1411,18 @@ void process_command_task(void * pvParameters){
 						// creat large/small field task
 						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
 
-
+					  // first period value
+						TIM_SetAutoreload(TIM3, 1400);
 						// reset duty step to 100
 						TIM_SetCompare1(TIM3, 100);
-						// first period value
-						TIM_SetAutoreload(TIM3, 1400);
 						// delay 10 ms
-						vTaskDelay(10 * portTICK_RATE_MS);
-						// enable tim3
-						TIM_Cmd(TIM3, ENABLE);
-						
-						// seems no use
-						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
-						}
+//						vTaskDelay(10 * portTICK_RATE_MS);
+//						// enable tim3
+//						TIM_Cmd(TIM3, ENABLE);
+//						
+//						// seems no use
+//						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+//						}
 						
 						if( process_command_xHandle != NULL ) {
 							vTaskDelete( process_command_xHandle );
@@ -1393,7 +1433,12 @@ void process_command_task(void * pvParameters){
 				}
 				break;
       case 0x0D:		//3 loop 62 4k
-
+				
+				// reset pwm
+				TIM_ITConfig(TIM3, TIM_FLAG_CC1, DISABLE);
+				TIM_SetCompare1(TIM3, 0);
+				pwm_count = 0;	
+	
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
 				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
@@ -1436,19 +1481,18 @@ void process_command_task(void * pvParameters){
 						// creat large/small field task
 						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
 
-
-						// reset duty step to 100
-						TIM_SetCompare1(TIM3, 100);
 						// first period value
 						TIM_SetAutoreload(TIM3, 1400);
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
 						// delay 10 ms
-						vTaskDelay(10 * portTICK_RATE_MS);
-						// enable tim3
-						TIM_Cmd(TIM3, ENABLE);
-						
-						// seems no use
-						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
-						}
+//						vTaskDelay(10 * portTICK_RATE_MS);
+//						// enable tim3
+//						TIM_Cmd(TIM3, ENABLE);
+//						
+//						// seems no use
+//						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+//						}
 						
 						if( process_command_xHandle != NULL ) {
 							vTaskDelete( process_command_xHandle );
@@ -1459,7 +1503,12 @@ void process_command_task(void * pvParameters){
 				}
 				break;	
       case 0x0E:		//rpm 100
-
+				
+				// reset pwm
+				TIM_ITConfig(TIM3, TIM_FLAG_CC1, DISABLE);
+				TIM_SetCompare1(TIM3, 0);
+				pwm_count = 0;	
+	
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
 				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4|GPIO_Pin_5);
@@ -1503,19 +1552,18 @@ void process_command_task(void * pvParameters){
 						// creat large/small field task
 						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
 
-
-						// reset duty step to 100
-						TIM_SetCompare1(TIM3, 100);
 						// first period value
 						TIM_SetAutoreload(TIM3, 1000);
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
 						// delay 10 ms
-						vTaskDelay(10 * portTICK_RATE_MS);
-						// enable tim3
-						TIM_Cmd(TIM3, ENABLE);
-						
-						// seems no use
-						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
-						}
+//						vTaskDelay(10 * portTICK_RATE_MS);
+//						// enable tim3
+//						TIM_Cmd(TIM3, ENABLE);
+//						
+//						// seems no use
+//						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+//						}
 						
 						if( process_command_xHandle != NULL ) {
 							vTaskDelete( process_command_xHandle );
@@ -1526,7 +1574,12 @@ void process_command_task(void * pvParameters){
 				}
 				break;
       case 0x0F:		//rpm 200
-
+				
+				// reset pwm
+				TIM_ITConfig(TIM3, TIM_FLAG_CC1, DISABLE);
+				TIM_SetCompare1(TIM3, 0);
+				pwm_count = 0;	
+	
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
 				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4|GPIO_Pin_5);
@@ -1570,19 +1623,18 @@ void process_command_task(void * pvParameters){
 						// creat large/small field task
 						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
 
-
-						// reset duty step to 100
-						TIM_SetCompare1(TIM3, 100);
 						// first period value
 						TIM_SetAutoreload(TIM3, 2000);
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
 						// delay 10 ms
-						vTaskDelay(10 * portTICK_RATE_MS);
-						// enable tim3
-						TIM_Cmd(TIM3, ENABLE);
-						
-						// seems no use
-						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
-						}
+//						vTaskDelay(10 * portTICK_RATE_MS);
+//						// enable tim3
+//						TIM_Cmd(TIM3, ENABLE);
+//						
+//						// seems no use
+//						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+//						}
 						
 						if( process_command_xHandle != NULL ) {
 							vTaskDelete( process_command_xHandle );
@@ -1593,7 +1645,12 @@ void process_command_task(void * pvParameters){
 				}
 				break;
       case 0x10:		//rpm 100
-
+				
+				// reset pwm
+				TIM_ITConfig(TIM3, TIM_FLAG_CC1, DISABLE);
+				TIM_SetCompare1(TIM3, 0);
+				pwm_count = 0;	
+	
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
 				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
@@ -1636,19 +1693,18 @@ void process_command_task(void * pvParameters){
 						// creat large/small field task
 						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
 
-
-						// reset duty step to 100
-						TIM_SetCompare1(TIM3, 100);
 						// first period value
 						TIM_SetAutoreload(TIM3, 1000);
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
 						// delay 10 ms
-						vTaskDelay(10 * portTICK_RATE_MS);
-						// enable tim3
-						TIM_Cmd(TIM3, ENABLE);
-						
-						// seems no use
-						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
-						}
+//						vTaskDelay(10 * portTICK_RATE_MS);
+//						// enable tim3
+//						TIM_Cmd(TIM3, ENABLE);
+//						
+//						// seems no use
+//						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+//						}
 						
 						if( process_command_xHandle != NULL ) {
 							vTaskDelete( process_command_xHandle );
@@ -1659,7 +1715,12 @@ void process_command_task(void * pvParameters){
 				}
 				break;
       case 0x11:		//rpm 200
-
+				
+				// reset pwm
+				TIM_ITConfig(TIM3, TIM_FLAG_CC1, DISABLE);
+				TIM_SetCompare1(TIM3, 0);
+				pwm_count = 0;	
+	
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
 				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
@@ -1702,19 +1763,18 @@ void process_command_task(void * pvParameters){
 						// creat large/small field task
 						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
 
-
-						// reset duty step to 100
-						TIM_SetCompare1(TIM3, 100);
 						// first period value
 						TIM_SetAutoreload(TIM3, 2000);
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
 						// delay 10 ms
-						vTaskDelay(10 * portTICK_RATE_MS);
-						// enable tim3
-						TIM_Cmd(TIM3, ENABLE);
-						
-						// seems no use
-						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
-						}
+//						vTaskDelay(10 * portTICK_RATE_MS);
+//						// enable tim3
+//						TIM_Cmd(TIM3, ENABLE);
+//						
+//						// seems no use
+//						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+//						}
 						
 						if( process_command_xHandle != NULL ) {
 							vTaskDelete( process_command_xHandle );
@@ -1725,7 +1785,12 @@ void process_command_task(void * pvParameters){
 				}
 				break;	
       case 0x12:		//up 3k
-
+				
+				// reset pwm
+				TIM_ITConfig(TIM3, TIM_FLAG_CC1, DISABLE);
+				TIM_SetCompare1(TIM3, 0);
+				pwm_count = 0;	
+	
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
 				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4|GPIO_Pin_5);
@@ -1769,19 +1834,18 @@ void process_command_task(void * pvParameters){
 						// creat large/small field task
 						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
 
-
-						// reset duty step to 100
-						TIM_SetCompare1(TIM3, 100);
 						// first period value
 						TIM_SetAutoreload(TIM3, 1333);
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
 						// delay 10 ms
-						vTaskDelay(10 * portTICK_RATE_MS);
-						// enable tim3
-						TIM_Cmd(TIM3, ENABLE);
-						
-						// seems no use
-						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
-						}
+//						vTaskDelay(10 * portTICK_RATE_MS);
+//						// enable tim3
+//						TIM_Cmd(TIM3, ENABLE);
+//						
+//						// seems no use
+//						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+//						}
 						
 						if( process_command_xHandle != NULL ) {
 							vTaskDelete( process_command_xHandle );
@@ -1792,7 +1856,12 @@ void process_command_task(void * pvParameters){
 				}
 				break;	
       case 0x13:		//down 3k
-
+				
+				// reset pwm
+				TIM_ITConfig(TIM3, TIM_FLAG_CC1, DISABLE);
+				TIM_SetCompare1(TIM3, 0);
+				pwm_count = 0;	
+	
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
 				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4|GPIO_Pin_5);
@@ -1836,19 +1905,18 @@ void process_command_task(void * pvParameters){
 						// creat large/small field task
 						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
 
-
-						// reset duty step to 100
-						TIM_SetCompare1(TIM3, 100);
 						// first period value
 						TIM_SetAutoreload(TIM3, 1333);
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
 						// delay 10 ms
-						vTaskDelay(10 * portTICK_RATE_MS);
-						// enable tim3
-						TIM_Cmd(TIM3, ENABLE);
-						
-						// seems no use
-						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
-						}
+//						vTaskDelay(10 * portTICK_RATE_MS);
+//						// enable tim3
+//						TIM_Cmd(TIM3, ENABLE);
+//						
+//						// seems no use
+//						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+//						}
 						
 						if( process_command_xHandle != NULL ) {
 							vTaskDelete( process_command_xHandle );
@@ -1859,7 +1927,12 @@ void process_command_task(void * pvParameters){
 				}
 				break;
       case 0x14:		//left 3k
-
+				
+				// reset pwm
+				TIM_ITConfig(TIM3, TIM_FLAG_CC1, DISABLE);
+				TIM_SetCompare1(TIM3, 0);
+				pwm_count = 0;	
+	
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
 				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4|GPIO_Pin_5);
@@ -1903,19 +1976,18 @@ void process_command_task(void * pvParameters){
 						// creat large/small field task
 						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
 
-
-						// reset duty step to 100
-						TIM_SetCompare1(TIM3, 100);
 						// first period value
 						TIM_SetAutoreload(TIM3, 1333);
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
 						// delay 10 ms
-						vTaskDelay(10 * portTICK_RATE_MS);
-						// enable tim3
-						TIM_Cmd(TIM3, ENABLE);
-						
-						// seems no use
-						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
-						}
+//						vTaskDelay(10 * portTICK_RATE_MS);
+//						// enable tim3
+//						TIM_Cmd(TIM3, ENABLE);
+//						
+//						// seems no use
+//						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+//						}
 						
 						if( process_command_xHandle != NULL ) {
 							vTaskDelete( process_command_xHandle );
@@ -1926,7 +1998,12 @@ void process_command_task(void * pvParameters){
 				}
 				break;	
       case 0x15:		//right 3k
-
+				
+				// reset pwm
+				TIM_ITConfig(TIM3, TIM_FLAG_CC1, DISABLE);
+				TIM_SetCompare1(TIM3, 0);
+				pwm_count = 0;	
+	
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
 				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4|GPIO_Pin_5);
@@ -1970,19 +2047,18 @@ void process_command_task(void * pvParameters){
 						// creat large/small field task
 						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
 
-
-						// reset duty step to 100
-						TIM_SetCompare1(TIM3, 100);
 						// first period value
 						TIM_SetAutoreload(TIM3, 1333);
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
 						// delay 10 ms
-						vTaskDelay(10 * portTICK_RATE_MS);
-						// enable tim3
-						TIM_Cmd(TIM3, ENABLE);
-						
-						// seems no use
-						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
-						}
+//						vTaskDelay(10 * portTICK_RATE_MS);
+//						// enable tim3
+//						TIM_Cmd(TIM3, ENABLE);
+//						
+//						// seems no use
+//						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+//						}
 						
 						if( process_command_xHandle != NULL ) {
 							vTaskDelete( process_command_xHandle );
@@ -1993,7 +2069,12 @@ void process_command_task(void * pvParameters){
 				}
 				break;
       case 0x16:		//up 4k
-
+				
+				// reset pwm
+				TIM_ITConfig(TIM3, TIM_FLAG_CC1, DISABLE);
+				TIM_SetCompare1(TIM3, 0);
+				pwm_count = 0;	
+	
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
 				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
@@ -2036,19 +2117,18 @@ void process_command_task(void * pvParameters){
 						// creat large/small field task
 						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
 
-
-						// reset duty step to 100
-						TIM_SetCompare1(TIM3, 100);
 						// first period value
 						TIM_SetAutoreload(TIM3, 1333);
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
 						// delay 10 ms
-						vTaskDelay(10 * portTICK_RATE_MS);
-						// enable tim3
-						TIM_Cmd(TIM3, ENABLE);
-						
-						// seems no use
-						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
-						}
+//						vTaskDelay(10 * portTICK_RATE_MS);
+//						// enable tim3
+//						TIM_Cmd(TIM3, ENABLE);
+//						
+//						// seems no use
+//						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+//						}
 						
 						if( process_command_xHandle != NULL ) {
 							vTaskDelete( process_command_xHandle );
@@ -2059,7 +2139,12 @@ void process_command_task(void * pvParameters){
 				}
 				break;	
       case 0x17:		//down 4k
-
+				
+				// reset pwm
+				TIM_ITConfig(TIM3, TIM_FLAG_CC1, DISABLE);
+				TIM_SetCompare1(TIM3, 0);
+				pwm_count = 0;	
+	
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
 				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
@@ -2102,19 +2187,18 @@ void process_command_task(void * pvParameters){
 						// creat large/small field task
 						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
 
-
-						// reset duty step to 100
-						TIM_SetCompare1(TIM3, 100);
 						// first period value
 						TIM_SetAutoreload(TIM3, 1333);
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
 						// delay 10 ms
-						vTaskDelay(10 * portTICK_RATE_MS);
-						// enable tim3
-						TIM_Cmd(TIM3, ENABLE);
-						
-						// seems no use
-						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
-						}
+//						vTaskDelay(10 * portTICK_RATE_MS);
+//						// enable tim3
+//						TIM_Cmd(TIM3, ENABLE);
+//						
+//						// seems no use
+//						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+//						}
 						
 						if( process_command_xHandle != NULL ) {
 							vTaskDelete( process_command_xHandle );
@@ -2125,7 +2209,12 @@ void process_command_task(void * pvParameters){
 				}
 				break;
       case 0x18:		//left 4k
-
+				
+				// reset pwm
+				TIM_ITConfig(TIM3, TIM_FLAG_CC1, DISABLE);
+				TIM_SetCompare1(TIM3, 0);
+				pwm_count = 0;	
+	
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
 				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
@@ -2168,19 +2257,18 @@ void process_command_task(void * pvParameters){
 						// creat large/small field task
 						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
 
-
-						// reset duty step to 100
-						TIM_SetCompare1(TIM3, 100);
 						// first period value
 						TIM_SetAutoreload(TIM3, 1333);
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
 						// delay 10 ms
-						vTaskDelay(10 * portTICK_RATE_MS);
-						// enable tim3
-						TIM_Cmd(TIM3, ENABLE);
-						
-						// seems no use
-						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
-						}
+//						vTaskDelay(10 * portTICK_RATE_MS);
+//						// enable tim3
+//						TIM_Cmd(TIM3, ENABLE);
+//						
+//						// seems no use
+//						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+//						}
 						
 						if( process_command_xHandle != NULL ) {
 							vTaskDelete( process_command_xHandle );
@@ -2191,7 +2279,12 @@ void process_command_task(void * pvParameters){
 				}
 				break;
       case 0x19:		//right 4k
-
+				
+				// reset pwm
+				TIM_ITConfig(TIM3, TIM_FLAG_CC1, DISABLE);
+				TIM_SetCompare1(TIM3, 0);
+				pwm_count = 0;	
+	
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
 				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
@@ -2234,19 +2327,18 @@ void process_command_task(void * pvParameters){
 						// creat large/small field task
 						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
 
-
-						// reset duty step to 100
-						TIM_SetCompare1(TIM3, 100);
 						// first period value
 						TIM_SetAutoreload(TIM3, 1333);
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
 						// delay 10 ms
-						vTaskDelay(10 * portTICK_RATE_MS);
-						// enable tim3
-						TIM_Cmd(TIM3, ENABLE);
-						
-						// seems no use
-						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
-						}
+//						vTaskDelay(10 * portTICK_RATE_MS);
+//						// enable tim3
+//						TIM_Cmd(TIM3, ENABLE);
+//						
+//						// seems no use
+//						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+//						}
 						
 						if( process_command_xHandle != NULL ) {
 							vTaskDelete( process_command_xHandle );
@@ -2257,7 +2349,12 @@ void process_command_task(void * pvParameters){
 				}
 				break;
       case 0x1A:		//lock 3k
-
+				
+				// reset pwm
+				TIM_ITConfig(TIM3, TIM_FLAG_CC1, DISABLE);
+				TIM_SetCompare1(TIM3, 0);
+				pwm_count = 0;	
+	
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
 				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4|GPIO_Pin_5);
@@ -2301,19 +2398,18 @@ void process_command_task(void * pvParameters){
 						// creat large/small field task
 						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
 
-
-						// reset duty step to 100
-						TIM_SetCompare1(TIM3, 100);
 						// first period value
 						TIM_SetAutoreload(TIM3, 1333);
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
 						// delay 10 ms
-						vTaskDelay(10 * portTICK_RATE_MS);
-						// enable tim3
-						TIM_Cmd(TIM3, ENABLE);
-						
-						// seems no use
-						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
-						}
+//						vTaskDelay(10 * portTICK_RATE_MS);
+//						// enable tim3
+//						TIM_Cmd(TIM3, ENABLE);
+//						
+//						// seems no use
+//						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+//						}
 						
 						if( process_command_xHandle != NULL ) {
 							vTaskDelete( process_command_xHandle );
@@ -2324,7 +2420,12 @@ void process_command_task(void * pvParameters){
 				}
 				break;
       case 0x1B:		//lock 4k
-
+				
+				// reset pwm
+				TIM_ITConfig(TIM3, TIM_FLAG_CC1, DISABLE);
+				TIM_SetCompare1(TIM3, 0);
+				pwm_count = 0;	
+	
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
 				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
@@ -2367,19 +2468,18 @@ void process_command_task(void * pvParameters){
 						// creat large/small field task
 						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
 
-
-						// reset duty step to 100
-						TIM_SetCompare1(TIM3, 100);
 						// first period value
 						TIM_SetAutoreload(TIM3, 1333);
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
 						// delay 10 ms
-						vTaskDelay(10 * portTICK_RATE_MS);
-						// enable tim3
-						TIM_Cmd(TIM3, ENABLE);
-						
-						// seems no use
-						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
-						}
+//						vTaskDelay(10 * portTICK_RATE_MS);
+//						// enable tim3
+//						TIM_Cmd(TIM3, ENABLE);
+//						
+//						// seems no use
+//						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+//						}
 						
 						if( process_command_xHandle != NULL ) {
 							vTaskDelete( process_command_xHandle );
@@ -2390,7 +2490,12 @@ void process_command_task(void * pvParameters){
 				}
 				break;
       case 0x20:		//test 3k
-
+				
+				// reset pwm
+				TIM_ITConfig(TIM3, TIM_FLAG_CC1, DISABLE);
+				TIM_SetCompare1(TIM3, 0);
+				pwm_count = 0;	
+	
 				//config DO6/7/9/10/11/12
 			  GPIO_ResetBits(GPIOA, GPIO_Pin_15);
 				GPIO_ResetBits(GPIOE, GPIO_Pin_3);
@@ -2432,21 +2537,20 @@ void process_command_task(void * pvParameters){
 						time_origin = xTaskGetTickCount() * portTICK_RATE_MS;
 						
 						// creat large/small field task
-						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
+//						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
 
-
+						// first period value
+						TIM_SetAutoreload(TIM3, 1333);
 						// reset duty step to 0
 						TIM_SetCompare1(TIM3, 0);
-						// first period value
-						TIM_SetAutoreload(TIM3, 1330);
 						// delay 10 ms
-						vTaskDelay(10 * portTICK_RATE_MS);
-						// enable tim3
-						TIM_Cmd(TIM3, ENABLE);
-						
-						// seems no use
-						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
-						}
+//						vTaskDelay(10 * portTICK_RATE_MS);
+//						// enable tim3
+//						TIM_Cmd(TIM3, ENABLE);
+//						
+//						// seems no use
+//						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+//						}
 						
 						if( process_command_xHandle != NULL ) {
 							vTaskDelete( process_command_xHandle );
@@ -2457,7 +2561,12 @@ void process_command_task(void * pvParameters){
 				}
 				break;	
       case 0x21:		//test 4k
-
+				
+				// reset pwm
+				TIM_ITConfig(TIM3, TIM_FLAG_CC1, DISABLE);
+				TIM_SetCompare1(TIM3, 0);
+				pwm_count = 0;	
+	
 				//config DO6/7/9/10/11/12
 			  GPIO_ResetBits(GPIOA, GPIO_Pin_15);
 				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
@@ -2498,21 +2607,20 @@ void process_command_task(void * pvParameters){
 						time_origin = xTaskGetTickCount() * portTICK_RATE_MS;
 						
 						// creat large/small field task
-						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
+//						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
 
-
+						// first period value
+						TIM_SetAutoreload(TIM3, 1333);
 						// reset duty step to 0
 						TIM_SetCompare1(TIM3, 0);
-						// first period value
-						TIM_SetAutoreload(TIM3, 1330);
 						// delay 10 ms
-						vTaskDelay(10 * portTICK_RATE_MS);
-						// enable tim3
-						TIM_Cmd(TIM3, ENABLE);
-						
-						// seems no use
-						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
-						}
+//						vTaskDelay(10 * portTICK_RATE_MS);
+//						// enable tim3
+//						TIM_Cmd(TIM3, ENABLE);
+//						
+//						// seems no use
+//						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+//						}
 						
 						if( process_command_xHandle != NULL ) {
 							vTaskDelete( process_command_xHandle );
@@ -2523,7 +2631,12 @@ void process_command_task(void * pvParameters){
 				}
 				break;		
       case 0x22:		//regulate 3k
-
+			
+				// reset pwm
+				TIM_ITConfig(TIM3, TIM_FLAG_CC1, DISABLE);
+				TIM_SetCompare1(TIM3, 0);
+				pwm_count = 0;	
+	
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
 			  GPIO_ResetBits(GPIOE, GPIO_Pin_3);
@@ -2565,21 +2678,20 @@ void process_command_task(void * pvParameters){
 						time_origin = xTaskGetTickCount() * portTICK_RATE_MS;
 						
 						// creat large/small field task
-						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
+//						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
 
-
-						// reset duty step to 100
-						TIM_SetCompare1(TIM3, 100);
 						// first period value
 						TIM_SetAutoreload(TIM3, 1333);
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
 						// delay 10 ms
-						vTaskDelay(10 * portTICK_RATE_MS);
-						// enable tim3
-						TIM_Cmd(TIM3, ENABLE);
-						
-						// seems no use
-						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
-						}
+//						vTaskDelay(10 * portTICK_RATE_MS);
+//						// enable tim3
+//						TIM_Cmd(TIM3, ENABLE);
+//						
+//						// seems no use
+//						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+//						}
 						
 						if( process_command_xHandle != NULL ) {
 							vTaskDelete( process_command_xHandle );
@@ -2590,7 +2702,12 @@ void process_command_task(void * pvParameters){
 				}
 				break;		
       case 0x23:		//regulate 4k
-
+			
+				// reset pwm
+				TIM_ITConfig(TIM3, TIM_FLAG_CC1, DISABLE);
+				TIM_SetCompare1(TIM3, 0);
+				pwm_count = 0;	
+	
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
 				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
@@ -2631,21 +2748,20 @@ void process_command_task(void * pvParameters){
 						time_origin = xTaskGetTickCount() * portTICK_RATE_MS;
 						
 						// creat large/small field task
-						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
+//						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
 
-
-						// reset duty step to 100
-						TIM_SetCompare1(TIM3, 100);
 						// first period value
 						TIM_SetAutoreload(TIM3, 1333);
+						// reset duty step to 100
+						TIM_SetCompare1(TIM3, 100);
 						// delay 10 ms
-						vTaskDelay(10 * portTICK_RATE_MS);
-						// enable tim3
-						TIM_Cmd(TIM3, ENABLE);
-						
-						// seems no use
-						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
-						}
+//						vTaskDelay(10 * portTICK_RATE_MS);
+//						// enable tim3
+//						TIM_Cmd(TIM3, ENABLE);
+//						
+//						// seems no use
+//						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+//						}
 						
 						if( process_command_xHandle != NULL ) {
 							vTaskDelete( process_command_xHandle );
@@ -2656,7 +2772,12 @@ void process_command_task(void * pvParameters){
 				}
 				break;	
       case 0x24:		//wireless
-
+			
+				// reset pwm
+				TIM_ITConfig(TIM3, TIM_FLAG_CC1, DISABLE);
+				TIM_SetCompare1(TIM3, 0);
+				pwm_count = 0;	
+	
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
 			  GPIO_ResetBits(GPIOE,GPIO_Pin_1);
@@ -2698,21 +2819,20 @@ void process_command_task(void * pvParameters){
 						time_origin = xTaskGetTickCount() * portTICK_RATE_MS;
 						
 						// creat large/small field task
-						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
+//						xTaskCreate(field_task, "FIELD", configMINIMAL_STACK_SIZE * 4, NULL, FIELD_TASK_PRIO, &field_xHandle);
 
-
+						// first period value
+						TIM_SetAutoreload(TIM3, 1333);
 						// reset duty step to 0
 						TIM_SetCompare1(TIM3, 0);
-						// first period value
-						TIM_SetAutoreload(TIM3, 1330);
 						// delay 10 ms
-						vTaskDelay(10 * portTICK_RATE_MS);
-						// enable tim3
-						TIM_Cmd(TIM3, ENABLE);
-						
-						// seems no use
-						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
-						}
+//						vTaskDelay(10 * portTICK_RATE_MS);
+//						// enable tim3
+//						TIM_Cmd(TIM3, ENABLE);
+//						
+//						// seems no use
+//						if (xSemaphoreTake( pwm_xSemaphore, portMAX_DELAY) == pdTRUE) {
+//						}
 						
 						if( process_command_xHandle != NULL ) {
 							vTaskDelete( process_command_xHandle );
