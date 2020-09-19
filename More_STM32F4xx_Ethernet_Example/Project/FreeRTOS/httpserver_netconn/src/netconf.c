@@ -134,7 +134,7 @@ void LwIP_Init(void)
  /*  When the netif is fully configured this function must be called.*/
   netif_set_up(&xnetif);
 #ifndef USE_DHCP
-	IP4_ADDR(&dst_addr,192,168,1,2);
+	IP4_ADDR(&dst_addr,192,168,10,44);
 	pcb = udp_new();
 	udp_bind(pcb, IP_ADDR_ANY, src_port);
 	udp_recv(pcb, udp_recv_fn, NULL);
