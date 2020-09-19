@@ -188,7 +188,7 @@ int main(void)
 	TM_USART_DMA_Init(USART2);
 	TM_USART_DMA_Init(USART3);
 //	TM_USART_DMA_Init(UART4);
-//  DMA_printf(USART1, "\n\rSerial communication complete!\n\r");
+  DMA_printf(USART1, "\n\rSerial communication complete!\n\r");
 	
   /* configure Ethernet (GPIOs, clocks, MAC, DMA) */ 
   ETH_BSP_Config();
