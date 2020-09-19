@@ -73,7 +73,7 @@
 /*Static IP ADDRESS*/
 #define IP_ADDR0   192
 #define IP_ADDR1   168
-#define IP_ADDR2   1
+#define IP_ADDR2   10
 #define IP_ADDR3   3
    
 /*NETMASK*/
@@ -85,7 +85,7 @@
 /*Gateway Address*/
 #define GW_ADDR0   192
 #define GW_ADDR1   168
-#define GW_ADDR2   1
+#define GW_ADDR2   10
 #define GW_ADDR3   1  
 
 /* MII and RMII mode selection, for STM324xG-EVAL Board(MB786) RevB ***********/
