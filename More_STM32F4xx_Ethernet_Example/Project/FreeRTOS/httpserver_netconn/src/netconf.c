@@ -69,7 +69,7 @@ struct udp_pcb *pcb;
 struct pbuf *p;
 struct ip_addr dst_addr;
 
-const unsigned short dst_port = 8080;
+const unsigned short dst_port = 12345;
 const unsigned short src_port = 12345;
 //extern xSemaphoreHandle xSemaphore_DHCP;
 
@@ -134,7 +134,7 @@ void LwIP_Init(void)
  /*  When the netif is fully configured this function must be called.*/
   netif_set_up(&xnetif);
 #ifndef USE_DHCP
-	IP4_ADDR(&dst_addr,192,168,1,97);
+	IP4_ADDR(&dst_addr,192,168,1,2);
 	pcb = udp_new();
 	udp_bind(pcb, IP_ADDR_ANY, src_port);
 	udp_recv(pcb, udp_recv_fn, NULL);
@@ -204,7 +204,7 @@ void LwIP_DHCP_task(void * pvParameters)
 #endif  
           /* end of DHCP process: LED1 stays ON*/
 //					vSemaphoreCreateBinary(xSemaphore_DHCP);
-			IP4_ADDR(&dst_addr,192,168,1,97);
+			IP4_ADDR(&dst_addr,192,168,1,2);
 			pcb = udp_new();
 			udp_bind(pcb, IP_ADDR_ANY, src_port);
 			udp_recv(pcb, udp_recv_fn, NULL);
