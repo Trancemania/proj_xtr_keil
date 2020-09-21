@@ -339,6 +339,10 @@ void udp_recv_fn(void *arg, struct udp_pcb *pcb, struct pbuf *p, struct ip_addr 
 		// for command + last time mode
 //		command_H = ETH_recv_buffer[1];
 //		command_L = ETH_recv_buffer[0];
+		
+//		pbuf_free(p);
+//		buffer[0] = command;
+//		memcpy(p->payload, &ETH_recv_buffer, p->len);
 //		udp_sendto_if(pcb, p, &dst_addr, dst_port, &xnetif);
 		
 		// state machine mode
