@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Discover-More\Project.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Discover-More\Project.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Sat Sep 19 15:58:20 2020
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Mon Sep 21 16:28:21 2020
 <BR><P>
 <H3>Maximum Stack Usage =        760 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -205,19 +205,19 @@ Global Symbols
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f4xx.o(RESET)
 </UL>
 <P><STRONG><a name="[27f]"></a>vPortSetInterruptMask</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, port.o(.emb_text))
-<BR><BR>[Called By]<UL><LI><a href="#[284]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueReceiveFromISR
-<LI><a href="#[26c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
-<LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xPortSysTickHandler
+<BR><BR>[Called By]<UL><LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xPortSysTickHandler
 <LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSendFromISR
 <LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskStartScheduler
+<LI><a href="#[284]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueReceiveFromISR
+<LI><a href="#[26c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
 <LI><a href="#[295]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskEndScheduler
 </UL>
 
 <P><STRONG><a name="[280]"></a>vPortClearInterruptMask</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, port.o(.emb_text))
-<BR><BR>[Called By]<UL><LI><a href="#[284]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueReceiveFromISR
-<LI><a href="#[26e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
-<LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xPortSysTickHandler
+<BR><BR>[Called By]<UL><LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xPortSysTickHandler
 <LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSendFromISR
+<LI><a href="#[284]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueReceiveFromISR
+<LI><a href="#[26e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
 </UL>
 
 <P><STRONG><a name="[8e]"></a>uart_task</STRONG> (Thumb, 94 bytes, Stack size 8 bytes, main.o(.text))
@@ -436,7 +436,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f4xx.o(RESET)
 </UL>
-<P><STRONG><a name="[9f]"></a>LwIP_Init</STRONG> (Thumb, 122 bytes, Stack size 32 bytes, netconf.o(.text))
+<P><STRONG><a name="[9f]"></a>LwIP_Init</STRONG> (Thumb, 120 bytes, Stack size 32 bytes, netconf.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 400<LI>Call Chain = LwIP_Init &rArr; netif_add &rArr; netif_set_addr &rArr; netif_set_ipaddr &rArr; tcp_abandon &rArr; tcp_pcb_remove &rArr; tcp_output &rArr; tcp_send_empty_ack &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_recv
@@ -537,11 +537,12 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[9a]"></a>CUSTOM_GPIO_Init</STRONG> (Thumb, 334 bytes, Stack size 48 bytes, custom_stm32f4_board.o(.text))
+<P><STRONG><a name="[9a]"></a>CUSTOM_GPIO_Init</STRONG> (Thumb, 402 bytes, Stack size 48 bytes, custom_stm32f4_board.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = CUSTOM_GPIO_Init &rArr; GPIO_Init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SYSCFG_EXTILineConfig
 <LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI_Init
+<LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
 <LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphClockCmd
 <LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_Init
 <LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
@@ -568,7 +569,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[fd]"></a>CUSTOM_EXTI_Init</STRONG> (Thumb, 262 bytes, Stack size 32 bytes, custom_stm32f4_board.o(.text), UNUSED)
+<P><STRONG><a name="[fd]"></a>CUSTOM_EXTI_Init</STRONG> (Thumb, 300 bytes, Stack size 32 bytes, custom_stm32f4_board.o(.text), UNUSED)
 <BR><BR>[Calls]<UL><LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SYSCFG_EXTILineConfig
 <LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI_Init
 <LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
@@ -577,7 +578,7 @@ Global Symbols
 <LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 </UL>
 
-<P><STRONG><a name="[fe]"></a>CUSTOM_UART_INT_Init</STRONG> (Thumb, 88 bytes, Stack size 8 bytes, custom_stm32f4_board.o(.text), UNUSED)
+<P><STRONG><a name="[fe]"></a>CUSTOM_UART_INT_Init</STRONG> (Thumb, 44 bytes, Stack size 8 bytes, custom_stm32f4_board.o(.text), UNUSED)
 <BR><BR>[Calls]<UL><LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_ITConfig
 <LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_Init
 </UL>
@@ -1573,6 +1574,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CUSTOM_EXTI_Init
 <LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ETH_GPIO_Config
 <LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;STM_CUSTOM_COMInit
+<LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CUSTOM_GPIO_Init
 <LI><a href="#[163]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SD_LowLevel_Init
 <LI><a href="#[15f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SD_LowLevel_DeInit
 <LI><a href="#[15e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;STM_EVAL_COMInit
@@ -2508,7 +2510,7 @@ Global Symbols
 <BR>[Address Reference Count : 1]<UL><LI> api_lib.o(.text)
 </UL>
 <P><STRONG><a name="[64]"></a>do_delconn</STRONG> (Thumb, 104 bytes, Stack size 8 bytes, api_msg.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 296<LI>Call Chain = do_delconn &rArr; do_close_internal &rArr; tcp_close &rArr; tcp_send_ctrl &rArr; tcp_enqueue &rArr; tcp_segs_free &rArr; tcp_seg_free &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
+<BR><BR>[Stack]<UL><LI>Max Depth = 296<LI>Call Chain = do_delconn &rArr; do_close_internal &rArr; tcp_close &rArr; tcp_send_ctrl &rArr; tcp_enqueue &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_remove
 <LI><a href="#[19f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_sem_signal
@@ -2528,7 +2530,7 @@ Global Symbols
 <BR>[Address Reference Count : 1]<UL><LI> api_lib.o(.text)
 </UL>
 <P><STRONG><a name="[67]"></a>do_connect</STRONG> (Thumb, 162 bytes, Stack size 8 bytes, api_msg.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 288<LI>Call Chain = do_connect &rArr; tcp_connect &rArr; tcp_enqueue &rArr; tcp_segs_free &rArr; tcp_seg_free &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
+<BR><BR>[Stack]<UL><LI>Max Depth = 288<LI>Call Chain = do_connect &rArr; tcp_connect &rArr; tcp_enqueue &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_connect
 <LI><a href="#[1b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_connect
@@ -2578,7 +2580,7 @@ Global Symbols
 <BR>[Address Reference Count : 1]<UL><LI> api_lib.o(.text)
 </UL>
 <P><STRONG><a name="[6c]"></a>do_write</STRONG> (Thumb, 52 bytes, Stack size 0 bytes, api_msg.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 288<LI>Call Chain = do_write &rArr; do_writemore &rArr; tcp_write &rArr; tcp_enqueue &rArr; tcp_segs_free &rArr; tcp_seg_free &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
+<BR><BR>[Stack]<UL><LI>Max Depth = 288<LI>Call Chain = do_write &rArr; do_writemore &rArr; tcp_write &rArr; tcp_enqueue &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[19f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_sem_signal
 <LI><a href="#[1a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;do_writemore
@@ -2593,7 +2595,7 @@ Global Symbols
 <BR>[Address Reference Count : 1]<UL><LI> api_lib.o(.text)
 </UL>
 <P><STRONG><a name="[6d]"></a>do_close</STRONG> (Thumb, 34 bytes, Stack size 0 bytes, api_msg.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 288<LI>Call Chain = do_close &rArr; do_close_internal &rArr; tcp_close &rArr; tcp_send_ctrl &rArr; tcp_enqueue &rArr; tcp_segs_free &rArr; tcp_seg_free &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
+<BR><BR>[Stack]<UL><LI>Max Depth = 288<LI>Call Chain = do_close &rArr; do_close_internal &rArr; tcp_close &rArr; tcp_send_ctrl &rArr; tcp_enqueue &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[19f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_sem_signal
 <LI><a href="#[1a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;do_close_internal
@@ -2648,11 +2650,11 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_timeout
 </UL>
-<BR>[Called By]<UL><LI><a href="#[21a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_listen_input
-<LI><a href="#[218]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_process
-<LI><a href="#[1bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_listen_with_backlog
+<BR>[Called By]<UL><LI><a href="#[1bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_listen_with_backlog
 <LI><a href="#[1b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_connect
 <LI><a href="#[1b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_bind
+<LI><a href="#[21a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_listen_input
+<LI><a href="#[218]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_process
 </UL>
 
 <P><STRONG><a name="[5f]"></a>tcpip_input</STRONG> (Thumb, 76 bytes, Stack size 24 bytes, tcpip.o(.text))
@@ -2687,8 +2689,8 @@ Global Symbols
 <P><STRONG><a name="[190]"></a>tcpip_apimsg</STRONG> (Thumb, 50 bytes, Stack size 32 bytes, tcpip.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 152<LI>Call Chain = tcpip_apimsg &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_arch_sem_wait
-<LI><a href="#[19e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_mbox_post
+<BR>[Calls]<UL><LI><a href="#[19e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_mbox_post
+<LI><a href="#[1d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_arch_sem_wait
 </UL>
 <BR>[Called By]<UL><LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netconn_write
 <LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netconn_recv
@@ -2706,9 +2708,9 @@ Global Symbols
 <P><STRONG><a name="[be]"></a>tcpip_init</STRONG> (Thumb, 44 bytes, Stack size 24 bytes, tcpip.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 200<LI>Call Chain = tcpip_init &rArr; sys_thread_new &rArr; xTaskGenericCreate &rArr; prvAllocateTCBAndStack &rArr; pvPortMalloc &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lwip_init
-<LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_thread_new
+<BR>[Calls]<UL><LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_thread_new
 <LI><a href="#[1ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_mbox_new
+<LI><a href="#[1d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lwip_init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LwIP_Init
 </UL>
@@ -2724,12 +2726,12 @@ Global Symbols
 <P><STRONG><a name="[1d9]"></a>udp_input</STRONG> (Thumb, 408 bytes, Stack size 40 bytes, udp.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 264<LI>Call Chain = udp_input &rArr; icmp_dest_unreach &rArr; icmp_send_response &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_header
+<BR>[Calls]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_free
+<LI><a href="#[1db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_header
 <LI><a href="#[1da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ntohs
 <LI><a href="#[1dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ntohl
 <LI><a href="#[1dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ip_addr_isbroadcast
 <LI><a href="#[1de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;icmp_dest_unreach
-<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_free
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ip_input
 </UL>
@@ -2737,26 +2739,28 @@ Global Symbols
 <P><STRONG><a name="[c4]"></a>udp_bind</STRONG> (Thumb, 94 bytes, Stack size 20 bytes, udp.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = udp_bind
 </UL>
-<BR>[Called By]<UL><LI><a href="#[23f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_inform
-<LI><a href="#[23e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_start
-<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_sendto_if
+<BR>[Called By]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_sendto_if
 <LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LwIP_Init
 <LI><a href="#[1b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_connect
 <LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;do_bind
+<LI><a href="#[23f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_inform
+<LI><a href="#[23e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_start
 </UL>
 
 <P><STRONG><a name="[b3]"></a>udp_sendto_if</STRONG> (Thumb, 182 bytes, Stack size 48 bytes, udp.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 232<LI>Call Chain = udp_sendto_if &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_header
+<BR>[Calls]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_bind
+<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_free
+<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_alloc
+<LI><a href="#[1db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_header
 <LI><a href="#[1df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_chain
 <LI><a href="#[1e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ip_output_if
 <LI><a href="#[1e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;htons
-<LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_bind
-<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_free
-<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_alloc
 </UL>
-<BR>[Called By]<UL><LI><a href="#[23f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_inform
+<BR>[Called By]<UL><LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ETH_printf
+<LI><a href="#[1be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_sendto
+<LI><a href="#[23f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_inform
 <LI><a href="#[236]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_release
 <LI><a href="#[231]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_renew
 <LI><a href="#[241]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_decline
@@ -2764,15 +2768,13 @@ Global Symbols
 <LI><a href="#[233]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_rebind
 <LI><a href="#[22c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_select
 <LI><a href="#[222]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_discover
-<LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ETH_printf
-<LI><a href="#[1be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_sendto
 </UL>
 
 <P><STRONG><a name="[1be]"></a>udp_sendto</STRONG> (Thumb, 40 bytes, Stack size 24 bytes, udp.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 256<LI>Call Chain = udp_sendto &rArr; udp_sendto_if &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ip_route
-<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_sendto_if
+<BR>[Calls]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_sendto_if
+<LI><a href="#[1e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ip_route
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_send
 <LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;do_send
@@ -2791,8 +2793,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_bind
 </UL>
-<BR>[Called By]<UL><LI><a href="#[23e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_start
-<LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;do_connect
+<BR>[Called By]<UL><LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;do_connect
+<LI><a href="#[23e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_start
 </UL>
 
 <P><STRONG><a name="[1ba]"></a>udp_disconnect</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, udp.o(.text))
@@ -2800,18 +2802,18 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[c5]"></a>udp_recv</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, udp.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[23e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_start
-<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LwIP_Init
+<BR><BR>[Called By]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LwIP_Init
 <LI><a href="#[1af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pcb_new
+<LI><a href="#[23e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_start
 </UL>
 
 <P><STRONG><a name="[1b4]"></a>udp_remove</STRONG> (Thumb, 40 bytes, Stack size 0 bytes, udp.o(.text))
 <BR><BR>[Calls]<UL><LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;memp_free
 </UL>
-<BR>[Called By]<UL><LI><a href="#[23f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_inform
+<BR>[Called By]<UL><LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;do_delconn
+<LI><a href="#[23f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_inform
 <LI><a href="#[23e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_start
 <LI><a href="#[23b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_stop
-<LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;do_delconn
 </UL>
 
 <P><STRONG><a name="[c3]"></a>udp_new</STRONG> (Thumb, 28 bytes, Stack size 8 bytes, udp.o(.text))
@@ -2820,10 +2822,10 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[199]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;memp_malloc
 <LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
-<BR>[Called By]<UL><LI><a href="#[23f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_inform
-<LI><a href="#[23e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_start
-<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LwIP_Init
+<BR>[Called By]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LwIP_Init
 <LI><a href="#[1af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pcb_new
+<LI><a href="#[23f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_inform
+<LI><a href="#[23e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_start
 </UL>
 
 <P><STRONG><a name="[1d6]"></a>lwip_init</STRONG> (Thumb, 26 bytes, Stack size 8 bytes, init.o(.text))
@@ -2849,24 +2851,24 @@ Global Symbols
 <P><STRONG><a name="[7d]"></a>mem_free</STRONG> (Thumb, 62 bytes, Stack size 16 bytes, mem.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;plug_holes
+<BR>[Calls]<UL><LI><a href="#[19f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_sem_signal
+<LI><a href="#[1e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;plug_holes
 <LI><a href="#[1d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_arch_sem_wait
-<LI><a href="#[19f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_sem_signal
 </UL>
-<BR>[Called By]<UL><LI><a href="#[23f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_inform
+<BR>[Called By]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_free
+<LI><a href="#[23f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_inform
 <LI><a href="#[23e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_start
 <LI><a href="#[23b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_stop
 <LI><a href="#[23d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_unfold_reply
 <LI><a href="#[23c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_free_reply
-<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_free
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> tcpip.o(.text)
 </UL>
 <P><STRONG><a name="[1e9]"></a>mem_realloc</STRONG> (Thumb, 228 bytes, Stack size 32 bytes, mem.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 152<LI>Call Chain = mem_realloc &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_arch_sem_wait
-<LI><a href="#[19f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_sem_signal
+<BR>[Calls]<UL><LI><a href="#[19f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_sem_signal
+<LI><a href="#[1d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_arch_sem_wait
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_realloc
 </UL>
@@ -2874,15 +2876,15 @@ Global Symbols
 <P><STRONG><a name="[1ea]"></a>mem_malloc</STRONG> (Thumb, 198 bytes, Stack size 24 bytes, mem.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 144<LI>Call Chain = mem_malloc &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_arch_sem_wait
-<LI><a href="#[19f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_sem_signal
+<BR>[Calls]<UL><LI><a href="#[19f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_sem_signal
+<LI><a href="#[1d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_arch_sem_wait
 </UL>
-<BR>[Called By]<UL><LI><a href="#[244]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;autoip_start
+<BR>[Called By]<UL><LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_alloc
+<LI><a href="#[244]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;autoip_start
 <LI><a href="#[23f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_inform
 <LI><a href="#[23e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_start
 <LI><a href="#[23d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_unfold_reply
 <LI><a href="#[1eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mem_calloc
-<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_alloc
 </UL>
 
 <P><STRONG><a name="[1eb]"></a>mem_calloc</STRONG> (Thumb, 28 bytes, Stack size 16 bytes, mem.o(.text), UNUSED)
@@ -2897,13 +2899,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[199]"></a>memp_malloc</STRONG> (Thumb, 30 bytes, Stack size 0 bytes, memp.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[20f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_enqueue
-<LI><a href="#[212]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_alloc
-<LI><a href="#[1c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_timeout
-<LI><a href="#[1d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcpip_untimeout
-<LI><a href="#[1d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcpip_timeout
-<LI><a href="#[1d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcpip_callback_with_block
-<LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netconn_recv
+<BR><BR>[Called By]<UL><LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netconn_recv
 <LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_new
 <LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcpip_input
 <LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_alloc
@@ -2913,20 +2909,16 @@ Global Symbols
 <LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;recv_udp
 <LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;recv_raw
 <LI><a href="#[18f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netconn_alloc
+<LI><a href="#[20f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_enqueue
+<LI><a href="#[212]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_alloc
+<LI><a href="#[1c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_timeout
+<LI><a href="#[1d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcpip_untimeout
+<LI><a href="#[1d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcpip_timeout
+<LI><a href="#[1d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcpip_callback_with_block
 </UL>
 
 <P><STRONG><a name="[193]"></a>memp_free</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, memp.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[21c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_input
-<LI><a href="#[20f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_enqueue
-<LI><a href="#[202]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_slowtmr
-<LI><a href="#[1ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_seg_free
-<LI><a href="#[1fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_sem_wait
-<LI><a href="#[1ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_abandon
-<LI><a href="#[1d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_untimeout
-<LI><a href="#[1d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_mbox_fetch
-<LI><a href="#[1d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcpip_callback_with_block
-<LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcpip_thread
-<LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netconn_recv
+<BR><BR>[Called By]<UL><LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netconn_recv
 <LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netconn_new_with_proto_and_callback
 <LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netbuf_delete
 <LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcpip_input
@@ -2938,6 +2930,16 @@ Global Symbols
 <LI><a href="#[1b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_remove
 <LI><a href="#[194]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netconn_free
 <LI><a href="#[18f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netconn_alloc
+<LI><a href="#[21c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_input
+<LI><a href="#[20f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_enqueue
+<LI><a href="#[202]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_slowtmr
+<LI><a href="#[1ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_seg_free
+<LI><a href="#[1fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_sem_wait
+<LI><a href="#[1ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_abandon
+<LI><a href="#[1d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_untimeout
+<LI><a href="#[1d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_mbox_fetch
+<LI><a href="#[1d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcpip_callback_with_block
+<LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcpip_thread
 </UL>
 
 <P><STRONG><a name="[1f1]"></a>netif_set_gw</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, netif.o(.text))
@@ -2987,8 +2989,8 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[c1]"></a>netif_set_default</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, netif.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[1f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netif_remove
-<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LwIP_Init
+<BR><BR>[Called By]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LwIP_Init
+<LI><a href="#[1f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netif_remove
 </UL>
 
 <P><STRONG><a name="[1f2]"></a>netif_remove</STRONG> (Thumb, 52 bytes, Stack size 0 bytes, netif.o(.text), UNUSED)
@@ -3002,9 +3004,9 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;etharp_request
 </UL>
-<BR>[Called By]<UL><LI><a href="#[24b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;autoip_bind
+<BR>[Called By]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LwIP_Init
+<LI><a href="#[24b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;autoip_bind
 <LI><a href="#[237]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_bind
-<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LwIP_Init
 </UL>
 
 <P><STRONG><a name="[229]"></a>netif_set_down</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, netif.o(.text))
@@ -3025,10 +3027,22 @@ Global Symbols
 <P><STRONG><a name="[af]"></a>pbuf_free</STRONG> (Thumb, 82 bytes, Stack size 16 bytes, pbuf.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 152<LI>Call Chain = pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mem_free
-<LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;memp_free
+<BR>[Calls]<UL><LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;memp_free
+<LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mem_free
 </UL>
-<BR>[Called By]<UL><LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ethernetif_input
+<BR>[Called By]<UL><LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netbuf_delete
+<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_sendto_if
+<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_alloc
+<LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ETH_printf
+<LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_recv_fn
+<LI><a href="#[1c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netbuf_ref
+<LI><a href="#[1c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netbuf_free
+<LI><a href="#[1c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netbuf_alloc
+<LI><a href="#[1bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_sendto
+<LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;recv_udp
+<LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;recv_raw
+<LI><a href="#[194]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netconn_free
+<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ethernetif_input
 <LI><a href="#[25d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;etharp_arp_input
 <LI><a href="#[250]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;icmp_input
 <LI><a href="#[252]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;icmp_send_response
@@ -3051,28 +3065,22 @@ Global Symbols
 <LI><a href="#[1cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ip_input
 <LI><a href="#[1ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ethernet_input
 <LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_free_int
-<LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netbuf_delete
-<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_sendto_if
-<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_alloc
-<LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ETH_printf
-<LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_recv_fn
-<LI><a href="#[1c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netbuf_ref
-<LI><a href="#[1c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netbuf_free
-<LI><a href="#[1c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netbuf_alloc
-<LI><a href="#[1bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_sendto
-<LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;recv_udp
-<LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;recv_raw
-<LI><a href="#[194]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netconn_free
 </UL>
 
 <P><STRONG><a name="[b2]"></a>pbuf_alloc</STRONG> (Thumb, 298 bytes, Stack size 32 bytes, pbuf.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 184<LI>Call Chain = pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mem_malloc
-<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_free
+<BR>[Calls]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_free
 <LI><a href="#[199]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;memp_malloc
+<LI><a href="#[1ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mem_malloc
 </UL>
-<BR>[Called By]<UL><LI><a href="#[25e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;low_level_input
+<BR>[Called By]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_sendto_if
+<LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ETH_printf
+<LI><a href="#[1c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netbuf_ref
+<LI><a href="#[1c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netbuf_alloc
+<LI><a href="#[1bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_sendto
+<LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;recv_raw
+<LI><a href="#[25e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;low_level_input
 <LI><a href="#[250]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;icmp_input
 <LI><a href="#[252]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;icmp_send_response
 <LI><a href="#[248]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;etharp_raw
@@ -3083,19 +3091,13 @@ Global Symbols
 <LI><a href="#[205]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_keepalive
 <LI><a href="#[20f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_enqueue
 <LI><a href="#[1f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_coalesce
-<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_sendto_if
-<LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ETH_printf
-<LI><a href="#[1c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netbuf_ref
-<LI><a href="#[1c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netbuf_alloc
-<LI><a href="#[1bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_sendto
-<LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;recv_raw
 </UL>
 
 <P><STRONG><a name="[1f4]"></a>pbuf_realloc</STRONG> (Thumb, 78 bytes, Stack size 16 bytes, pbuf.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 168<LI>Call Chain = pbuf_realloc &rArr; mem_realloc &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
+<BR><BR>[Stack]<UL><LI>Max Depth = 168<LI>Call Chain = pbuf_realloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mem_realloc
-<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_free
+<BR>[Calls]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_free
+<LI><a href="#[1e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mem_realloc
 </UL>
 <BR>[Called By]<UL><LI><a href="#[23f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_inform
 <LI><a href="#[236]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_release
@@ -3112,7 +3114,9 @@ Global Symbols
 <P><STRONG><a name="[1db]"></a>pbuf_header</STRONG> (Thumb, 104 bytes, Stack size 8 bytes, pbuf.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = pbuf_header
 </UL>
-<BR>[Called By]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;etharp_output
+<BR>[Called By]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_sendto_if
+<LI><a href="#[1bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_sendto
+<LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;etharp_output
 <LI><a href="#[250]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;icmp_input
 <LI><a href="#[21c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_input
 <LI><a href="#[213]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_receive
@@ -3120,8 +3124,6 @@ Global Symbols
 <LI><a href="#[1e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ip_output_if
 <LI><a href="#[1d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_input
 <LI><a href="#[1ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ethernet_input
-<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_sendto_if
-<LI><a href="#[1bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_sendto
 </UL>
 
 <P><STRONG><a name="[215]"></a>pbuf_clen</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, pbuf.o(.text))
@@ -3136,16 +3138,16 @@ Global Symbols
 <P><STRONG><a name="[1c6]"></a>pbuf_cat</STRONG> (Thumb, 40 bytes, Stack size 8 bytes, pbuf.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = pbuf_cat
 </UL>
-<BR>[Called By]<UL><LI><a href="#[20f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_enqueue
+<BR>[Called By]<UL><LI><a href="#[1c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netbuf_chain
+<LI><a href="#[20f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_enqueue
 <LI><a href="#[1df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_chain
-<LI><a href="#[1c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netbuf_chain
 </UL>
 
 <P><STRONG><a name="[1df]"></a>pbuf_chain</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, pbuf.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = pbuf_chain &rArr; pbuf_cat
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_ref
-<LI><a href="#[1c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_cat
+<BR>[Calls]<UL><LI><a href="#[1c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_cat
+<LI><a href="#[1f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_ref
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_sendto_if
 <LI><a href="#[1bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_sendto
@@ -3160,9 +3162,9 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
 </UL>
-<BR>[Called By]<UL><LI><a href="#[250]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;icmp_input
+<BR>[Called By]<UL><LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;recv_raw
+<LI><a href="#[250]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;icmp_input
 <LI><a href="#[1f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_coalesce
-<LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;recv_raw
 </UL>
 
 <P><STRONG><a name="[1f7]"></a>pbuf_copy_partial</STRONG> (Thumb, 106 bytes, Stack size 32 bytes, pbuf.o(.text))
@@ -3206,12 +3208,12 @@ Global Symbols
 <P><STRONG><a name="[1bc]"></a>raw_sendto</STRONG> (Thumb, 144 bytes, Stack size 40 bytes, raw.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 224<LI>Call Chain = raw_sendto &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_header
+<BR>[Calls]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_free
+<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_alloc
+<LI><a href="#[1db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_header
 <LI><a href="#[1df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_chain
 <LI><a href="#[1e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ip_route
 <LI><a href="#[1e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ip_output_if
-<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_free
-<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_alloc
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_send
 <LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;do_send
@@ -3243,17 +3245,17 @@ Global Symbols
 <P><STRONG><a name="[1d1]"></a>sys_mbox_fetch</STRONG> (Thumb, 106 bytes, Stack size 24 bytes, sys.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 152<LI>Call Chain = sys_mbox_fetch &rArr; sys_arch_mbox_fetch &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_arch_timeouts
-<LI><a href="#[198]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_arch_mbox_fetch
+<BR>[Calls]<UL><LI><a href="#[198]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_arch_mbox_fetch
 <LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;memp_free
+<LI><a href="#[1fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_arch_timeouts
 </UL>
 <BR>[Called By]<UL><LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcpip_thread
 </UL>
 
 <P><STRONG><a name="[1fc]"></a>sys_sem_wait</STRONG> (Thumb, 96 bytes, Stack size 16 bytes, sys.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[1fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_arch_timeouts
+<BR><BR>[Calls]<UL><LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;memp_free
+<LI><a href="#[1fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_arch_timeouts
 <LI><a href="#[1d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_arch_sem_wait
-<LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;memp_free
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_sem_wait_timeout
 </UL>
@@ -3261,10 +3263,11 @@ Global Symbols
 <P><STRONG><a name="[1c8]"></a>sys_timeout</STRONG> (Thumb, 112 bytes, Stack size 24 bytes, sys.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = sys_timeout &rArr; sys_arch_timeouts
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_arch_timeouts
-<LI><a href="#[199]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;memp_malloc
+<BR>[Calls]<UL><LI><a href="#[199]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;memp_malloc
+<LI><a href="#[1fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_arch_timeouts
 </UL>
-<BR>[Called By]<UL><LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;arp_timer
+<BR>[Called By]<UL><LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ethernetif_init
+<LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;arp_timer
 <LI><a href="#[1fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_sem_wait_timeout
 <LI><a href="#[1c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_timer_needed
 <LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcpip_thread
@@ -3273,14 +3276,13 @@ Global Symbols
 <LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_timer_coarse
 <LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;arp_timer
 <LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcpip_tcp_timer
-<LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ethernetif_init
 </UL>
 
 <P><STRONG><a name="[1d0]"></a>sys_untimeout</STRONG> (Thumb, 80 bytes, Stack size 16 bytes, sys.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = sys_untimeout &rArr; sys_arch_timeouts
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_arch_timeouts
-<LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;memp_free
+<BR>[Calls]<UL><LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;memp_free
+<LI><a href="#[1fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_arch_timeouts
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_sem_wait_timeout
 <LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcpip_thread
@@ -3295,9 +3297,9 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[1fe]"></a>sys_msleep</STRONG> (Thumb, 30 bytes, Stack size 16 bytes, sys.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[1fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_sem_wait_timeout
-<LI><a href="#[1ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_sem_new
+<BR><BR>[Calls]<UL><LI><a href="#[1ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_sem_new
 <LI><a href="#[191]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_sem_free
+<LI><a href="#[1fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_sem_wait_timeout
 </UL>
 
 <P><STRONG><a name="[1ff]"></a>tcp_seg_free</STRONG> (Thumb, 32 bytes, Stack size 16 bytes, tcp.o(.text))
@@ -3306,10 +3308,10 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_free
 <LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;memp_free
 </UL>
-<BR>[Called By]<UL><LI><a href="#[218]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_process
+<BR>[Called By]<UL><LI><a href="#[1a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_output
+<LI><a href="#[218]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_process
 <LI><a href="#[213]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_receive
 <LI><a href="#[200]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_segs_free
-<LI><a href="#[1a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_output
 </UL>
 
 <P><STRONG><a name="[200]"></a>tcp_segs_free</STRONG> (Thumb, 26 bytes, Stack size 16 bytes, tcp.o(.text))
@@ -3325,8 +3327,8 @@ Global Symbols
 <P><STRONG><a name="[201]"></a>tcp_pcb_purge</STRONG> (Thumb, 48 bytes, Stack size 16 bytes, tcp.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 200<LI>Call Chain = tcp_pcb_purge &rArr; tcp_segs_free &rArr; tcp_seg_free &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[200]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_segs_free
-<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_free
+<BR>[Calls]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_free
+<LI><a href="#[200]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_segs_free
 </UL>
 <BR>[Called By]<UL><LI><a href="#[218]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_process
 <LI><a href="#[207]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_pcb_remove
@@ -3334,15 +3336,15 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[202]"></a>tcp_slowtmr</STRONG> (Thumb, 550 bytes, Stack size 40 bytes, tcp.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 280<LI>Call Chain = tcp_slowtmr &rArr; tcp_rexmit_rto &rArr; tcp_output &rArr; tcp_send_empty_ack &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
+<BR><BR>[Stack]<UL><LI>Max Depth = 280<LI>Call Chain = tcp_slowtmr &rArr; tcp_output &rArr; tcp_send_empty_ack &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[203]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_zero_window_probe
+<BR>[Calls]<UL><LI><a href="#[1a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_output
+<LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;memp_free
+<LI><a href="#[203]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_zero_window_probe
 <LI><a href="#[206]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_rst
 <LI><a href="#[204]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_rexmit_rto
 <LI><a href="#[205]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_keepalive
 <LI><a href="#[201]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_pcb_purge
-<LI><a href="#[1a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_output
-<LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;memp_free
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_tmr
 </UL>
@@ -3350,45 +3352,45 @@ Global Symbols
 <P><STRONG><a name="[207]"></a>tcp_pcb_remove</STRONG> (Thumb, 92 bytes, Stack size 16 bytes, tcp.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 256<LI>Call Chain = tcp_pcb_remove &rArr; tcp_output &rArr; tcp_send_empty_ack &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[201]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_pcb_purge
-<LI><a href="#[1a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_output
+<BR>[Calls]<UL><LI><a href="#[1a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_output
+<LI><a href="#[201]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_pcb_purge
 </UL>
-<BR>[Called By]<UL><LI><a href="#[21c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_input
+<BR>[Called By]<UL><LI><a href="#[1aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_close
+<LI><a href="#[21c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_input
 <LI><a href="#[1ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_abandon
-<LI><a href="#[1aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_close
 </UL>
 
 <P><STRONG><a name="[1aa]"></a>tcp_close</STRONG> (Thumb, 204 bytes, Stack size 16 bytes, tcp.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 280<LI>Call Chain = tcp_close &rArr; tcp_send_ctrl &rArr; tcp_enqueue &rArr; tcp_segs_free &rArr; tcp_seg_free &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
+<BR><BR>[Stack]<UL><LI>Max Depth = 280<LI>Call Chain = tcp_close &rArr; tcp_send_ctrl &rArr; tcp_enqueue &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[208]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_send_ctrl
-<LI><a href="#[207]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_pcb_remove
-<LI><a href="#[1a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_output
+<BR>[Calls]<UL><LI><a href="#[1a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_output
 <LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;memp_free
+<LI><a href="#[208]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_send_ctrl
+<LI><a href="#[207]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_pcb_remove
 </UL>
-<BR>[Called By]<UL><LI><a href="#[20a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_recv_null
-<LI><a href="#[1a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;do_close_internal
+<BR>[Called By]<UL><LI><a href="#[1a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;do_close_internal
+<LI><a href="#[20a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_recv_null
 </UL>
 
 <P><STRONG><a name="[209]"></a>tcp_update_rcv_ann_wnd</STRONG> (Thumb, 54 bytes, Stack size 16 bytes, tcp.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = tcp_update_rcv_ann_wnd
 </UL>
-<BR>[Called By]<UL><LI><a href="#[213]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_receive
-<LI><a href="#[1c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_recved
+<BR>[Called By]<UL><LI><a href="#[1c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_recved
+<LI><a href="#[213]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_receive
 </UL>
 
 <P><STRONG><a name="[1c0]"></a>tcp_recved</STRONG> (Thumb, 60 bytes, Stack size 8 bytes, tcp.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 248<LI>Call Chain = tcp_recved &rArr; tcp_output &rArr; tcp_send_empty_ack &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[209]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_update_rcv_ann_wnd
-<LI><a href="#[1a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_output
+<BR>[Calls]<UL><LI><a href="#[1a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_output
+<LI><a href="#[209]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_update_rcv_ann_wnd
 </UL>
-<BR>[Called By]<UL><LI><a href="#[20a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_recv_null
-<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;do_recv
+<BR>[Called By]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;do_recv
+<LI><a href="#[20a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_recv_null
 </UL>
 
 <P><STRONG><a name="[20a]"></a>tcp_recv_null</STRONG> (Thumb, 54 bytes, Stack size 8 bytes, tcp.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 288<LI>Call Chain = tcp_recv_null &rArr; tcp_close &rArr; tcp_send_ctrl &rArr; tcp_enqueue &rArr; tcp_segs_free &rArr; tcp_seg_free &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
+<BR><BR>[Stack]<UL><LI>Max Depth = 288<LI>Call Chain = tcp_recv_null &rArr; tcp_close &rArr; tcp_send_ctrl &rArr; tcp_enqueue &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_free
 <LI><a href="#[1c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_recved
@@ -3400,16 +3402,16 @@ Global Symbols
 <BR>[Address Reference Count : 1]<UL><LI> tcp.o(.text)
 </UL>
 <P><STRONG><a name="[20b]"></a>tcp_fasttmr</STRONG> (Thumb, 86 bytes, Stack size 16 bytes, tcp.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 304<LI>Call Chain = tcp_fasttmr &rArr; tcp_recv_null &rArr; tcp_close &rArr; tcp_send_ctrl &rArr; tcp_enqueue &rArr; tcp_segs_free &rArr; tcp_seg_free &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
+<BR><BR>[Stack]<UL><LI>Max Depth = 304<LI>Call Chain = tcp_fasttmr &rArr; tcp_recv_null &rArr; tcp_close &rArr; tcp_send_ctrl &rArr; tcp_enqueue &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[20a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_recv_null
-<LI><a href="#[1a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_output
+<BR>[Calls]<UL><LI><a href="#[1a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_output
+<LI><a href="#[20a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_recv_null
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_tmr
 </UL>
 
 <P><STRONG><a name="[1c7]"></a>tcp_tmr</STRONG> (Thumb, 26 bytes, Stack size 8 bytes, tcp.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 312<LI>Call Chain = tcp_tmr &rArr; tcp_fasttmr &rArr; tcp_recv_null &rArr; tcp_close &rArr; tcp_send_ctrl &rArr; tcp_enqueue &rArr; tcp_segs_free &rArr; tcp_seg_free &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
+<BR><BR>[Stack]<UL><LI>Max Depth = 312<LI>Call Chain = tcp_tmr &rArr; tcp_fasttmr &rArr; tcp_recv_null &rArr; tcp_close &rArr; tcp_send_ctrl &rArr; tcp_enqueue &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[20b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_fasttmr
 <LI><a href="#[202]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_slowtmr
@@ -3420,10 +3422,10 @@ Global Symbols
 <P><STRONG><a name="[1ee]"></a>tcp_abandon</STRONG> (Thumb, 148 bytes, Stack size 56 bytes, tcp.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 312<LI>Call Chain = tcp_abandon &rArr; tcp_pcb_remove &rArr; tcp_output &rArr; tcp_send_empty_ack &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[206]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_rst
+<BR>[Calls]<UL><LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;memp_free
+<LI><a href="#[206]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_rst
 <LI><a href="#[207]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_pcb_remove
 <LI><a href="#[200]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_segs_free
-<LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;memp_free
 </UL>
 <BR>[Called By]<UL><LI><a href="#[21a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_listen_input
 <LI><a href="#[218]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_process
@@ -3444,9 +3446,9 @@ Global Symbols
 <P><STRONG><a name="[1bb]"></a>tcp_listen_with_backlog</STRONG> (Thumb, 142 bytes, Stack size 16 bytes, tcp.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = tcp_listen_with_backlog &rArr; tcp_timer_needed &rArr; sys_timeout &rArr; sys_arch_timeouts
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_timer_needed
-<LI><a href="#[199]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;memp_malloc
+<BR>[Calls]<UL><LI><a href="#[199]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;memp_malloc
 <LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;memp_free
+<LI><a href="#[1c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_timer_needed
 </UL>
 <BR>[Called By]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;do_listen
 </UL>
@@ -3456,25 +3458,25 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ip_route
 </UL>
-<BR>[Called By]<UL><LI><a href="#[21a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_listen_input
+<BR>[Called By]<UL><LI><a href="#[1b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_connect
+<LI><a href="#[21a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_listen_input
 <LI><a href="#[218]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_process
-<LI><a href="#[1b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_connect
 </UL>
 
 <P><STRONG><a name="[20e]"></a>tcp_next_iss</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, tcp.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[212]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_alloc
-<LI><a href="#[1b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_connect
+<BR><BR>[Called By]<UL><LI><a href="#[1b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_connect
+<LI><a href="#[212]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_alloc
 </UL>
 
 <P><STRONG><a name="[1b9]"></a>tcp_connect</STRONG> (Thumb, 202 bytes, Stack size 32 bytes, tcp.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 280<LI>Call Chain = tcp_connect &rArr; tcp_enqueue &rArr; tcp_segs_free &rArr; tcp_seg_free &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
+<BR><BR>[Stack]<UL><LI>Max Depth = 280<LI>Call Chain = tcp_connect &rArr; tcp_enqueue &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[20f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_enqueue
+<BR>[Calls]<UL><LI><a href="#[1a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_output
+<LI><a href="#[20f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_enqueue
 <LI><a href="#[20e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_next_iss
 <LI><a href="#[20d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_eff_send_mss
 <LI><a href="#[20c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_new_port
 <LI><a href="#[1c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_timer_needed
-<LI><a href="#[1a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_output
 </UL>
 <BR>[Called By]<UL><LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;do_connect
 </UL>
@@ -3484,14 +3486,14 @@ Global Symbols
 <P><STRONG><a name="[212]"></a>tcp_alloc</STRONG> (Thumb, 154 bytes, Stack size 16 bytes, tcp.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 344<LI>Call Chain = tcp_alloc &rArr; tcp_kill_prio &rArr; tcp_abandon &rArr; tcp_pcb_remove &rArr; tcp_output &rArr; tcp_send_empty_ack &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[20e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_next_iss
+<BR>[Calls]<UL><LI><a href="#[199]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;memp_malloc
+<LI><a href="#[20e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_next_iss
 <LI><a href="#[211]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_kill_timewait
 <LI><a href="#[210]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_kill_prio
-<LI><a href="#[199]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;memp_malloc
 <LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
-<BR>[Called By]<UL><LI><a href="#[21a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_listen_input
-<LI><a href="#[1b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_new
+<BR>[Called By]<UL><LI><a href="#[1b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_new
+<LI><a href="#[21a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_listen_input
 </UL>
 
 <P><STRONG><a name="[1b2]"></a>tcp_new</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, tcp.o(.text))
@@ -3538,7 +3540,10 @@ Global Symbols
 <P><STRONG><a name="[21c]"></a>tcp_input</STRONG> (Thumb, 834 bytes, Stack size 32 bytes, tcp_in.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 400<LI>Call Chain = tcp_input &rArr; tcp_listen_input &rArr; tcp_alloc &rArr; tcp_kill_prio &rArr; tcp_abandon &rArr; tcp_pcb_remove &rArr; tcp_output &rArr; tcp_send_empty_ack &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[21b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_timewait_input
+<BR>[Calls]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_free
+<LI><a href="#[1a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_output
+<LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;memp_free
+<LI><a href="#[21b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_timewait_input
 <LI><a href="#[21a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_listen_input
 <LI><a href="#[218]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_process
 <LI><a href="#[206]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_rst
@@ -3548,38 +3553,35 @@ Global Symbols
 <LI><a href="#[1da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ntohs
 <LI><a href="#[1dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ntohl
 <LI><a href="#[1dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ip_addr_isbroadcast
-<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_free
-<LI><a href="#[1a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_output
-<LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;memp_free
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ip_input
 </UL>
 
 <P><STRONG><a name="[20f]"></a>tcp_enqueue</STRONG> (Thumb, 858 bytes, Stack size 64 bytes, tcp_out.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 248<LI>Call Chain = tcp_enqueue &rArr; tcp_segs_free &rArr; tcp_seg_free &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
+<BR><BR>[Stack]<UL><LI>Max Depth = 248<LI>Call Chain = tcp_enqueue &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[200]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_segs_free
-<LI><a href="#[215]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_clen
-<LI><a href="#[1db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_header
-<LI><a href="#[1da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ntohs
-<LI><a href="#[1dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ntohl
-<LI><a href="#[1e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;htons
-<LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;htonl
+<BR>[Calls]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;htonl
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_free
 <LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_alloc
 <LI><a href="#[1c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_cat
 <LI><a href="#[199]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;memp_malloc
 <LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;memp_free
+<LI><a href="#[200]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_segs_free
+<LI><a href="#[215]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_clen
+<LI><a href="#[1db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_header
+<LI><a href="#[1da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ntohs
+<LI><a href="#[1dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ntohl
+<LI><a href="#[1e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;htons
 <LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
 </UL>
-<BR>[Called By]<UL><LI><a href="#[21a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_listen_input
-<LI><a href="#[208]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_send_ctrl
-<LI><a href="#[1a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_write
+<BR>[Called By]<UL><LI><a href="#[1a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_write
 <LI><a href="#[1b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_connect
+<LI><a href="#[21a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_listen_input
+<LI><a href="#[208]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_send_ctrl
 </UL>
 
 <P><STRONG><a name="[208]"></a>tcp_send_ctrl</STRONG> (Thumb, 20 bytes, Stack size 16 bytes, tcp_out.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 264<LI>Call Chain = tcp_send_ctrl &rArr; tcp_enqueue &rArr; tcp_segs_free &rArr; tcp_seg_free &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
+<BR><BR>[Stack]<UL><LI>Max Depth = 264<LI>Call Chain = tcp_send_ctrl &rArr; tcp_enqueue &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[20f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_enqueue
 </UL>
@@ -3587,7 +3589,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[1a1]"></a>tcp_write</STRONG> (Thumb, 46 bytes, Stack size 16 bytes, tcp_out.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 264<LI>Call Chain = tcp_write &rArr; tcp_enqueue &rArr; tcp_segs_free &rArr; tcp_seg_free &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
+<BR><BR>[Stack]<UL><LI>Max Depth = 264<LI>Call Chain = tcp_write &rArr; tcp_enqueue &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[20f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_enqueue
 </UL>
@@ -3597,14 +3599,14 @@ Global Symbols
 <P><STRONG><a name="[216]"></a>tcp_send_empty_ack</STRONG> (Thumb, 86 bytes, Stack size 24 bytes, tcp_out.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 208<LI>Call Chain = tcp_send_empty_ack &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[21e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ip_output
-<LI><a href="#[21d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_output_set_header
-<LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;htonl
+<BR>[Calls]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;htonl
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_free
 <LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_alloc
+<LI><a href="#[21e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ip_output
+<LI><a href="#[21d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_output_set_header
 </UL>
-<BR>[Called By]<UL><LI><a href="#[213]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_receive
-<LI><a href="#[1a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_output
+<BR>[Called By]<UL><LI><a href="#[1a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_output
+<LI><a href="#[213]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_receive
 </UL>
 
 <P><STRONG><a name="[1a2]"></a>tcp_output</STRONG> (Thumb, 416 bytes, Stack size 32 bytes, tcp_out.o(.text))
@@ -3617,7 +3619,11 @@ Global Symbols
 <LI><a href="#[1dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ntohl
 <LI><a href="#[1e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;htons
 </UL>
-<BR>[Called By]<UL><LI><a href="#[21c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_input
+<BR>[Called By]<UL><LI><a href="#[1c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_recved
+<LI><a href="#[1b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_connect
+<LI><a href="#[1aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_close
+<LI><a href="#[1a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;do_writemore
+<LI><a href="#[21c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_input
 <LI><a href="#[21b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_timewait_input
 <LI><a href="#[21a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_listen_input
 <LI><a href="#[218]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_process
@@ -3626,21 +3632,17 @@ Global Symbols
 <LI><a href="#[20b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_fasttmr
 <LI><a href="#[207]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_pcb_remove
 <LI><a href="#[202]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_slowtmr
-<LI><a href="#[1c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_recved
-<LI><a href="#[1b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_connect
-<LI><a href="#[1aa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_close
-<LI><a href="#[1a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;do_writemore
 </UL>
 
 <P><STRONG><a name="[206]"></a>tcp_rst</STRONG> (Thumb, 158 bytes, Stack size 48 bytes, tcp_out.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 232<LI>Call Chain = tcp_rst &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[21e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ip_output
-<LI><a href="#[1da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ntohs
-<LI><a href="#[1e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;htons
-<LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;htonl
+<BR>[Calls]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;htonl
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_free
 <LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_alloc
+<LI><a href="#[21e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ip_output
+<LI><a href="#[1da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ntohs
+<LI><a href="#[1e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;htons
 </UL>
 <BR>[Called By]<UL><LI><a href="#[21c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_input
 <LI><a href="#[21b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_timewait_input
@@ -3678,11 +3680,11 @@ Global Symbols
 <P><STRONG><a name="[205]"></a>tcp_keepalive</STRONG> (Thumb, 72 bytes, Stack size 24 bytes, tcp_out.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 208<LI>Call Chain = tcp_keepalive &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[21e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ip_output
-<LI><a href="#[21d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_output_set_header
-<LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;htonl
+<BR>[Calls]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;htonl
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_free
 <LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_alloc
+<LI><a href="#[21e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ip_output
+<LI><a href="#[21d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_output_set_header
 </UL>
 <BR>[Called By]<UL><LI><a href="#[202]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_slowtmr
 </UL>
@@ -3690,12 +3692,12 @@ Global Symbols
 <P><STRONG><a name="[203]"></a>tcp_zero_window_probe</STRONG> (Thumb, 174 bytes, Stack size 32 bytes, tcp_out.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 216<LI>Call Chain = tcp_zero_window_probe &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[21e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ip_output
+<BR>[Calls]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_free
+<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_alloc
+<LI><a href="#[21e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ip_output
 <LI><a href="#[21d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_output_set_header
 <LI><a href="#[1da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ntohs
 <LI><a href="#[1e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;htons
-<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_free
-<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_alloc
 </UL>
 <BR>[Called By]<UL><LI><a href="#[202]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_slowtmr
 </UL>
@@ -3703,7 +3705,8 @@ Global Symbols
 <P><STRONG><a name="[231]"></a>dhcp_renew</STRONG> (Thumb, 146 bytes, Stack size 24 bytes, dhcp.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 256<LI>Call Chain = dhcp_renew &rArr; udp_sendto_if &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[223]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_set_state
+<BR>[Calls]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_sendto_if
+<LI><a href="#[223]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_set_state
 <LI><a href="#[221]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_create_request
 <LI><a href="#[226]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_option_short
 <LI><a href="#[224]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_option
@@ -3711,7 +3714,6 @@ Global Symbols
 <LI><a href="#[227]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_option_trailer
 <LI><a href="#[220]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_delete_request
 <LI><a href="#[1f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_realloc
-<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_sendto_if
 </UL>
 <BR>[Called By]<UL><LI><a href="#[238]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_timeout
 <LI><a href="#[232]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_t1_timeout
@@ -3729,7 +3731,8 @@ Global Symbols
 <P><STRONG><a name="[236]"></a>dhcp_release</STRONG> (Thumb, 178 bytes, Stack size 24 bytes, dhcp.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 352<LI>Call Chain = dhcp_release &rArr; netif_set_ipaddr &rArr; tcp_abandon &rArr; tcp_pcb_remove &rArr; tcp_output &rArr; tcp_send_empty_ack &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[223]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_set_state
+<BR>[Calls]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_sendto_if
+<LI><a href="#[223]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_set_state
 <LI><a href="#[221]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_create_request
 <LI><a href="#[224]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_option
 <LI><a href="#[225]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_option_byte
@@ -3740,7 +3743,6 @@ Global Symbols
 <LI><a href="#[1ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netif_set_ipaddr
 <LI><a href="#[1f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netif_set_netmask
 <LI><a href="#[1f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netif_set_gw
-<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_sendto_if
 </UL>
 <BR>[Called By]<UL><LI><a href="#[238]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_timeout
 </UL>
@@ -3754,27 +3756,31 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[23b]"></a>dhcp_stop</STRONG> (Thumb, 48 bytes, Stack size 16 bytes, dhcp.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mem_free
-<LI><a href="#[1b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_remove
+<BR><BR>[Calls]<UL><LI><a href="#[1b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_remove
+<LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mem_free
 </UL>
 <BR>[Called By]<UL><LI><a href="#[23e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_start
 </UL>
 
 <P><STRONG><a name="[23e]"></a>dhcp_start</STRONG> (Thumb, 162 bytes, Stack size 16 bytes, dhcp.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[23b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_stop
-<LI><a href="#[222]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_discover
-<LI><a href="#[1ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mem_malloc
-<LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mem_free
-<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_recv
+<BR><BR>[Calls]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_recv
 <LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_new
 <LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_bind
 <LI><a href="#[1b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_remove
 <LI><a href="#[1b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_connect
+<LI><a href="#[23b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_stop
+<LI><a href="#[222]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_discover
+<LI><a href="#[1ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mem_malloc
+<LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mem_free
 <LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
 
 <P><STRONG><a name="[23f]"></a>dhcp_inform</STRONG> (Thumb, 150 bytes, Stack size 24 bytes, dhcp.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[221]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_create_request
+<BR><BR>[Calls]<UL><LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_new
+<LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_bind
+<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_sendto_if
+<LI><a href="#[1b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_remove
+<LI><a href="#[221]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_create_request
 <LI><a href="#[226]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_option_short
 <LI><a href="#[224]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_option
 <LI><a href="#[225]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_option_byte
@@ -3783,10 +3789,6 @@ Global Symbols
 <LI><a href="#[1f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_realloc
 <LI><a href="#[1ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mem_malloc
 <LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mem_free
-<LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_new
-<LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_bind
-<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_sendto_if
-<LI><a href="#[1b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_remove
 <LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 </UL>
 
@@ -3853,16 +3855,16 @@ Global Symbols
 <P><STRONG><a name="[250]"></a>icmp_input</STRONG> (Thumb, 324 bytes, Stack size 48 bytes, icmp.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 232<LI>Call Chain = icmp_input &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[251]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;inet_chksum_pbuf
+<BR>[Calls]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_free
+<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_alloc
+<LI><a href="#[19c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_copy
+<LI><a href="#[251]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;inet_chksum_pbuf
 <LI><a href="#[1db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_header
 <LI><a href="#[1da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ntohs
 <LI><a href="#[1dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ntohl
 <LI><a href="#[1e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ip_output_if
 <LI><a href="#[1dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ip_addr_isbroadcast
 <LI><a href="#[1e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;htons
-<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_free
-<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_alloc
-<LI><a href="#[19c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_copy
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ip_input
 </UL>
@@ -3877,7 +3879,8 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[bf]"></a>htonl</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, inet.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[254]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;inet_aton
+<BR><BR>[Called By]<UL><LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LwIP_Init
+<LI><a href="#[254]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;inet_aton
 <LI><a href="#[24b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;autoip_bind
 <LI><a href="#[243]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;autoip_create_addr
 <LI><a href="#[239]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_handle_ack
@@ -3891,7 +3894,6 @@ Global Symbols
 <LI><a href="#[205]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_keepalive
 <LI><a href="#[20f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_enqueue
 <LI><a href="#[1dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ntohl
-<LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LwIP_Init
 </UL>
 
 <P><STRONG><a name="[254]"></a>inet_aton</STRONG> (Thumb, 276 bytes, Stack size 36 bytes, inet.o(.text), UNUSED)
@@ -3907,7 +3909,9 @@ Global Symbols
 <P><STRONG><a name="[3d0]"></a>inet_ntoa</STRONG> (Thumb, 92 bytes, Stack size 32 bytes, inet.o(.text), UNUSED)
 
 <P><STRONG><a name="[1e0]"></a>htons</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, inet.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[25d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;etharp_arp_input
+<BR><BR>[Called By]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_sendto_if
+<LI><a href="#[1a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_output
+<LI><a href="#[25d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;etharp_arp_input
 <LI><a href="#[258]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;etharp_send_ip
 <LI><a href="#[257]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;inet_chksum_pseudo
 <LI><a href="#[256]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;lwip_standard_chksum
@@ -3923,14 +3927,13 @@ Global Symbols
 <LI><a href="#[1e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ip_output_if
 <LI><a href="#[1cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ip_input
 <LI><a href="#[1ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ethernet_input
-<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_sendto_if
-<LI><a href="#[1a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_output
 </UL>
 
 <P><STRONG><a name="[1da]"></a>ntohs</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, inet.o(.text))
 <BR><BR>[Calls]<UL><LI><a href="#[1e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;htons
 </UL>
-<BR>[Called By]<UL><LI><a href="#[250]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;icmp_input
+<BR>[Called By]<UL><LI><a href="#[1a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_output
+<LI><a href="#[250]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;icmp_input
 <LI><a href="#[21d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_output_set_header
 <LI><a href="#[21c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_input
 <LI><a href="#[217]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_parseopt
@@ -3942,13 +3945,13 @@ Global Symbols
 <LI><a href="#[1e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ip_output_if
 <LI><a href="#[1d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_input
 <LI><a href="#[1cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ip_input
-<LI><a href="#[1a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_output
 </UL>
 
 <P><STRONG><a name="[1dd]"></a>ntohl</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, inet.o(.text))
 <BR><BR>[Calls]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;htonl
 </UL>
-<BR>[Called By]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;etharp_output
+<BR>[Called By]<UL><LI><a href="#[1a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_output
+<LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;etharp_output
 <LI><a href="#[259]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;update_arp_entry
 <LI><a href="#[250]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;icmp_input
 <LI><a href="#[243]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;autoip_create_addr
@@ -3966,7 +3969,6 @@ Global Symbols
 <LI><a href="#[20f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_enqueue
 <LI><a href="#[1d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_input
 <LI><a href="#[1cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ip_input
-<LI><a href="#[1a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_output
 </UL>
 
 <P><STRONG><a name="[257]"></a>inet_chksum_pseudo</STRONG> (Thumb, 134 bytes, Stack size 32 bytes, inet_chksum.o(.text), UNUSED)
@@ -3995,17 +3997,18 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[245]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netif_is_up
 </UL>
-<BR>[Called By]<UL><LI><a href="#[21e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ip_output
+<BR>[Called By]<UL><LI><a href="#[1be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_sendto
+<LI><a href="#[1bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_sendto
+<LI><a href="#[21e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ip_output
 <LI><a href="#[21f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_output_segment
 <LI><a href="#[20d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_eff_send_mss
-<LI><a href="#[1be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_sendto
-<LI><a href="#[1bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_sendto
 </UL>
 
 <P><STRONG><a name="[1cf]"></a>ip_input</STRONG> (Thumb, 426 bytes, Stack size 40 bytes, ip.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 440<LI>Call Chain = ip_input &rArr; tcp_input &rArr; tcp_listen_input &rArr; tcp_alloc &rArr; tcp_kill_prio &rArr; tcp_abandon &rArr; tcp_pcb_remove &rArr; tcp_output &rArr; tcp_send_empty_ack &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[250]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;icmp_input
+<BR>[Calls]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_free
+<LI><a href="#[250]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;icmp_input
 <LI><a href="#[21c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_input
 <LI><a href="#[1fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_input
 <LI><a href="#[1f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_realloc
@@ -4016,7 +4019,6 @@ Global Symbols
 <LI><a href="#[1de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;icmp_dest_unreach
 <LI><a href="#[1e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;htons
 <LI><a href="#[1d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_input
-<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_free
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ethernet_input
 <LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcpip_thread
@@ -4029,10 +4031,10 @@ Global Symbols
 <LI><a href="#[1da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ntohs
 <LI><a href="#[1e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;htons
 </UL>
-<BR>[Called By]<UL><LI><a href="#[250]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;icmp_input
-<LI><a href="#[21e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ip_output
-<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_sendto_if
+<BR>[Called By]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_sendto_if
 <LI><a href="#[1bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_sendto
+<LI><a href="#[250]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;icmp_input
+<LI><a href="#[21e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ip_output
 </UL>
 
 <P><STRONG><a name="[21e]"></a>ip_output</STRONG> (Thumb, 52 bytes, Stack size 40 bytes, ip.o(.text))
@@ -4077,11 +4079,11 @@ Global Symbols
 <P><STRONG><a name="[25d]"></a>etharp_arp_input</STRONG> (Thumb, 296 bytes, Stack size 40 bytes, etharp.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 328<LI>Call Chain = etharp_arp_input &rArr; autoip_arp_reply &rArr; autoip_handle_arp_conflict &rArr; autoip_arp_announce &rArr; etharp_raw &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[259]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;update_arp_entry
+<BR>[Calls]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_free
+<LI><a href="#[259]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;update_arp_entry
 <LI><a href="#[24e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;autoip_arp_reply
 <LI><a href="#[242]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_arp_reply
 <LI><a href="#[1e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;htons
-<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_free
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ethernet_input
 </UL>
@@ -4089,9 +4091,9 @@ Global Symbols
 <P><STRONG><a name="[248]"></a>etharp_raw</STRONG> (Thumb, 192 bytes, Stack size 40 bytes, etharp.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 224<LI>Call Chain = etharp_raw &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;htons
-<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_free
+<BR>[Calls]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_free
 <LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_alloc
+<LI><a href="#[1e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;htons
 </UL>
 <BR>[Called By]<UL><LI><a href="#[24a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;autoip_arp_probe
 <LI><a href="#[247]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;autoip_arp_announce
@@ -4103,8 +4105,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[248]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;etharp_raw
 </UL>
-<BR>[Called By]<UL><LI><a href="#[22b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;etharp_query
-<LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netif_set_up
+<BR>[Called By]<UL><LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netif_set_up
+<LI><a href="#[22b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;etharp_query
 </UL>
 
 <P><STRONG><a name="[22b]"></a>etharp_query</STRONG> (Thumb, 140 bytes, Stack size 32 bytes, etharp.o(.text))
@@ -4134,11 +4136,11 @@ Global Symbols
 <P><STRONG><a name="[1ce]"></a>ethernet_input</STRONG> (Thumb, 82 bytes, Stack size 16 bytes, etharp.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 456<LI>Call Chain = ethernet_input &rArr; ip_input &rArr; tcp_input &rArr; tcp_listen_input &rArr; tcp_alloc &rArr; tcp_kill_prio &rArr; tcp_abandon &rArr; tcp_pcb_remove &rArr; tcp_output &rArr; tcp_send_empty_ack &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[25d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;etharp_arp_input
+<BR>[Calls]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_free
+<LI><a href="#[25d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;etharp_arp_input
 <LI><a href="#[1db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_header
 <LI><a href="#[1e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;htons
 <LI><a href="#[1cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ip_input
-<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_free
 </UL>
 <BR>[Called By]<UL><LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcpip_thread
 </UL>
@@ -4177,11 +4179,11 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcpip_untimeout
+<BR>[Called By]<UL><LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;err_tcp
+<LI><a href="#[190]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcpip_apimsg
+<LI><a href="#[1d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcpip_untimeout
 <LI><a href="#[1d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcpip_timeout
 <LI><a href="#[1d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcpip_callback_with_block
-<LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;err_tcp
-<LI><a href="#[190]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcpip_apimsg
 </UL>
 
 <P><STRONG><a name="[19d]"></a>sys_mbox_trypost</STRONG> (Thumb, 26 bytes, Stack size 16 bytes, sys_arch.o(.text))
@@ -4189,12 +4191,12 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcpip_callback_with_block
-<LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcpip_input
+<BR>[Called By]<UL><LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcpip_input
 <LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;accept_function
 <LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;recv_tcp
 <LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;recv_udp
 <LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;recv_raw
+<LI><a href="#[1d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcpip_callback_with_block
 </UL>
 
 <P><STRONG><a name="[198]"></a>sys_arch_mbox_fetch</STRONG> (Thumb, 84 bytes, Stack size 32 bytes, sys_arch.o(.text))
@@ -4203,9 +4205,9 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
 <LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericReceive
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_mbox_fetch
-<LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netconn_recv
+<BR>[Called By]<UL><LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netconn_recv
 <LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netconn_accept
+<LI><a href="#[1d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_mbox_fetch
 </UL>
 
 <P><STRONG><a name="[1ac]"></a>sys_arch_mbox_tryfetch</STRONG> (Thumb, 30 bytes, Stack size 8 bytes, sys_arch.o(.text))
@@ -4223,9 +4225,9 @@ Global Symbols
 <LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericReceive
 <LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueCreate
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_msleep
+<BR>[Called By]<UL><LI><a href="#[18f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netconn_alloc
+<LI><a href="#[1fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_msleep
 <LI><a href="#[1e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mem_init
-<LI><a href="#[18f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netconn_alloc
 </UL>
 
 <P><STRONG><a name="[1d5]"></a>sys_arch_sem_wait</STRONG> (Thumb, 74 bytes, Stack size 24 bytes, sys_arch.o(.text))
@@ -4234,11 +4236,11 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
 <LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericReceive
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_sem_wait
+<BR>[Called By]<UL><LI><a href="#[190]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcpip_apimsg
+<LI><a href="#[1fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_sem_wait
 <LI><a href="#[1ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mem_malloc
 <LI><a href="#[1e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mem_realloc
 <LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mem_free
-<LI><a href="#[190]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcpip_apimsg
 </UL>
 
 <P><STRONG><a name="[19f]"></a>sys_sem_signal</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, sys_arch.o(.text))
@@ -4246,11 +4248,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
 </UL>
-<BR>[Called By]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sswt_handler
-<LI><a href="#[1ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mem_malloc
-<LI><a href="#[1e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mem_realloc
-<LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mem_free
-<LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;do_connected
+<BR>[Called By]<UL><LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;do_connected
 <LI><a href="#[1a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;do_close_internal
 <LI><a href="#[1a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;do_writemore
 <LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;err_tcp
@@ -4265,6 +4263,10 @@ Global Symbols
 <LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;do_connect
 <LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;do_close
 <LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;do_bind
+<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sswt_handler
+<LI><a href="#[1ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mem_malloc
+<LI><a href="#[1e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mem_realloc
+<LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;mem_free
 </UL>
 
 <P><STRONG><a name="[191]"></a>sys_sem_free</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, sys_arch.o(.text))
@@ -4272,10 +4274,10 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[269]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vQueueDelete
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_msleep
-<LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netconn_new_with_proto_and_callback
+<BR>[Called By]<UL><LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netconn_new_with_proto_and_callback
 <LI><a href="#[194]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netconn_free
 <LI><a href="#[18f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netconn_alloc
+<LI><a href="#[1fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_msleep
 </UL>
 
 <P><STRONG><a name="[1e4]"></a>sys_init</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, sys_arch.o(.text))
@@ -4315,8 +4317,8 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[271]"></a>vListInitialise</STRONG> (Thumb, 22 bytes, Stack size 0 bytes, list.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[27e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueCreateMutex
-<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueCreate
+<BR><BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueCreate
+<LI><a href="#[27e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueCreateMutex
 <LI><a href="#[285]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvInitialiseTaskLists
 </UL>
 
@@ -4325,12 +4327,12 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[28c]"></a>vListInsertEnd</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, list.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[27c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
+<BR><BR>[Called By]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGenericCreate
+<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelete
+<LI><a href="#[27c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
 <LI><a href="#[274]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskRemoveFromEventList
 <LI><a href="#[283]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPriorityInherit
 <LI><a href="#[278]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPriorityDisinherit
-<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGenericCreate
-<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelete
 <LI><a href="#[291]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPrioritySet
 <LI><a href="#[28e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskIncrementTick
 </UL>
@@ -4338,18 +4340,18 @@ Global Symbols
 <P><STRONG><a name="[28f]"></a>vListInsert</STRONG> (Thumb, 48 bytes, Stack size 8 bytes, list.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = vListInsert
 </UL>
-<BR>[Called By]<UL><LI><a href="#[27d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPlaceOnEventList
-<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
+<BR>[Called By]<UL><LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
+<LI><a href="#[27d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPlaceOnEventList
 </UL>
 
 <P><STRONG><a name="[28d]"></a>vListRemove</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, list.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[27c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
+<BR><BR>[Called By]<UL><LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelete
+<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
+<LI><a href="#[27c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
 <LI><a href="#[274]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskRemoveFromEventList
 <LI><a href="#[283]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPriorityInherit
 <LI><a href="#[278]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPriorityDisinherit
 <LI><a href="#[27d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPlaceOnEventList
-<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelete
-<LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
 <LI><a href="#[291]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPrioritySet
 <LI><a href="#[28e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskIncrementTick
 <LI><a href="#[293]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvCheckTasksWaitingTermination
@@ -4362,17 +4364,18 @@ Global Symbols
 <LI><a href="#[271]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vListInitialise
 <LI><a href="#[270]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pvPortMalloc
 </UL>
-<BR>[Called By]<UL><LI><a href="#[261]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueCreateCountingSemaphore
-<LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;low_level_output
-<LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<BR>[Called By]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[1ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_sem_new
 <LI><a href="#[1ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_mbox_new
+<LI><a href="#[261]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueCreateCountingSemaphore
+<LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;low_level_output
 </UL>
 
 <P><STRONG><a name="[a2]"></a>xQueueGenericSend</STRONG> (Thumb, 200 bytes, Stack size 48 bytes, queue.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = xQueueGenericSend &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[27c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
+<BR>[Calls]<UL><LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortYieldFromISR
+<LI><a href="#[27c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
 <LI><a href="#[274]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskRemoveFromEventList
 <LI><a href="#[27b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCheckForTimeOut
 <LI><a href="#[27a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspendAll
@@ -4383,21 +4386,20 @@ Global Symbols
 <LI><a href="#[273]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvUnlockQueue
 <LI><a href="#[26e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
 <LI><a href="#[26c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
-<LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortYieldFromISR
 </UL>
-<BR>[Called By]<UL><LI><a href="#[27e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueCreateMutex
-<LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;low_level_output
-<LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<BR>[Called By]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[19f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_sem_signal
 <LI><a href="#[1ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_sem_new
 <LI><a href="#[19d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_mbox_trypost
 <LI><a href="#[19e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_mbox_post
+<LI><a href="#[27e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueCreateMutex
+<LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;low_level_output
 </UL>
 
 <P><STRONG><a name="[27e]"></a>xQueueCreateMutex</STRONG> (Thumb, 68 bytes, Stack size 8 bytes, queue.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[271]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vListInitialise
+<BR><BR>[Calls]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
+<LI><a href="#[271]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vListInitialise
 <LI><a href="#[270]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pvPortMalloc
-<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
 </UL>
 
 <P><STRONG><a name="[261]"></a>xQueueCreateCountingSemaphore</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, queue.o(.text))
@@ -4425,7 +4427,8 @@ Global Symbols
 <P><STRONG><a name="[a6]"></a>xQueueGenericReceive</STRONG> (Thumb, 260 bytes, Stack size 56 bytes, queue.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[27c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
+<BR>[Calls]<UL><LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortYieldFromISR
+<LI><a href="#[27c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
 <LI><a href="#[274]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskRemoveFromEventList
 <LI><a href="#[27b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCheckForTimeOut
 <LI><a href="#[27a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspendAll
@@ -4438,16 +4441,15 @@ Global Symbols
 <LI><a href="#[26a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetCurrentTaskHandle
 <LI><a href="#[26e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
 <LI><a href="#[26c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
-<LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortYieldFromISR
 </UL>
-<BR>[Called By]<UL><LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;low_level_output
-<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ethernetif_input
-<LI><a href="#[1d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_arch_sem_wait
-<LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;process_command_task
+<BR>[Called By]<UL><LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;process_command_task
 <LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;field_task
 <LI><a href="#[1ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_sem_new
 <LI><a href="#[1ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_arch_mbox_tryfetch
 <LI><a href="#[198]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_arch_mbox_fetch
+<LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;low_level_output
+<LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ethernetif_input
+<LI><a href="#[1d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_arch_sem_wait
 </UL>
 
 <P><STRONG><a name="[284]"></a>xQueueReceiveFromISR</STRONG> (Thumb, 78 bytes, Stack size 16 bytes, queue.o(.text), UNUSED)
@@ -4484,31 +4486,31 @@ Global Symbols
 <P><STRONG><a name="[a3]"></a>xTaskGenericCreate</STRONG> (Thumb, 208 bytes, Stack size 56 bytes, tasks.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 136<LI>Call Chain = xTaskGenericCreate &rArr; prvAllocateTCBAndStack &rArr; pvPortMalloc &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[28c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vListInsertEnd
+<BR>[Calls]<UL><LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortYieldFromISR
+<LI><a href="#[28c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vListInsertEnd
 <LI><a href="#[26e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
 <LI><a href="#[26c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
-<LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortYieldFromISR
 <LI><a href="#[28b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pxPortInitialiseStack
 <LI><a href="#[289]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvAllocateTCBAndStack
 <LI><a href="#[286]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvInitialiseTCBVariables
 <LI><a href="#[285]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvInitialiseTaskLists
 </UL>
-<BR>[Called By]<UL><LI><a href="#[260]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;low_level_init
-<LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_thread_new
+<BR>[Called By]<UL><LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_thread_new
 <LI><a href="#[a4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskStartScheduler
 <LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_recv_fn
 <LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;process_command_task
 <LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<LI><a href="#[260]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;low_level_init
 </UL>
 
 <P><STRONG><a name="[ad]"></a>vTaskDelete</STRONG> (Thumb, 90 bytes, Stack size 16 bytes, tasks.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = vTaskDelete &rArr; vPortEnterCritical
 </UL>
-<BR>[Calls]<UL><LI><a href="#[28d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vListRemove
+<BR>[Calls]<UL><LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortYieldFromISR
+<LI><a href="#[28d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vListRemove
 <LI><a href="#[28c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vListInsertEnd
 <LI><a href="#[26e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
 <LI><a href="#[26c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
-<LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortYieldFromISR
 </UL>
 <BR>[Called By]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_recv_fn
 <LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;process_command_task
@@ -4520,47 +4522,47 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[28d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vListRemove
 <LI><a href="#[28c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vListInsertEnd
 </UL>
-<BR>[Called By]<UL><LI><a href="#[27c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
-<LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xPortSysTickHandler
+<BR>[Called By]<UL><LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xPortSysTickHandler
+<LI><a href="#[27c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
 </UL>
 
 <P><STRONG><a name="[27c]"></a>xTaskResumeAll</STRONG> (Thumb, 168 bytes, Stack size 24 bytes, tasks.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[28d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vListRemove
+<BR>[Calls]<UL><LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortYieldFromISR
+<LI><a href="#[28d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vListRemove
 <LI><a href="#[28c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vListInsertEnd
 <LI><a href="#[26e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
 <LI><a href="#[26c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
-<LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortYieldFromISR
 <LI><a href="#[28e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskIncrementTick
 </UL>
-<BR>[Called By]<UL><LI><a href="#[272]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortFree
-<LI><a href="#[270]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pvPortMalloc
-<LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskList
+<BR>[Called By]<UL><LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskList
 <LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
 <LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericReceive
 <LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
+<LI><a href="#[272]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortFree
+<LI><a href="#[270]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pvPortMalloc
 <LI><a href="#[293]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvCheckTasksWaitingTermination
 </UL>
 
 <P><STRONG><a name="[27a]"></a>vTaskSuspendAll</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, tasks.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[272]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortFree
-<LI><a href="#[270]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pvPortMalloc
-<LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskList
+<BR><BR>[Called By]<UL><LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskList
 <LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
 <LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericReceive
 <LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
+<LI><a href="#[272]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortFree
+<LI><a href="#[270]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pvPortMalloc
 <LI><a href="#[293]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvCheckTasksWaitingTermination
 </UL>
 
 <P><STRONG><a name="[94]"></a>vTaskDelay</STRONG> (Thumb, 78 bytes, Stack size 16 bytes, tasks.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = vTaskDelay &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[27c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
+<BR>[Calls]<UL><LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortYieldFromISR
+<LI><a href="#[27c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
 <LI><a href="#[27a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspendAll
 <LI><a href="#[28d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vListRemove
 <LI><a href="#[28f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vListInsert
-<LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortYieldFromISR
 </UL>
 <BR>[Called By]<UL><LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;process_command_task
 <LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;field_task
@@ -4573,18 +4575,18 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[291]"></a>vTaskPrioritySet</STRONG> (Thumb, 156 bytes, Stack size 24 bytes, tasks.o(.text), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[28d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vListRemove
+<BR><BR>[Calls]<UL><LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortYieldFromISR
+<LI><a href="#[28d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vListRemove
 <LI><a href="#[28c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vListInsertEnd
 <LI><a href="#[26e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
 <LI><a href="#[26c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
-<LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortYieldFromISR
 </UL>
 
 <P><STRONG><a name="[a4]"></a>vTaskStartScheduler</STRONG> (Thumb, 50 bytes, Stack size 24 bytes, tasks.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = vTaskStartScheduler &rArr; xTaskGenericCreate &rArr; prvAllocateTCBAndStack &rArr; pvPortMalloc &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[27f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortSetInterruptMask
-<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGenericCreate
+<BR>[Calls]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGenericCreate
+<LI><a href="#[27f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortSetInterruptMask
 <LI><a href="#[294]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xPortStartScheduler
 </UL>
 <BR>[Called By]<UL><LI><a href="#[5c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -4601,10 +4603,10 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[26e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortExitCritical
 <LI><a href="#[26c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortEnterCritical
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_arch_sem_wait
-<LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;process_command_task
+<BR>[Called By]<UL><LI><a href="#[5e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;process_command_task
 <LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;field_task
 <LI><a href="#[198]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_arch_mbox_fetch
+<LI><a href="#[1d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_arch_sem_wait
 </UL>
 
 <P><STRONG><a name="[3d4]"></a>xTaskGetTickCountFromISR</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, tasks.o(.text), UNUSED)
@@ -4652,17 +4654,17 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[28d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vListRemove
 <LI><a href="#[28c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vListInsertEnd
 </UL>
-<BR>[Called By]<UL><LI><a href="#[284]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueReceiveFromISR
-<LI><a href="#[273]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvUnlockQueue
-<LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSendFromISR
+<BR>[Called By]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSendFromISR
 <LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
 <LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericReceive
+<LI><a href="#[284]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueReceiveFromISR
+<LI><a href="#[273]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvUnlockQueue
 </UL>
 
 <P><STRONG><a name="[279]"></a>vTaskSetTimeOutState</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, tasks.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[27b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCheckForTimeOut
-<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
+<BR><BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
 <LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericReceive
+<LI><a href="#[27b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCheckForTimeOut
 </UL>
 
 <P><STRONG><a name="[27b]"></a>xTaskCheckForTimeOut</STRONG> (Thumb, 72 bytes, Stack size 16 bytes, tasks.o(.text))
@@ -4681,8 +4683,8 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[26a]"></a>xTaskGetCurrentTaskHandle</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, tasks.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[1fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_arch_timeouts
-<LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericReceive
+<BR><BR>[Called By]<UL><LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericReceive
+<LI><a href="#[1fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_arch_timeouts
 </UL>
 
 <P><STRONG><a name="[283]"></a>vTaskPriorityInherit</STRONG> (Thumb, 92 bytes, Stack size 16 bytes, tasks.o(.text))
@@ -4721,13 +4723,13 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[b8]"></a>vPortYieldFromISR</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, port.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[27c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
-<LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ETH_IRQHandler
+<BR><BR>[Called By]<UL><LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ETH_IRQHandler
 <LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGenericCreate
 <LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
 <LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericReceive
 <LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelete
 <LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelay
+<LI><a href="#[27c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
 <LI><a href="#[291]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPrioritySet
 <LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvIdleTask
 </UL>
@@ -4737,7 +4739,12 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[27f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortSetInterruptMask
 </UL>
-<BR>[Called By]<UL><LI><a href="#[27c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
+<BR>[Called By]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
+<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGenericCreate
+<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
+<LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericReceive
+<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelete
+<LI><a href="#[27c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
 <LI><a href="#[27b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCheckForTimeOut
 <LI><a href="#[281]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvIsQueueEmpty
 <LI><a href="#[276]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvIsQueueFull
@@ -4745,11 +4752,6 @@ Global Symbols
 <LI><a href="#[268]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uxQueueMessagesWaiting
 <LI><a href="#[26f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_assert
 <LI><a href="#[26b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_arch_protect
-<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
-<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGenericCreate
-<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
-<LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericReceive
-<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelete
 <LI><a href="#[29a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ulTaskEndTrace
 <LI><a href="#[299]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskStartTrace
 <LI><a href="#[291]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPrioritySet
@@ -4760,18 +4762,18 @@ Global Symbols
 <P><STRONG><a name="[26e]"></a>vPortExitCritical</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, port.o(.text))
 <BR><BR>[Calls]<UL><LI><a href="#[280]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vPortClearInterruptMask
 </UL>
-<BR>[Called By]<UL><LI><a href="#[27c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
+<BR>[Called By]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
+<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGenericCreate
+<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
+<LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericReceive
+<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelete
+<LI><a href="#[27c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
 <LI><a href="#[27b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskCheckForTimeOut
 <LI><a href="#[281]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvIsQueueEmpty
 <LI><a href="#[276]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvIsQueueFull
 <LI><a href="#[273]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvUnlockQueue
 <LI><a href="#[268]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;uxQueueMessagesWaiting
 <LI><a href="#[26d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_arch_unprotect
-<LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGetTickCount
-<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGenericCreate
-<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericSend
-<LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericReceive
-<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskDelete
 <LI><a href="#[29a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ulTaskEndTrace
 <LI><a href="#[299]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskStartTrace
 <LI><a href="#[291]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskPrioritySet
@@ -4795,8 +4797,8 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[27c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
 <LI><a href="#[27a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspendAll
 </UL>
-<BR>[Called By]<UL><LI><a href="#[27e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueCreateMutex
-<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueCreate
+<BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueCreate
+<LI><a href="#[27e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueCreateMutex
 <LI><a href="#[289]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvAllocateTCBAndStack
 </UL>
 
@@ -4806,8 +4808,8 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[27c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskResumeAll
 <LI><a href="#[27a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vTaskSuspendAll
 </UL>
-<BR>[Called By]<UL><LI><a href="#[269]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vQueueDelete
-<LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueCreate
+<BR>[Called By]<UL><LI><a href="#[a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueCreate
+<LI><a href="#[269]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;vQueueDelete
 <LI><a href="#[292]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvDeleteTCB
 <LI><a href="#[289]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvAllocateTCBAndStack
 </UL>
@@ -4989,7 +4991,11 @@ Global Symbols
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f4xx.o(RESET)
 </UL>
 <P><STRONG><a name="[ae]"></a>__aeabi_memcpy</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, memcpya.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[282]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvCopyDataFromQueue
+<BR><BR>[Called By]<UL><LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fs_read
+<LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ETH_printf
+<LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_recv_fn
+<LI><a href="#[19c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_copy
+<LI><a href="#[282]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvCopyDataFromQueue
 <LI><a href="#[277]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;prvCopyDataToQueue
 <LI><a href="#[84]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;low_level_output
 <LI><a href="#[25e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;low_level_input
@@ -4997,10 +5003,6 @@ Global Symbols
 <LI><a href="#[20f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_enqueue
 <LI><a href="#[1f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_take
 <LI><a href="#[1f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_copy_partial
-<LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fs_read
-<LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ETH_printf
-<LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_recv_fn
-<LI><a href="#[19c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_copy
 </UL>
 
 <P><STRONG><a name="[3d8]"></a>__aeabi_memcpy4</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memcpya.o(.text), UNUSED)
@@ -5024,12 +5026,12 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[e0]"></a>__aeabi_memclr4</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memseta.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[23f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_inform
-<LI><a href="#[23e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_start
-<LI><a href="#[212]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_alloc
-<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DynWebPage
+<BR><BR>[Called By]<UL><LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;DynWebPage
 <LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_new
 <LI><a href="#[1b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;raw_new
+<LI><a href="#[23f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_inform
+<LI><a href="#[23e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_start
+<LI><a href="#[212]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_alloc
 </UL>
 
 <P><STRONG><a name="[3dc]"></a>__aeabi_memclr8</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, memseta.o(.text), UNUSED)
@@ -5459,7 +5461,7 @@ Local Symbols
 <BR>[Address Reference Count : 1]<UL><LI> api_msg.o(.text)
 </UL>
 <P><STRONG><a name="[1a0]"></a>do_writemore</STRONG> (Thumb, 188 bytes, Stack size 24 bytes, api_msg.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 288<LI>Call Chain = do_writemore &rArr; tcp_write &rArr; tcp_enqueue &rArr; tcp_segs_free &rArr; tcp_seg_free &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
+<BR><BR>[Stack]<UL><LI>Max Depth = 288<LI>Call Chain = do_writemore &rArr; tcp_write &rArr; tcp_enqueue &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1a1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_write
 <LI><a href="#[1a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_output
@@ -5471,7 +5473,7 @@ Local Symbols
 </UL>
 
 <P><STRONG><a name="[6e]"></a>sent_tcp</STRONG> (Thumb, 66 bytes, Stack size 16 bytes, api_msg.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 304<LI>Call Chain = sent_tcp &rArr; do_close_internal &rArr; tcp_close &rArr; tcp_send_ctrl &rArr; tcp_enqueue &rArr; tcp_segs_free &rArr; tcp_seg_free &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
+<BR><BR>[Stack]<UL><LI>Max Depth = 304<LI>Call Chain = sent_tcp &rArr; do_close_internal &rArr; tcp_close &rArr; tcp_send_ctrl &rArr; tcp_enqueue &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;do_close_internal
 <LI><a href="#[1a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;do_writemore
@@ -5479,7 +5481,7 @@ Local Symbols
 <BR>[Address Reference Count : 1]<UL><LI> api_msg.o(.text)
 </UL>
 <P><STRONG><a name="[1a3]"></a>do_close_internal</STRONG> (Thumb, 156 bytes, Stack size 8 bytes, api_msg.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 288<LI>Call Chain = do_close_internal &rArr; tcp_close &rArr; tcp_send_ctrl &rArr; tcp_enqueue &rArr; tcp_segs_free &rArr; tcp_seg_free &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
+<BR><BR>[Stack]<UL><LI>Max Depth = 288<LI>Call Chain = do_close_internal &rArr; tcp_close &rArr; tcp_send_ctrl &rArr; tcp_enqueue &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_sent
 <LI><a href="#[1a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_recv
@@ -5497,7 +5499,7 @@ Local Symbols
 </UL>
 
 <P><STRONG><a name="[6f]"></a>poll_tcp</STRONG> (Thumb, 28 bytes, Stack size 8 bytes, api_msg.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 296<LI>Call Chain = poll_tcp &rArr; do_close_internal &rArr; tcp_close &rArr; tcp_send_ctrl &rArr; tcp_enqueue &rArr; tcp_segs_free &rArr; tcp_seg_free &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
+<BR><BR>[Stack]<UL><LI>Max Depth = 296<LI>Call Chain = poll_tcp &rArr; do_close_internal &rArr; tcp_close &rArr; tcp_send_ctrl &rArr; tcp_enqueue &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;do_close_internal
 <LI><a href="#[1a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;do_writemore
@@ -5551,7 +5553,7 @@ Local Symbols
 <BR>[Address Reference Count : 1]<UL><LI> api_msg.o(.text)
 </UL>
 <P><STRONG><a name="[76]"></a>tcpip_tcp_timer</STRONG> (Thumb, 40 bytes, Stack size 8 bytes, tcpip.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 320<LI>Call Chain = tcpip_tcp_timer &rArr; tcp_tmr &rArr; tcp_fasttmr &rArr; tcp_recv_null &rArr; tcp_close &rArr; tcp_send_ctrl &rArr; tcp_enqueue &rArr; tcp_segs_free &rArr; tcp_seg_free &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
+<BR><BR>[Stack]<UL><LI>Max Depth = 320<LI>Call Chain = tcpip_tcp_timer &rArr; tcp_tmr &rArr; tcp_fasttmr &rArr; tcp_recv_null &rArr; tcp_close &rArr; tcp_send_ctrl &rArr; tcp_enqueue &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_tmr
 <LI><a href="#[1c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_timeout
@@ -5593,12 +5595,12 @@ Local Symbols
 <P><STRONG><a name="[7b]"></a>tcpip_thread</STRONG> (Thumb, 190 bytes, Stack size 8 bytes, tcpip.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 464<LI>Call Chain = tcpip_thread &rArr; ethernet_input &rArr; ip_input &rArr; tcp_input &rArr; tcp_listen_input &rArr; tcp_alloc &rArr; tcp_kill_prio &rArr; tcp_abandon &rArr; tcp_pcb_remove &rArr; tcp_output &rArr; tcp_send_empty_ack &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_untimeout
+<BR>[Calls]<UL><LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;memp_free
+<LI><a href="#[1d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_untimeout
 <LI><a href="#[1c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_timeout
 <LI><a href="#[1d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;sys_mbox_fetch
 <LI><a href="#[1cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ip_input
 <LI><a href="#[1ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ethernet_input
-<LI><a href="#[193]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;memp_free
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> tcpip.o(.text)
 </UL>
@@ -5655,7 +5657,8 @@ Local Symbols
 <P><STRONG><a name="[213]"></a>tcp_receive</STRONG> (Thumb, 1128 bytes, Stack size 24 bytes, tcp_in.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 264<LI>Call Chain = tcp_receive &rArr; tcp_output &rArr; tcp_send_empty_ack &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[216]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_send_empty_ack
+<BR>[Calls]<UL><LI><a href="#[1a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_output
+<LI><a href="#[216]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_send_empty_ack
 <LI><a href="#[214]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_rexmit_fast
 <LI><a href="#[209]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_update_rcv_ann_wnd
 <LI><a href="#[1ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_seg_free
@@ -5665,7 +5668,6 @@ Local Symbols
 <LI><a href="#[1da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ntohs
 <LI><a href="#[1dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ntohl
 <LI><a href="#[1e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;htons
-<LI><a href="#[1a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_output
 </UL>
 <BR>[Called By]<UL><LI><a href="#[218]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_process
 </UL>
@@ -5682,7 +5684,8 @@ Local Symbols
 <P><STRONG><a name="[218]"></a>tcp_process</STRONG> (Thumb, 1068 bytes, Stack size 48 bytes, tcp_in.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 360<LI>Call Chain = tcp_process &rArr; tcp_abandon &rArr; tcp_pcb_remove &rArr; tcp_output &rArr; tcp_send_empty_ack &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[219]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_rexmit
+<BR>[Calls]<UL><LI><a href="#[1a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_output
+<LI><a href="#[219]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_rexmit
 <LI><a href="#[217]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_parseopt
 <LI><a href="#[213]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_receive
 <LI><a href="#[206]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_rst
@@ -5692,7 +5695,6 @@ Local Symbols
 <LI><a href="#[1ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_abandon
 <LI><a href="#[1dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ntohl
 <LI><a href="#[1c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_timer_needed
-<LI><a href="#[1a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_output
 </UL>
 <BR>[Called By]<UL><LI><a href="#[21c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_input
 </UL>
@@ -5700,14 +5702,14 @@ Local Symbols
 <P><STRONG><a name="[21a]"></a>tcp_listen_input</STRONG> (Thumb, 230 bytes, Stack size 24 bytes, tcp_in.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 368<LI>Call Chain = tcp_listen_input &rArr; tcp_alloc &rArr; tcp_kill_prio &rArr; tcp_abandon &rArr; tcp_pcb_remove &rArr; tcp_output &rArr; tcp_send_empty_ack &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[217]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_parseopt
+<BR>[Calls]<UL><LI><a href="#[1a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_output
+<LI><a href="#[217]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_parseopt
 <LI><a href="#[206]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_rst
 <LI><a href="#[20f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_enqueue
 <LI><a href="#[212]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_alloc
 <LI><a href="#[20d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_eff_send_mss
 <LI><a href="#[1ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_abandon
 <LI><a href="#[1c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_timer_needed
-<LI><a href="#[1a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_output
 </UL>
 <BR>[Called By]<UL><LI><a href="#[21c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_input
 </UL>
@@ -5715,8 +5717,8 @@ Local Symbols
 <P><STRONG><a name="[21b]"></a>tcp_timewait_input</STRONG> (Thumb, 106 bytes, Stack size 16 bytes, tcp_in.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 256<LI>Call Chain = tcp_timewait_input &rArr; tcp_output &rArr; tcp_send_empty_ack &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[206]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_rst
-<LI><a href="#[1a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_output
+<BR>[Calls]<UL><LI><a href="#[1a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_output
+<LI><a href="#[206]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_rst
 </UL>
 <BR>[Called By]<UL><LI><a href="#[21c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_input
 </UL>
@@ -5724,9 +5726,9 @@ Local Symbols
 <P><STRONG><a name="[21d]"></a>tcp_output_set_header</STRONG> (Thumb, 124 bytes, Stack size 24 bytes, tcp_out.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = tcp_output_set_header
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ntohs
+<BR>[Calls]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;htonl
+<LI><a href="#[1da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ntohs
 <LI><a href="#[1e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;htons
-<LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;htonl
 </UL>
 <BR>[Called By]<UL><LI><a href="#[216]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_send_empty_ack
 <LI><a href="#[203]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_zero_window_probe
@@ -5736,11 +5738,11 @@ Local Symbols
 <P><STRONG><a name="[21f]"></a>tcp_output_segment</STRONG> (Thumb, 170 bytes, Stack size 24 bytes, tcp_out.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = tcp_output_segment &rArr; ip_output &rArr; ip_output_if &rArr; pbuf_header
 </UL>
-<BR>[Calls]<UL><LI><a href="#[21e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ip_output
+<BR>[Calls]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;htonl
+<LI><a href="#[21e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ip_output
 <LI><a href="#[1dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ntohl
 <LI><a href="#[1e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ip_route
 <LI><a href="#[1e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;htons
-<LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;htonl
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;tcp_output
 </UL>
@@ -5838,7 +5840,8 @@ Local Symbols
 <P><STRONG><a name="[222]"></a>dhcp_discover</STRONG> (Thumb, 202 bytes, Stack size 24 bytes, dhcp.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 256<LI>Call Chain = dhcp_discover &rArr; udp_sendto_if &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[223]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_set_state
+<BR>[Calls]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_sendto_if
+<LI><a href="#[223]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_set_state
 <LI><a href="#[221]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_create_request
 <LI><a href="#[226]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_option_short
 <LI><a href="#[224]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_option
@@ -5846,7 +5849,6 @@ Local Symbols
 <LI><a href="#[227]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_option_trailer
 <LI><a href="#[220]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_delete_request
 <LI><a href="#[1f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_realloc
-<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_sendto_if
 </UL>
 <BR>[Called By]<UL><LI><a href="#[240]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_network_changed
 <LI><a href="#[23e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_start
@@ -5888,7 +5890,8 @@ Local Symbols
 <P><STRONG><a name="[22c]"></a>dhcp_select</STRONG> (Thumb, 244 bytes, Stack size 24 bytes, dhcp.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 256<LI>Call Chain = dhcp_select &rArr; udp_sendto_if &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[22d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_option_long
+<BR>[Calls]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_sendto_if
+<LI><a href="#[22d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_option_long
 <LI><a href="#[223]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_set_state
 <LI><a href="#[221]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_create_request
 <LI><a href="#[226]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_option_short
@@ -5898,7 +5901,6 @@ Local Symbols
 <LI><a href="#[220]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_delete_request
 <LI><a href="#[1f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_realloc
 <LI><a href="#[1dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ntohl
-<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_sendto_if
 </UL>
 <BR>[Called By]<UL><LI><a href="#[238]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_timeout
 <LI><a href="#[22e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_handle_offer
@@ -5920,10 +5922,10 @@ Local Symbols
 <P><STRONG><a name="[22e]"></a>dhcp_handle_offer</STRONG> (Thumb, 56 bytes, Stack size 16 bytes, dhcp.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 272<LI>Call Chain = dhcp_handle_offer &rArr; dhcp_select &rArr; udp_sendto_if &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[22f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_get_option_ptr
+<BR>[Calls]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;htonl
+<LI><a href="#[22f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_get_option_ptr
 <LI><a href="#[230]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_get_option_long
 <LI><a href="#[22c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_select
-<LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;htonl
 </UL>
 <BR>[Called By]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_recv
 </UL>
@@ -5939,7 +5941,8 @@ Local Symbols
 <P><STRONG><a name="[233]"></a>dhcp_rebind</STRONG> (Thumb, 144 bytes, Stack size 24 bytes, dhcp.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 256<LI>Call Chain = dhcp_rebind &rArr; udp_sendto_if &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[223]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_set_state
+<BR>[Calls]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_sendto_if
+<LI><a href="#[223]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_set_state
 <LI><a href="#[221]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_create_request
 <LI><a href="#[226]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_option_short
 <LI><a href="#[224]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_option
@@ -5947,7 +5950,6 @@ Local Symbols
 <LI><a href="#[227]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_option_trailer
 <LI><a href="#[220]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_delete_request
 <LI><a href="#[1f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_realloc
-<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_sendto_if
 </UL>
 <BR>[Called By]<UL><LI><a href="#[238]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_timeout
 <LI><a href="#[234]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_t2_timeout
@@ -5964,7 +5966,8 @@ Local Symbols
 <P><STRONG><a name="[235]"></a>dhcp_reboot</STRONG> (Thumb, 170 bytes, Stack size 24 bytes, dhcp.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 256<LI>Call Chain = dhcp_reboot &rArr; udp_sendto_if &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[22d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_option_long
+<BR>[Calls]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_sendto_if
+<LI><a href="#[22d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_option_long
 <LI><a href="#[223]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_set_state
 <LI><a href="#[221]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_create_request
 <LI><a href="#[226]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_option_short
@@ -5974,7 +5977,6 @@ Local Symbols
 <LI><a href="#[220]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_delete_request
 <LI><a href="#[1f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_realloc
 <LI><a href="#[1dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ntohl
-<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_sendto_if
 </UL>
 <BR>[Called By]<UL><LI><a href="#[240]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_network_changed
 <LI><a href="#[238]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_timeout
@@ -5983,13 +5985,13 @@ Local Symbols
 <P><STRONG><a name="[237]"></a>dhcp_bind</STRONG> (Thumb, 230 bytes, Stack size 32 bytes, dhcp.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 360<LI>Call Chain = dhcp_bind &rArr; netif_set_ipaddr &rArr; tcp_abandon &rArr; tcp_pcb_remove &rArr; tcp_output &rArr; tcp_send_empty_ack &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[223]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_set_state
+<BR>[Calls]<UL><LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netif_set_up
+<LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;htonl
+<LI><a href="#[223]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_set_state
 <LI><a href="#[1ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netif_set_ipaddr
 <LI><a href="#[1f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netif_set_netmask
 <LI><a href="#[1f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netif_set_gw
 <LI><a href="#[1dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ntohl
-<LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netif_set_up
-<LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;htonl
 </UL>
 <BR>[Called By]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_recv
 <LI><a href="#[238]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_timeout
@@ -6018,10 +6020,10 @@ Local Symbols
 <P><STRONG><a name="[239]"></a>dhcp_handle_ack</STRONG> (Thumb, 248 bytes, Stack size 16 bytes, dhcp.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = dhcp_handle_ack &rArr; dhcp_get_option_ptr
 </UL>
-<BR>[Calls]<UL><LI><a href="#[23a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_get_option_byte
+<BR>[Calls]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;htonl
+<LI><a href="#[23a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_get_option_byte
 <LI><a href="#[22f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_get_option_ptr
 <LI><a href="#[230]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_get_option_long
-<LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;htonl
 </UL>
 <BR>[Called By]<UL><LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_recv
 </UL>
@@ -6049,7 +6051,8 @@ Local Symbols
 <P><STRONG><a name="[80]"></a>dhcp_recv</STRONG> (Thumb, 214 bytes, Stack size 24 bytes, dhcp.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 384<LI>Call Chain = dhcp_recv &rArr; dhcp_bind &rArr; netif_set_ipaddr &rArr; tcp_abandon &rArr; tcp_pcb_remove &rArr; tcp_output &rArr; tcp_send_empty_ack &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[23d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_unfold_reply
+<BR>[Calls]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_free
+<LI><a href="#[23d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_unfold_reply
 <LI><a href="#[23c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_free_reply
 <LI><a href="#[239]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_handle_ack
 <LI><a href="#[23a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_get_option_byte
@@ -6059,14 +6062,14 @@ Local Symbols
 <LI><a href="#[22a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_check
 <LI><a href="#[228]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_handle_nak
 <LI><a href="#[1dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ntohl
-<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_free
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> dhcp.o(.text)
 </UL>
 <P><STRONG><a name="[241]"></a>dhcp_decline</STRONG> (Thumb, 130 bytes, Stack size 24 bytes, dhcp.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 256<LI>Call Chain = dhcp_decline &rArr; udp_sendto_if &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[22d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_option_long
+<BR>[Calls]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_sendto_if
+<LI><a href="#[22d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_option_long
 <LI><a href="#[223]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_set_state
 <LI><a href="#[221]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_create_request
 <LI><a href="#[224]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_option
@@ -6075,7 +6078,6 @@ Local Symbols
 <LI><a href="#[220]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_delete_request
 <LI><a href="#[1f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_realloc
 <LI><a href="#[1dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ntohl
-<LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;udp_sendto_if
 </UL>
 <BR>[Called By]<UL><LI><a href="#[242]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;dhcp_arp_reply
 </UL>
@@ -6090,8 +6092,8 @@ Local Symbols
 <P><STRONG><a name="[243]"></a>autoip_create_addr</STRONG> (Thumb, 66 bytes, Stack size 16 bytes, autoip.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = autoip_create_addr
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ntohl
-<LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;htonl
+<BR>[Calls]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;htonl
+<LI><a href="#[1dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ntohl
 </UL>
 <BR>[Called By]<UL><LI><a href="#[244]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;autoip_start
 </UL>
@@ -6125,11 +6127,11 @@ Local Symbols
 <P><STRONG><a name="[24b]"></a>autoip_bind</STRONG> (Thumb, 56 bytes, Stack size 24 bytes, autoip.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 352<LI>Call Chain = autoip_bind &rArr; netif_set_ipaddr &rArr; tcp_abandon &rArr; tcp_pcb_remove &rArr; tcp_output &rArr; tcp_send_empty_ack &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netif_set_ipaddr
+<BR>[Calls]<UL><LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netif_set_up
+<LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;htonl
+<LI><a href="#[1ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netif_set_ipaddr
 <LI><a href="#[1f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netif_set_netmask
 <LI><a href="#[1f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netif_set_gw
-<LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;netif_set_up
-<LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;htonl
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;autoip_tmr
 </UL>
@@ -6137,10 +6139,10 @@ Local Symbols
 <P><STRONG><a name="[252]"></a>icmp_send_response</STRONG> (Thumb, 104 bytes, Stack size 40 bytes, icmp.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 224<LI>Call Chain = icmp_send_response &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[253]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;inet_chksum
-<LI><a href="#[21e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ip_output
-<LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_free
+<BR>[Calls]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_free
 <LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_alloc
+<LI><a href="#[253]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;inet_chksum
+<LI><a href="#[21e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ip_output
 <LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;icmp_dest_unreach
@@ -6197,23 +6199,23 @@ Local Symbols
 <P><STRONG><a name="[81]"></a>ethernetif_input</STRONG> (Thumb, 46 bytes, Stack size 0 bytes, ethernetif.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 232<LI>Call Chain = ethernetif_input &rArr; low_level_input &rArr; pbuf_alloc &rArr; pbuf_free &rArr; mem_free &rArr; sys_arch_sem_wait &rArr; xQueueGenericReceive &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[25e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;low_level_input
-<LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericReceive
+<BR>[Calls]<UL><LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericReceive
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pbuf_free
+<LI><a href="#[25e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;low_level_input
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> ethernetif.o(.text)
 </UL>
 <P><STRONG><a name="[260]"></a>low_level_init</STRONG> (Thumb, 164 bytes, Stack size 40 bytes, ethernetif.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = low_level_init &rArr; xTaskGenericCreate &rArr; prvAllocateTCBAndStack &rArr; pvPortMalloc &rArr; xTaskResumeAll &rArr; vTaskIncrementTick
 </UL>
-<BR>[Calls]<UL><LI><a href="#[261]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueCreateCountingSemaphore
-<LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGenericCreate
+<BR>[Calls]<UL><LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xTaskGenericCreate
 <LI><a href="#[265]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ETH_DMARxDescReceiveITConfig
 <LI><a href="#[266]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ETH_DMATxDescChecksumInsertionConfig
 <LI><a href="#[263]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ETH_DMATxDescChainInit
 <LI><a href="#[264]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ETH_DMARxDescChainInit
 <LI><a href="#[262]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ETH_MACAddressConfig
 <LI><a href="#[186]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ETH_Start
+<LI><a href="#[261]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueCreateCountingSemaphore
 </UL>
 <BR>[Called By]<UL><LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ethernetif_init
 </UL>
@@ -6282,8 +6284,8 @@ Local Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy
 </UL>
-<BR>[Called By]<UL><LI><a href="#[284]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueReceiveFromISR
-<LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericReceive
+<BR>[Called By]<UL><LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueGenericReceive
+<LI><a href="#[284]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;xQueueReceiveFromISR
 </UL>
 
 <P><STRONG><a name="[285]"></a>prvInitialiseTaskLists</STRONG> (Thumb, 70 bytes, Stack size 16 bytes, tasks.o(.text))
