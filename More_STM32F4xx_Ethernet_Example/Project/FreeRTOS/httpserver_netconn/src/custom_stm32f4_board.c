@@ -163,9 +163,17 @@ void CUSTOM_GPIO_Init()
 	
 	EXTI_InitStructure.EXTI_Line = EXTI_Line0;
 	EXTI_Init(&EXTI_InitStructure);
-
+	
+	EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
+	EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising_Falling;
+	EXTI_InitStructure.EXTI_LineCmd = ENABLE;
+	
 	EXTI_InitStructure.EXTI_Line = EXTI_Line1;
 	EXTI_Init(&EXTI_InitStructure);
+	
+	EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
+	EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising_Falling;
+	EXTI_InitStructure.EXTI_LineCmd = ENABLE;
 	
 	EXTI_InitStructure.EXTI_Line = EXTI_Line10;
 	EXTI_Init(&EXTI_InitStructure);
@@ -183,6 +191,10 @@ void CUSTOM_GPIO_Init()
 	
 	EXTI_InitStructure.EXTI_Line = EXTI_Line12;
 	EXTI_Init(&EXTI_InitStructure);
+	
+	EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
+	EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising_Falling;
+	EXTI_InitStructure.EXTI_LineCmd = ENABLE;
 	
 	EXTI_InitStructure.EXTI_Line = EXTI_Line13;
 	EXTI_Init(&EXTI_InitStructure);
