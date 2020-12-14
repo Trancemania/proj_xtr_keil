@@ -5,9 +5,9 @@
 .\discover-more\api_lib.o: ..\..\..\..\Utilities\lwip_v1.3.2\src\include\lwip/arch.h
 .\discover-more\api_lib.o: ..\..\..\..\Utilities\lwip_v1.3.2\port\STM32F4x7\arch/cc.h
 .\discover-more\api_lib.o: ..\..\..\..\Utilities\lwip_v1.3.2\port\STM32F4x7\arch/cpu.h
-.\discover-more\api_lib.o: D:\Program Files\Keil\ARM\ARMCC\Bin\..\include\stdio.h
+.\discover-more\api_lib.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 .\discover-more\api_lib.o: ..\..\..\..\Utilities\lwip_v1.3.2\src\include\lwip/api.h
-.\discover-more\api_lib.o: D:\Program Files\Keil\ARM\ARMCC\Bin\..\include\stddef.h
+.\discover-more\api_lib.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 .\discover-more\api_lib.o: ..\..\..\..\Utilities\lwip_v1.3.2\src\include\lwip/netbuf.h
 .\discover-more\api_lib.o: ..\..\..\..\Utilities\lwip_v1.3.2\src\include\lwip/pbuf.h
 .\discover-more\api_lib.o: ..\..\..\..\Utilities\lwip_v1.3.2\src\include\lwip/err.h
@@ -40,4 +40,4 @@
 .\discover-more\api_lib.o: ..\..\..\..\Utilities\lwip_v1.3.2\src\include\lwip/tcp.h
 .\discover-more\api_lib.o: ..\..\..\..\Utilities\lwip_v1.3.2\src\include\lwip/mem.h
 .\discover-more\api_lib.o: ..\..\..\..\Utilities\lwip_v1.3.2\src\include\ipv4\lwip/icmp.h
-.\discover-more\api_lib.o: D:\Program Files\Keil\ARM\ARMCC\Bin\..\include\string.h
+.\discover-more\api_lib.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h

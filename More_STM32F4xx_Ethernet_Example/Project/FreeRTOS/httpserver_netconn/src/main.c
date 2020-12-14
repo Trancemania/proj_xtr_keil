@@ -70,6 +70,7 @@
 #define DHCP_TASK_PRIO   ( tskIDLE_PRIORITY + 2 )      
 #define LED_TASK_PRIO    ( tskIDLE_PRIORITY + 1 )
 #define UART_TASK_PRIO    ( tskIDLE_PRIORITY + 1 )
+#define GCOM_TASK_PRIO    ( tskIDLE_PRIORITY + 1 )
 #define UDP_TASK_PRIO		 ( tskIDLE_PRIORITY + 1 )
 #define ETH_PRINTF_TASK_PRIO    ( tskIDLE_PRIORITY + 1 )
 #define PROCESS_COM_TASK_PRIO    ( tskIDLE_PRIORITY + 1 )
@@ -128,6 +129,9 @@ void uart_task(void * pvParameters);
 void ETH_Printf_task(void * pvParameters);
 void process_command_task(void * pvParameters);
 void field_task(void * pvParameters);
+void gpio_command_task(void * pvParameters);
+void process_command_dynamic(void);
+
 
 #ifdef __GNUC__
   /* With GCC/RAISONANCE, small printf (option LD Linker->Libraries->Small printf
@@ -222,6 +226,8 @@ int main(void)
   /* Start custom task : printf */
   xTaskCreate(uart_task, "UART", configMINIMAL_STACK_SIZE * 4, NULL, UART_TASK_PRIO, NULL);
 
+	xTaskCreate(gpio_command_task, "GCOM", configMINIMAL_STACK_SIZE * 4, NULL, GCOM_TASK_PRIO, NULL);
+
   /* Start custom task : ETH_printf */
 //  xTaskCreate(ETH_Printf_task, "ETH_Printf", configMINIMAL_STACK_SIZE * 4, NULL, ETH_PRINTF_TASK_PRIO, NULL);
 
@@ -235,11 +241,38 @@ int main(void)
 
 }
 
+
+void gpio_command_task(void * pvParameters)
+{
+	for(;;){
+	process_command_dynamic();
+	vTaskDelay(20);
+	}
+}
+
+void process_command_dynamic (void) 
+{
+	uint8_t command_code = 0;
+	
+	command_code = (GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_2)<<0) |  \
+								 (GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_3)<<1) |  \
+								 (GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_4)<<2) |  \
+								 (GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_7)<<3) |  \
+								 (GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_3)<<4) |  \
+								 (GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_5)<<5) |  \
+								 (GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_8)<<6) |  \
+								 (GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_9)<<7);
+	
+	
+	
+}
 /**
   * @brief  custom uart task
   * @param  pvParameters not used
   * @retval None
   */
+
+
 void uart_task(void * pvParameters)
 {
   int ch;

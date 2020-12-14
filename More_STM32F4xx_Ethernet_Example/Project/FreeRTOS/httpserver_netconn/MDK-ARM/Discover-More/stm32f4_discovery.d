@@ -1,15 +1,15 @@
 .\discover-more\stm32f4_discovery.o: ..\..\..\..\Utilities\STM32F4-Discovery\stm32f4_discovery.c
 .\discover-more\stm32f4_discovery.o: ..\..\..\..\Utilities\STM32F4-Discovery\stm32f4_discovery.h
-.\discover-more\stm32f4_discovery.o: D:\Program Files\Keil\ARM\INC\ST\STM32F4xx\stm32f4xx.h
+.\discover-more\stm32f4_discovery.o: D:\Keil_v5\ARM\INC\ST\STM32F4xx\stm32f4xx.h
 .\discover-more\stm32f4_discovery.o: ..\..\..\..\Libraries\CMSIS\Include\core_cm4.h
-.\discover-more\stm32f4_discovery.o: D:\Program Files\Keil\ARM\ARMCC\Bin\..\include\stdint.h
+.\discover-more\stm32f4_discovery.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\discover-more\stm32f4_discovery.o: ..\..\..\..\Libraries\CMSIS\Include\core_cmInstr.h
 .\discover-more\stm32f4_discovery.o: ..\..\..\..\Libraries\CMSIS\Include\core_cmFunc.h
 .\discover-more\stm32f4_discovery.o: ..\..\..\..\Libraries\CMSIS\Include\core_cm4_simd.h
-.\discover-more\stm32f4_discovery.o: D:\Program Files\Keil\ARM\INC\ST\STM32F4xx\system_stm32f4xx.h
+.\discover-more\stm32f4_discovery.o: D:\Keil_v5\ARM\INC\ST\STM32F4xx\system_stm32f4xx.h
 .\discover-more\stm32f4_discovery.o: ..\inc\stm32f4xx_conf.h
 .\discover-more\stm32f4_discovery.o: ..\..\..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_adc.h
-.\discover-more\stm32f4_discovery.o: D:\Program Files\Keil\ARM\INC\ST\STM32F4xx\stm32f4xx.h
+.\discover-more\stm32f4_discovery.o: D:\Keil_v5\ARM\INC\ST\STM32F4xx\stm32f4xx.h
 .\discover-more\stm32f4_discovery.o: ..\..\..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_can.h
 .\discover-more\stm32f4_discovery.o: ..\..\..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_crc.h
 .\discover-more\stm32f4_discovery.o: ..\..\..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_cryp.h
