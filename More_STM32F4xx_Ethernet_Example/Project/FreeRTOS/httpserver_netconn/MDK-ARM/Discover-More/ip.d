@@ -5,7 +5,7 @@
 .\discover-more\ip.o: ..\..\..\..\Utilities\lwip_v1.3.2\src\include\lwip/arch.h
 .\discover-more\ip.o: ..\..\..\..\Utilities\lwip_v1.3.2\port\STM32F4x7\arch/cc.h
 .\discover-more\ip.o: ..\..\..\..\Utilities\lwip_v1.3.2\port\STM32F4x7\arch/cpu.h
-.\discover-more\ip.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\discover-more\ip.o: D:\Program FIles\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 .\discover-more\ip.o: ..\..\..\..\Utilities\lwip_v1.3.2\src\include\ipv4\lwip/ip.h
 .\discover-more\ip.o: ..\..\..\..\Utilities\lwip_v1.3.2\src\include\lwip/def.h
 .\discover-more\ip.o: ..\..\..\..\Utilities\lwip_v1.3.2\src\include\lwip/pbuf.h
@@ -24,7 +24,7 @@
 .\discover-more\ip.o: ..\..\..\..\Utilities\lwip_v1.3.2\src\include\lwip/sys.h
 .\discover-more\ip.o: ..\..\..\..\Utilities\lwip_v1.3.2\port\STM32F4x7\arch/sys_arch.h
 .\discover-more\ip.o: ..\..\..\..\Utilities\FreeRTOS_v6.1.0\include\FreeRTOS.h
-.\discover-more\ip.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+.\discover-more\ip.o: D:\Program FIles\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 .\discover-more\ip.o: ..\..\..\..\Utilities\FreeRTOS_v6.1.0\include\projdefs.h
 .\discover-more\ip.o: ..\inc\FreeRTOSConfig.h
 .\discover-more\ip.o: ..\..\..\..\Utilities\FreeRTOS_v6.1.0\include\portable.h
@@ -41,4 +41,4 @@
 .\discover-more\ip.o: ..\..\..\..\Utilities\lwip_v1.3.2\src\include\lwip/memp.h
 .\discover-more\ip.o: ..\..\..\..\Utilities\lwip_v1.3.2\src\include\lwip/memp_std.h
 .\discover-more\ip.o: ..\..\..\..\Utilities\lwip_v1.3.2\port\STM32F4x7\arch/perf.h
-.\discover-more\ip.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\discover-more\ip.o: D:\Program FIles\Keil_v5\ARM\ARMCC\Bin\..\include\string.h

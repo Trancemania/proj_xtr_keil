@@ -97,6 +97,7 @@
 void Time_Update(void);
 void Delay(uint32_t nCount);
 void udp_recv_fn(void *arg, struct udp_pcb *pcb, struct pbuf *p, struct ip_addr *addr, u16_t port);
+void process_command_exti(void);
 
 
 #ifdef __cplusplus

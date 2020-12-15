@@ -270,6 +270,125 @@ void EXTI15_10_IRQHandler(void) {
     }
 }
 
+void EXTI2_IRQHandler(void) {
+    /* Make sure that interrupt flag is set */
+    if (EXTI_GetITStatus(EXTI_Line2) != RESET) {
+      /* Clear interrupt flag */
+				vTaskDelay(1);
+        EXTI_ClearITPendingBit(EXTI_Line2);
+        EXTI_ClearITPendingBit(EXTI_Line3);
+        EXTI_ClearITPendingBit(EXTI_Line4);
+        EXTI_ClearITPendingBit(EXTI_Line5);
+        EXTI_ClearITPendingBit(EXTI_Line7);
+        EXTI_ClearITPendingBit(EXTI_Line8);
+        EXTI_ClearITPendingBit(EXTI_Line9);
+			
+			/* Do your stuff when PD1 is changed */
+				process_command_exti();
+        
+    }
+}
+
+void EXTI3_IRQHandler(void) {
+    /* Make sure that interrupt flag is set */
+    if (EXTI_GetITStatus(EXTI_Line3) != RESET) {
+      /* Clear interrupt flag */
+				vTaskDelay(1);
+        EXTI_ClearITPendingBit(EXTI_Line2);
+        EXTI_ClearITPendingBit(EXTI_Line3);
+        EXTI_ClearITPendingBit(EXTI_Line4);
+        EXTI_ClearITPendingBit(EXTI_Line5);
+        EXTI_ClearITPendingBit(EXTI_Line7);
+        EXTI_ClearITPendingBit(EXTI_Line8);
+        EXTI_ClearITPendingBit(EXTI_Line9);
+			
+			/* Do your stuff when PD1 is changed */
+				process_command_exti();
+        
+    }
+}
+
+void EXTI4_IRQHandler(void) {
+    /* Make sure that interrupt flag is set */
+    if (EXTI_GetITStatus(EXTI_Line4) != RESET) {
+      /* Clear interrupt flag */
+				vTaskDelay(1);
+        EXTI_ClearITPendingBit(EXTI_Line2);
+        EXTI_ClearITPendingBit(EXTI_Line3);
+        EXTI_ClearITPendingBit(EXTI_Line4);
+        EXTI_ClearITPendingBit(EXTI_Line5);
+        EXTI_ClearITPendingBit(EXTI_Line7);
+        EXTI_ClearITPendingBit(EXTI_Line8);
+        EXTI_ClearITPendingBit(EXTI_Line9);
+			
+			/* Do your stuff when PD1 is changed */
+				process_command_exti();
+        
+    }
+}
+
+void EXTI9_5_IRQHandler(void) {
+    /* Make sure that interrupt flag is set */
+    if (EXTI_GetITStatus(EXTI_Line5) != RESET) {
+      /* Clear interrupt flag */
+				vTaskDelay(1);
+        EXTI_ClearITPendingBit(EXTI_Line2);
+        EXTI_ClearITPendingBit(EXTI_Line3);
+        EXTI_ClearITPendingBit(EXTI_Line4);
+        EXTI_ClearITPendingBit(EXTI_Line5);
+        EXTI_ClearITPendingBit(EXTI_Line7);
+        EXTI_ClearITPendingBit(EXTI_Line8);
+        EXTI_ClearITPendingBit(EXTI_Line9);
+			
+			/* Do your stuff when PD1 is changed */
+				process_command_exti();
+    }
+    if (EXTI_GetITStatus(EXTI_Line7) != RESET) {
+      /* Clear interrupt flag */
+				vTaskDelay(1);
+        EXTI_ClearITPendingBit(EXTI_Line2);
+        EXTI_ClearITPendingBit(EXTI_Line3);
+        EXTI_ClearITPendingBit(EXTI_Line4);
+        EXTI_ClearITPendingBit(EXTI_Line5);
+        EXTI_ClearITPendingBit(EXTI_Line7);
+        EXTI_ClearITPendingBit(EXTI_Line8);
+        EXTI_ClearITPendingBit(EXTI_Line9);
+			
+			/* Do your stuff when PD1 is changed */
+				process_command_exti();
+    }
+    if (EXTI_GetITStatus(EXTI_Line8) != RESET) {
+      /* Clear interrupt flag */
+				vTaskDelay(1);
+        EXTI_ClearITPendingBit(EXTI_Line2);
+        EXTI_ClearITPendingBit(EXTI_Line3);
+        EXTI_ClearITPendingBit(EXTI_Line4);
+        EXTI_ClearITPendingBit(EXTI_Line5);
+        EXTI_ClearITPendingBit(EXTI_Line7);
+        EXTI_ClearITPendingBit(EXTI_Line8);
+        EXTI_ClearITPendingBit(EXTI_Line9);
+			
+			/* Do your stuff when PD1 is changed */
+				process_command_exti();
+    }
+    if (EXTI_GetITStatus(EXTI_Line9) != RESET) {
+      /* Clear interrupt flag */
+				vTaskDelay(1);
+        EXTI_ClearITPendingBit(EXTI_Line2);
+        EXTI_ClearITPendingBit(EXTI_Line3);
+        EXTI_ClearITPendingBit(EXTI_Line4);
+        EXTI_ClearITPendingBit(EXTI_Line5);
+        EXTI_ClearITPendingBit(EXTI_Line7);
+        EXTI_ClearITPendingBit(EXTI_Line8);
+        EXTI_ClearITPendingBit(EXTI_Line9);
+			
+			/* Do your stuff when PD1 is changed */
+				process_command_exti();
+    }
+		
+}
+
+
 
 /* Handle TIM3 interrupt */
 void TIM3_IRQHandler(void) {

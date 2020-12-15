@@ -5,7 +5,7 @@
 .\discover-more\udp.o: ..\..\..\..\Utilities\lwip_v1.3.2\src\include\lwip/arch.h
 .\discover-more\udp.o: ..\..\..\..\Utilities\lwip_v1.3.2\port\STM32F4x7\arch/cc.h
 .\discover-more\udp.o: ..\..\..\..\Utilities\lwip_v1.3.2\port\STM32F4x7\arch/cpu.h
-.\discover-more\udp.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+.\discover-more\udp.o: D:\Program FIles\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 .\discover-more\udp.o: ..\..\..\..\Utilities\lwip_v1.3.2\src\include\lwip/udp.h
 .\discover-more\udp.o: ..\..\..\..\Utilities\lwip_v1.3.2\src\include\lwip/pbuf.h
 .\discover-more\udp.o: ..\..\..\..\Utilities\lwip_v1.3.2\src\include\lwip/err.h
@@ -23,4 +23,4 @@
 .\discover-more\udp.o: ..\..\..\..\Utilities\lwip_v1.3.2\src\include\lwip/snmp.h
 .\discover-more\udp.o: ..\..\..\..\Utilities\lwip_v1.3.2\port\STM32F4x7\arch/perf.h
 .\discover-more\udp.o: ..\..\..\..\Utilities\lwip_v1.3.2\src\include\lwip/dhcp.h
-.\discover-more\udp.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+.\discover-more\udp.o: D:\Program FIles\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
