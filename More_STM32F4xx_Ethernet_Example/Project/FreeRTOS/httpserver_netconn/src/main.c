@@ -488,10 +488,9 @@ void process_command_task(void * pvParameters){
 				pwm_count = 0;
 			
 				//config DO6/7/9/10/11/12
-				GPIO_SetBits(GPIOA, GPIO_Pin_15);
-				GPIO_ResetBits(GPIOE, GPIO_Pin_3);
-				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4);
-				GPIO_ResetBits(GPIOE, GPIO_Pin_5);
+			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_4|GPIO_Pin_5);
+			  GPIO_ResetBits(GPIOE, GPIO_Pin_1|GPIO_Pin_3);
 				
 				// wait for uart_A1 semaphore, need adding timeout err
 			  // uart code need to be fulfilled
@@ -566,8 +565,8 @@ void process_command_task(void * pvParameters){
 			
 				//config DO6/7/9/10/11/12
 				GPIO_SetBits(GPIOA, GPIO_Pin_15);
-				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4);
-				GPIO_ResetBits(GPIOE, GPIO_Pin_5);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
+				GPIO_ResetBits(GPIOE, GPIO_Pin_1);
 			
         // wait for uart_A1 semaphore, need adding timeout err
 			  // uart code need to be fulfilled
@@ -644,8 +643,8 @@ void process_command_task(void * pvParameters){
 				
 				//config DO6/7/9/10/11/12
 				GPIO_SetBits(GPIOA, GPIO_Pin_15);
-				GPIO_SetBits(GPIOE, GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4);
-				GPIO_ResetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_5);
+				GPIO_SetBits(GPIOE, GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
+				GPIO_ResetBits(GPIOE, GPIO_Pin_0);
 			
         // wait for uart_A1 semaphore, need adding timeout err
 			  // uart code need to be fulfilled
@@ -715,8 +714,7 @@ void process_command_task(void * pvParameters){
 			
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
-				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4);
-			  GPIO_ResetBits(GPIOE, GPIO_Pin_5);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
 			
         // wait for uart_A1 semaphore, need adding timeout err
 			  // uart code need to be fulfilled
@@ -787,8 +785,8 @@ void process_command_task(void * pvParameters){
 
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
-				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4);
-			  GPIO_ResetBits(GPIOE, GPIO_Pin_3|GPIO_Pin_5);			
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_4|GPIO_Pin_5);
+			  GPIO_ResetBits(GPIOE, GPIO_Pin_1|GPIO_Pin_3);			
 			
         // wait for uart_A1 semaphore, need adding timeout err
 			  // uart code need to be fulfilled
@@ -859,8 +857,8 @@ void process_command_task(void * pvParameters){
 			
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
-				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4);
-			  GPIO_ResetBits(GPIOE, GPIO_Pin_5);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
+			  GPIO_ResetBits(GPIOE, GPIO_Pin_1);
 			
         // wait for uart_A1 semaphore, need adding timeout err
 			  // uart code need to be fulfilled
@@ -931,8 +929,8 @@ void process_command_task(void * pvParameters){
 			
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
-				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3);
-			  GPIO_ResetBits(GPIOE, GPIO_Pin_4|GPIO_Pin_5);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_3|GPIO_Pin_5);
+			  GPIO_ResetBits(GPIOE, GPIO_Pin_1|GPIO_Pin_4);
 			
         // wait for uart_A1 semaphore, need adding timeout err
 			  // uart code need to be fulfilled
@@ -1003,8 +1001,8 @@ void process_command_task(void * pvParameters){
 			
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
-				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4);
-			  GPIO_ResetBits(GPIOE, GPIO_Pin_3|GPIO_Pin_5);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_4|GPIO_Pin_5);
+			  GPIO_ResetBits(GPIOE, GPIO_Pin_1|GPIO_Pin_3);
 
         // wait for uart_A1 semaphore, need adding timeout err
 			  // uart code need to be fulfilled
@@ -1075,8 +1073,8 @@ void process_command_task(void * pvParameters){
 			
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
-				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4);
-			  GPIO_ResetBits(GPIOE, GPIO_Pin_3|GPIO_Pin_5);	
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_4|GPIO_Pin_5);
+			  GPIO_ResetBits(GPIOE, GPIO_Pin_1|GPIO_Pin_3);	
 
         // wait for uart_A1 semaphore, need adding timeout err
 			  // uart code need to be fulfilled
@@ -1147,8 +1145,8 @@ void process_command_task(void * pvParameters){
 			
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
-				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4|GPIO_Pin_5);
-			  GPIO_ResetBits(GPIOE, GPIO_Pin_3);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_4|GPIO_Pin_5);
+			  GPIO_ResetBits(GPIOE, GPIO_Pin_1|GPIO_Pin_3);
 
         // wait for uart_A1 semaphore, need adding timeout err
 			  // uart code need to be fulfilled
@@ -1219,8 +1217,8 @@ void process_command_task(void * pvParameters){
 			
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
-				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4|GPIO_Pin_5);
-			  GPIO_ResetBits(GPIOE, GPIO_Pin_3);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_4|GPIO_Pin_5);
+			  GPIO_ResetBits(GPIOE, GPIO_Pin_1|GPIO_Pin_3);
 			
         // wait for uart_A1 semaphore, need adding timeout err
 			  // uart code need to be fulfilled
@@ -1291,8 +1289,9 @@ void process_command_task(void * pvParameters){
 			
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
-				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
-	
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
+			  GPIO_ResetBits(GPIOE, GPIO_Pin_1);	
+			
         // wait for uart_A1 semaphore, need adding timeout err
 			  // uart code need to be fulfilled
 				if (xSemaphoreTake( uart_A1_xSemaphore, portMAX_DELAY) == pdTRUE) {
@@ -1362,8 +1361,9 @@ void process_command_task(void * pvParameters){
 			
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
-				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
-	
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
+			  GPIO_ResetBits(GPIOE, GPIO_Pin_1);	
+			
         // wait for uart_A1 semaphore, need adding timeout err
 			  // uart code need to be fulfilled
 				if (xSemaphoreTake( uart_A1_xSemaphore, portMAX_DELAY) == pdTRUE) {
@@ -1432,8 +1432,9 @@ void process_command_task(void * pvParameters){
 	
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
-				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
-	
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
+			  GPIO_ResetBits(GPIOE, GPIO_Pin_1);	
+			
         // wait for uart_A1 semaphore, need adding timeout err
 			  // uart code need to be fulfilled
 				if (xSemaphoreTake( uart_A1_xSemaphore, portMAX_DELAY) == pdTRUE) {
@@ -1502,8 +1503,9 @@ void process_command_task(void * pvParameters){
 	
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
-				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
-	
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
+			  GPIO_ResetBits(GPIOE, GPIO_Pin_1);	
+			
         // wait for uart_A1 semaphore, need adding timeout err
 			  // uart code need to be fulfilled
 				if (xSemaphoreTake( uart_A1_xSemaphore, portMAX_DELAY) == pdTRUE) {
@@ -1572,8 +1574,8 @@ void process_command_task(void * pvParameters){
 	
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
-				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4|GPIO_Pin_5);
-			  GPIO_ResetBits(GPIOE, GPIO_Pin_3);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_4|GPIO_Pin_5);
+			  GPIO_ResetBits(GPIOE, GPIO_Pin_1|GPIO_Pin_3);
 			
         // wait for uart_A1 semaphore, need adding timeout err
 			  // uart code need to be fulfilled
@@ -1643,8 +1645,8 @@ void process_command_task(void * pvParameters){
 	
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
-				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4|GPIO_Pin_5);
-			  GPIO_ResetBits(GPIOE, GPIO_Pin_3);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_4|GPIO_Pin_5);
+			  GPIO_ResetBits(GPIOE, GPIO_Pin_1|GPIO_Pin_3);
 			
         // wait for uart_A1 semaphore, need adding timeout err
 			  // uart code need to be fulfilled
@@ -1714,7 +1716,8 @@ void process_command_task(void * pvParameters){
 	
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
-				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
+			  GPIO_ResetBits(GPIOE, GPIO_Pin_1);	
 			
         // wait for uart_A1 semaphore, need adding timeout err
 			  // uart code need to be fulfilled
@@ -1784,7 +1787,8 @@ void process_command_task(void * pvParameters){
 	
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
-				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
+			  GPIO_ResetBits(GPIOE, GPIO_Pin_1);		
 			
         // wait for uart_A1 semaphore, need adding timeout err
 			  // uart code need to be fulfilled
@@ -1854,8 +1858,8 @@ void process_command_task(void * pvParameters){
 	
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
-				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4|GPIO_Pin_5);
-			  GPIO_ResetBits(GPIOE,GPIO_Pin_3);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_4|GPIO_Pin_5);
+			  GPIO_ResetBits(GPIOE, GPIO_Pin_1|GPIO_Pin_3);
 			
         // wait for uart_A1 semaphore, need adding timeout err
 			  // uart code need to be fulfilled
@@ -1925,8 +1929,8 @@ void process_command_task(void * pvParameters){
 	
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
-				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4|GPIO_Pin_5);
-			  GPIO_ResetBits(GPIOE,GPIO_Pin_3);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_4|GPIO_Pin_5);
+			  GPIO_ResetBits(GPIOE, GPIO_Pin_1|GPIO_Pin_3);
 			
         // wait for uart_A1 semaphore, need adding timeout err
 			  // uart code need to be fulfilled
@@ -1996,8 +2000,8 @@ void process_command_task(void * pvParameters){
 	
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
-				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4|GPIO_Pin_5);
-			  GPIO_ResetBits(GPIOE,GPIO_Pin_3);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_4|GPIO_Pin_5);
+			  GPIO_ResetBits(GPIOE, GPIO_Pin_1|GPIO_Pin_3);
 			
         // wait for uart_A1 semaphore, need adding timeout err
 			  // uart code need to be fulfilled
@@ -2067,8 +2071,8 @@ void process_command_task(void * pvParameters){
 	
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
-				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4|GPIO_Pin_5);
-			  GPIO_ResetBits(GPIOE,GPIO_Pin_3);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_4|GPIO_Pin_5);
+			  GPIO_ResetBits(GPIOE, GPIO_Pin_1|GPIO_Pin_3);
 			
         // wait for uart_A1 semaphore, need adding timeout err
 			  // uart code need to be fulfilled
@@ -2138,7 +2142,8 @@ void process_command_task(void * pvParameters){
 	
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
-				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
+			  GPIO_ResetBits(GPIOE, GPIO_Pin_1);	
 			
         // wait for uart_A1 semaphore, need adding timeout err
 			  // uart code need to be fulfilled
@@ -2208,7 +2213,8 @@ void process_command_task(void * pvParameters){
 	
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
-				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
+			  GPIO_ResetBits(GPIOE, GPIO_Pin_1);	
 			
         // wait for uart_A1 semaphore, need adding timeout err
 			  // uart code need to be fulfilled
@@ -2278,7 +2284,8 @@ void process_command_task(void * pvParameters){
 	
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
-				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
+			  GPIO_ResetBits(GPIOE, GPIO_Pin_1);	
 			
         // wait for uart_A1 semaphore, need adding timeout err
 			  // uart code need to be fulfilled
@@ -2348,7 +2355,8 @@ void process_command_task(void * pvParameters){
 	
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
-				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
+			  GPIO_ResetBits(GPIOE, GPIO_Pin_1);	
 			
         // wait for uart_A1 semaphore, need adding timeout err
 			  // uart code need to be fulfilled
@@ -2418,8 +2426,8 @@ void process_command_task(void * pvParameters){
 	
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
-				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4|GPIO_Pin_5);
-			  GPIO_ResetBits(GPIOE,GPIO_Pin_3);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_4|GPIO_Pin_5);
+			  GPIO_ResetBits(GPIOE, GPIO_Pin_1|GPIO_Pin_3);
 			
         // wait for uart_A1 semaphore, need adding timeout err
 			  // uart code need to be fulfilled
@@ -2488,8 +2496,9 @@ void process_command_task(void * pvParameters){
 				pwm_count = 0;	
 	
 				//config DO6/7/9/10/11/12
-			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
-				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
+				GPIO_SetBits(GPIOA, GPIO_Pin_15);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
+				GPIO_ResetBits(GPIOE, GPIO_Pin_1);
 			
         // wait for uart_A1 semaphore, need adding timeout err
 			  // uart code need to be fulfilled
@@ -2559,8 +2568,8 @@ void process_command_task(void * pvParameters){
 	
 				//config DO6/7/9/10/11/12
 			  GPIO_ResetBits(GPIOA, GPIO_Pin_15);
-				GPIO_ResetBits(GPIOE, GPIO_Pin_3);
-				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4|GPIO_Pin_5);
+				GPIO_ResetBits(GPIOE, GPIO_Pin_1|GPIO_Pin_3);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_4|GPIO_Pin_5);
 			
         // wait for uart_A1 semaphore, need adding timeout err
 			  // uart code need to be fulfilled
@@ -2630,7 +2639,8 @@ void process_command_task(void * pvParameters){
 	
 				//config DO6/7/9/10/11/12
 			  GPIO_ResetBits(GPIOA, GPIO_Pin_15);
-				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
+				GPIO_ResetBits(GPIOE, GPIO_Pin_1);
 			
         // wait for uart_A1 semaphore, need adding timeout err
 			  // uart code need to be fulfilled
@@ -2700,8 +2710,8 @@ void process_command_task(void * pvParameters){
 	
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
-			  GPIO_ResetBits(GPIOE, GPIO_Pin_3);
-				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_4|GPIO_Pin_5);
+			  GPIO_ResetBits(GPIOE, GPIO_Pin_1|GPIO_Pin_3);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_4|GPIO_Pin_5);
 			
         // wait for uart_A1 semaphore, need adding timeout err
 			  // uart code need to be fulfilled
@@ -2771,8 +2781,8 @@ void process_command_task(void * pvParameters){
 	
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
-				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
-			
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
+			  GPIO_ResetBits(GPIOE, GPIO_Pin_1);			
         // wait for uart_A1 semaphore, need adding timeout err
 			  // uart code need to be fulfilled
 				if (xSemaphoreTake( uart_A1_xSemaphore, portMAX_DELAY) == pdTRUE) {
@@ -2841,8 +2851,8 @@ void process_command_task(void * pvParameters){
 	
 				//config DO6/7/9/10/11/12
 			  GPIO_SetBits(GPIOA, GPIO_Pin_15);
-			  GPIO_ResetBits(GPIOE,GPIO_Pin_1);
-				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
+			  GPIO_ResetBits(GPIOE,GPIO_Pin_1|GPIO_Pin_5);
+				GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_3|GPIO_Pin_4);
 			
         // wait for uart_A1 semaphore, need adding timeout err
 			  // uart code need to be fulfilled
