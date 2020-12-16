@@ -74,9 +74,9 @@ void ETH_BSP_Config(void)
   ETH_MACDMA_Config();
 
   if (EthInitStatus == 0) {
-    LCD_SetTextColor(LCD_COLOR_RED);
-    LCD_DisplayStringLine(Line5, (uint8_t*)"   Ethernet Init   ");
-    LCD_DisplayStringLine(Line6, (uint8_t*)"      failed      ");
+//    LCD_SetTextColor(LCD_COLOR_RED);
+//    LCD_DisplayStringLine(Line5, (uint8_t*)"   Ethernet Init   ");
+//    LCD_DisplayStringLine(Line6, (uint8_t*)"      failed      ");
     while(1);
   }
 }

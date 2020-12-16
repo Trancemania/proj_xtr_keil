@@ -198,13 +198,13 @@ int main(void)
   DMA_printf(USART1, "\n\rSerial communication complete!\n\r");
 	
   /* configure Ethernet (GPIOs, clocks, MAC, DMA) */ 
-  ETH_BSP_Config();
+//  ETH_BSP_Config();
     
   /* Initilaize the LwIP stack */
-  LwIP_Init();
+//  LwIP_Init();
   
   /* Initialize webserver demo */
-  http_server_netconn_init();
+//  http_server_netconn_init();
 	
 	//create semaphore
 	 vSemaphoreCreateBinary(exti_xSemaphore);
@@ -251,7 +251,29 @@ void gpio_command_task(void * pvParameters)
 {
 	for(;;){
 //	process_command_dynamic();
-	vTaskDelay(20);
+	command = (GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_2)<<0) |  \
+								 (GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_3)<<1) |  \
+								 (GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_4)<<2) |  \
+								 (GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_7)<<3) |  \
+								 (GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_3)<<4) |  \
+								 (GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_5)<<5) |  \
+								 (GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_8)<<6) |  \
+								 (GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_9)<<7);
+
+	switch (command)
+	{
+		case 0x05:
+//			GPIO_SetBits(GPIOA, GPIO_Pin_15);
+			GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_3|GPIO_Pin_5);
+			GPIO_ResetBits(GPIOE, GPIO_Pin_1|GPIO_Pin_4);
+			GPIO_ToggleBits(GPIOA, GPIO_Pin_15);
+		break;
+		default:
+		break;
+		
+	}
+		
+	vTaskDelay(500);
 	}
 }
 
@@ -3529,6 +3551,8 @@ void LCD_LED_Init(void)
 #endif
 
   STM_EVAL_LEDInit(LED4); 
+	STM_EVAL_LEDInit(LED3); //PD13
+
 #ifdef USE_LCD
   /* Clear the LCD */
   LCD_Clear(Black);
