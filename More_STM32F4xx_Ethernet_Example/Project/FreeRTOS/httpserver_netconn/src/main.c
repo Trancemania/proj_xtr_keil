@@ -340,8 +340,6 @@ void udp_recv_fn(void *arg, struct udp_pcb *pcb, struct pbuf *p, struct ip_addr 
 //		command_H = ETH_recv_buffer[1];
 //		command_L = ETH_recv_buffer[0];
 		
-//		udp_sendto_if(pcb, p, &dst_addr, dst_port, &xnetif);
-		
 		// state machine mode
 		command = ETH_recv_buffer[0];
 		
@@ -3108,7 +3106,7 @@ void field_task(void * pvParameters){
 			}
 			UART_field_buffer[11] = 0x00;
 			UART_field_buffer[12] = 2;
-			UART_field_buffer[13] = 0x01;
+			UART_field_buffer[13] = 0x00;
 			frame_verify = UART_field_buffer[2] + UART_field_buffer[3] + UART_field_buffer[4] + UART_field_buffer[5] + \
 										 UART_field_buffer[6] + UART_field_buffer[7] + UART_field_buffer[8] + UART_field_buffer[9] + \
 										 UART_field_buffer[10] + UART_field_buffer[11] + UART_field_buffer[12] + UART_field_buffer[13];
