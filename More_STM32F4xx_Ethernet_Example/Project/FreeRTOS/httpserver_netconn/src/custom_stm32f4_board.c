@@ -164,15 +164,6 @@ void CUSTOM_GPIO_Init()
 	SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOD, EXTI_PinSource0);
 	SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOD, EXTI_PinSource1);
 	
-	SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOD, EXTI_PinSource2);
-	SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOD, EXTI_PinSource3);
-	SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOD, EXTI_PinSource4);
-	SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOD, EXTI_PinSource7);
-	SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOB, EXTI_PinSource3);
-	SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOB, EXTI_PinSource5);
-	SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOB, EXTI_PinSource8);
-	SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOB, EXTI_PinSource9);
-	
 	EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
 	EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising_Falling;
 	EXTI_InitStructure.EXTI_LineCmd = ENABLE;
@@ -187,55 +178,6 @@ void CUSTOM_GPIO_Init()
 	EXTI_InitStructure.EXTI_Line = EXTI_Line1;
 	EXTI_Init(&EXTI_InitStructure);
 	
-	EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
-	EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising_Falling;
-	EXTI_InitStructure.EXTI_LineCmd = ENABLE;
-	
-	EXTI_InitStructure.EXTI_Line = EXTI_Line2;
-	EXTI_Init(&EXTI_InitStructure);
-	
-	EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
-	EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising_Falling;
-	EXTI_InitStructure.EXTI_LineCmd = ENABLE;
-	
-	EXTI_InitStructure.EXTI_Line = EXTI_Line3;
-	
-	EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
-	EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising_Falling;
-	EXTI_InitStructure.EXTI_LineCmd = ENABLE;
-	
-	EXTI_InitStructure.EXTI_Line = EXTI_Line4;
-	EXTI_Init(&EXTI_InitStructure);
-
-	EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
-	EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising_Falling;
-	EXTI_InitStructure.EXTI_LineCmd = ENABLE;
-	
-	EXTI_InitStructure.EXTI_Line = EXTI_Line5;
-	EXTI_Init(&EXTI_InitStructure);
-	
-	EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
-	EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising_Falling;
-	EXTI_InitStructure.EXTI_LineCmd = ENABLE;
-	
-	EXTI_InitStructure.EXTI_Line = EXTI_Line7;
-	EXTI_Init(&EXTI_InitStructure);
-	
-	EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
-	EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising_Falling;
-	EXTI_InitStructure.EXTI_LineCmd = ENABLE;
-	
-	EXTI_InitStructure.EXTI_Line = EXTI_Line8;
-	EXTI_Init(&EXTI_InitStructure);
-	
-	EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
-	EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising_Falling;
-	EXTI_InitStructure.EXTI_LineCmd = ENABLE;
-	
-	EXTI_InitStructure.EXTI_Line = EXTI_Line9;
-	EXTI_Init(&EXTI_InitStructure);
-
-	EXTI_Init(&EXTI_InitStructure);	
 	EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
 	EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising_Falling;
 	EXTI_InitStructure.EXTI_LineCmd = ENABLE;

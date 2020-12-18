@@ -130,6 +130,7 @@ void ETH_Printf_task(void * pvParameters);
 void process_command_task(void * pvParameters);
 void field_task(void * pvParameters);
 void gpio_command_task(void * pvParameters);
+void process_command_dynamic(void);
 
 
 #ifdef __GNUC__
@@ -244,16 +245,16 @@ int main(void)
 void gpio_command_task(void * pvParameters)
 {
 	for(;;){
-//	process_command_dynamic();
+	process_command_dynamic();
 	vTaskDelay(20);
 	}
 }
 
-void process_command_exti (void) 
+void process_command_dynamic (void) 
 {
-//	uint8_t command_code = 0;
+	uint8_t command_code = 0;
 	
-	command = (GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_2)<<0) |  \
+	command_code = (GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_2)<<0) |  \
 								 (GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_3)<<1) |  \
 								 (GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_4)<<2) |  \
 								 (GPIO_ReadInputDataBit(GPIOD, GPIO_Pin_7)<<3) |  \
@@ -262,9 +263,6 @@ void process_command_exti (void)
 								 (GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_8)<<6) |  \
 								 (GPIO_ReadInputDataBit(GPIOB, GPIO_Pin_9)<<7);
 	
-		if( process_command_xHandle == NULL ) {
-			xTaskCreate(process_command_task, "PROCESS COMMAND", configMINIMAL_STACK_SIZE * 4, NULL, PROCESS_COM_TASK_PRIO, &process_command_xHandle);
-		}
 	
 	
 }
@@ -453,9 +451,6 @@ void process_command_task(void * pvParameters){
 		GPIO_SetBits(GPIOE, GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5|GPIO_Pin_6|GPIO_Pin_7);
 		TIM_ITConfig(TIM3, TIM_FLAG_CC1, DISABLE);
 		TIM_SetCompare1(TIM3, 0);
-		if( process_command_xHandle != NULL ) {
-			vTaskDelete( process_command_xHandle );
-		}
 		
 	}
 	else {
