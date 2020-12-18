@@ -106,8 +106,6 @@ void CUSTOM_GPIO_Init()
   RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC, ENABLE);
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD, ENABLE);
   RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOE, ENABLE);
-	/* Enable clock for SYSCFG */
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_SYSCFG, ENABLE);	
 	
   GPIO_InitStructure.GPIO_Pin = GPIO_Pin_3|GPIO_Pin_5|GPIO_Pin_8|GPIO_Pin_15;
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
@@ -157,26 +155,11 @@ void CUSTOM_GPIO_Init()
 	SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOD, EXTI_PinSource0);
 	SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOD, EXTI_PinSource1);
 	
+	EXTI_InitStructure.EXTI_Line = EXTI_Line0 | EXTI_Line1 | EXTI_Line10 | EXTI_Line11 | EXTI_Line12 | EXTI_Line13;
 	EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
 	EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising_Falling;
+	
 	EXTI_InitStructure.EXTI_LineCmd = ENABLE;
-	
-	EXTI_InitStructure.EXTI_Line = EXTI_Line0;
-	EXTI_Init(&EXTI_InitStructure);
-
-	EXTI_InitStructure.EXTI_Line = EXTI_Line1;
-	EXTI_Init(&EXTI_InitStructure);
-	
-	EXTI_InitStructure.EXTI_Line = EXTI_Line10;
-	EXTI_Init(&EXTI_InitStructure);
-	
-	EXTI_InitStructure.EXTI_Line = EXTI_Line11;
-	EXTI_Init(&EXTI_InitStructure);
-	
-	EXTI_InitStructure.EXTI_Line = EXTI_Line12;
-	EXTI_Init(&EXTI_InitStructure);
-	
-	EXTI_InitStructure.EXTI_Line = EXTI_Line13;
 	EXTI_Init(&EXTI_InitStructure);
 	
 	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
