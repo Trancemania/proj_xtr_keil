@@ -334,7 +334,7 @@ void udp_recv_fn(void *arg, struct udp_pcb *pcb, struct pbuf *p, struct ip_addr 
 		//check addr port
 		
 		// copy command to buffer
-		memcpy(ETH_recv_buffer, p->payload, p->len);
+		memcpy(ETH_recv_buffer, &p->payload, p->len);
 		
 		// for command + last time mode
 //		command_H = ETH_recv_buffer[1];
@@ -576,7 +576,6 @@ void process_command_task(void * pvParameters){
         
 			case 0x01:      //Self-examination
 				
-				DMA_printf(USART1, "\n\rGOOD\n\r");				
 				// reset pwm
 				TIM_ITConfig(TIM3, TIM_FLAG_CC1, DISABLE);
 				TIM_SetCompare1(TIM3, 0);
