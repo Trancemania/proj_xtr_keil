@@ -71,7 +71,6 @@
 #define LED_TASK_PRIO    ( tskIDLE_PRIORITY + 1 )
 #define UART_TASK_PRIO    ( tskIDLE_PRIORITY + 1 )
 #define GCOM_TASK_PRIO    ( tskIDLE_PRIORITY + 1 )
-#define RESEND_TASK_PRIO    ( tskIDLE_PRIORITY + 1 )
 #define UDP_TASK_PRIO		 ( tskIDLE_PRIORITY + 1 )
 #define ETH_PRINTF_TASK_PRIO    ( tskIDLE_PRIORITY + 1 )
 #define PROCESS_COM_TASK_PRIO    ( tskIDLE_PRIORITY + 1 )
@@ -111,7 +110,6 @@ portTickType time_origin;
 //xTaskHandle printf_xHandle = NULL;
 xTaskHandle process_command_xHandle = NULL;
 xTaskHandle field_xHandle = NULL;
-xTaskHandle uart_resend_xHandle = NULL;
 
 xSemaphoreHandle exti_xSemaphore = NULL;
 xSemaphoreHandle pwm_xSemaphore = NULL;
@@ -132,8 +130,6 @@ void ETH_Printf_task(void * pvParameters);
 void process_command_task(void * pvParameters);
 void field_task(void * pvParameters);
 void gpio_command_task(void * pvParameters);
-void uart_resend_task(void * pvParameters);
-
 
 
 #ifdef __GNUC__
@@ -230,8 +226,6 @@ int main(void)
   xTaskCreate(uart_task, "UART", configMINIMAL_STACK_SIZE * 4, NULL, UART_TASK_PRIO, NULL);
 
 	xTaskCreate(gpio_command_task, "GCOM", configMINIMAL_STACK_SIZE * 4, NULL, GCOM_TASK_PRIO, NULL);
-	
-	xTaskCreate(uart_resend_task, "RESEND", configMINIMAL_STACK_SIZE * 4, NULL, RESEND_TASK_PRIO, &uart_resend_xHandle);
 
   /* Start custom task : ETH_printf */
 //  xTaskCreate(ETH_Printf_task, "ETH_Printf", configMINIMAL_STACK_SIZE * 4, NULL, ETH_PRINTF_TASK_PRIO, NULL);
