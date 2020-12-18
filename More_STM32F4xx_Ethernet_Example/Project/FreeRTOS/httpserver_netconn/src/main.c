@@ -268,20 +268,6 @@ void process_command_exti (void)
 	
 	
 }
-
-void uart_resend_task(void * pvParameters)
-{
-  int ch;
-	for ( ;; ) {
-    while (USART_GetFlagStatus(CUSTOM_COM2, USART_FLAG_RXNE) == RESET);
-    ch = USART_ReceiveData(CUSTOM_COM2);
-//		memcpy(ETH_recv_buffer, p->payload, p->len);
-//		udp_sendto_if(pcb, p, &dst_addr, dst_port, &xnetif);
-			pbuf_free(p);
-	}
-}
-
-
 /**
   * @brief  custom uart task
   * @param  pvParameters not used
@@ -297,9 +283,9 @@ void uart_task(void * pvParameters)
 	portBASE_TYPE xHigherPriorityTaskWoken;
   for ( ;; ) {
     
-    while (USART_GetFlagStatus(CUSTOM_COM3, USART_FLAG_RXNE) == RESET);
+    while (USART_GetFlagStatus(CUSTOM_COM1, USART_FLAG_RXNE) == RESET);
   	
-    ch = USART_ReceiveData(CUSTOM_COM3);
+    ch = USART_ReceiveData(CUSTOM_COM1);
 		
 		//flag for frame, data and misbehave
 		
@@ -308,8 +294,8 @@ void uart_task(void * pvParameters)
 				UART_recv_buffer[cnt] = ch;
 				cnt++;
 				while (cnt <= 12) {
-					while (USART_GetFlagStatus(CUSTOM_COM3, USART_FLAG_RXNE) == RESET);
-					UART_recv_buffer[cnt] = USART_ReceiveData(CUSTOM_COM3);
+					while (USART_GetFlagStatus(CUSTOM_COM1, USART_FLAG_RXNE) == RESET);
+					UART_recv_buffer[cnt] = USART_ReceiveData(CUSTOM_COM1);
 //					switch (ch){
 //						case 0x0D:   //0A send 
 //							buffer[cnt] = ch;
@@ -2896,12 +2882,7 @@ void process_command_task(void * pvParameters){
 					}
 					
 				}
-				break;	
-				
-			case 0xF0:
-				
-				break;
-				
+				break;				
 			default:
 				break;			
 		}
