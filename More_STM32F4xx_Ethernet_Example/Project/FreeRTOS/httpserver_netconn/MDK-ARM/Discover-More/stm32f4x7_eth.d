@@ -1,16 +1,16 @@
 .\discover-more\stm32f4x7_eth.o: ..\..\..\..\Libraries\STM32F4x7_ETH_Driver\src\stm32f4x7_eth.c
 .\discover-more\stm32f4x7_eth.o: ..\..\..\..\Libraries\STM32F4x7_ETH_Driver\inc\stm32f4x7_eth.h
 .\discover-more\stm32f4x7_eth.o: ..\inc\stm32f4x7_eth_conf.h
-.\discover-more\stm32f4x7_eth.o: D:\Program Files\Keil\ARM\INC\ST\STM32F4xx\stm32f4xx.h
+.\discover-more\stm32f4x7_eth.o: D:\Program FIles\Keil_v5\ARM\INC\ST\STM32F4xx\stm32f4xx.h
 .\discover-more\stm32f4x7_eth.o: ..\..\..\..\Libraries\CMSIS\Include\core_cm4.h
-.\discover-more\stm32f4x7_eth.o: D:\Program Files\Keil\ARM\ARMCC\Bin\..\include\stdint.h
+.\discover-more\stm32f4x7_eth.o: D:\Program FIles\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\discover-more\stm32f4x7_eth.o: ..\..\..\..\Libraries\CMSIS\Include\core_cmInstr.h
 .\discover-more\stm32f4x7_eth.o: ..\..\..\..\Libraries\CMSIS\Include\core_cmFunc.h
 .\discover-more\stm32f4x7_eth.o: ..\..\..\..\Libraries\CMSIS\Include\core_cm4_simd.h
-.\discover-more\stm32f4x7_eth.o: D:\Program Files\Keil\ARM\INC\ST\STM32F4xx\system_stm32f4xx.h
+.\discover-more\stm32f4x7_eth.o: D:\Program FIles\Keil_v5\ARM\INC\ST\STM32F4xx\system_stm32f4xx.h
 .\discover-more\stm32f4x7_eth.o: ..\inc\stm32f4xx_conf.h
 .\discover-more\stm32f4x7_eth.o: ..\..\..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_adc.h
-.\discover-more\stm32f4x7_eth.o: D:\Program Files\Keil\ARM\INC\ST\STM32F4xx\stm32f4xx.h
+.\discover-more\stm32f4x7_eth.o: D:\Program FIles\Keil_v5\ARM\INC\ST\STM32F4xx\stm32f4xx.h
 .\discover-more\stm32f4x7_eth.o: ..\..\..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_can.h
 .\discover-more\stm32f4x7_eth.o: ..\..\..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_crc.h
 .\discover-more\stm32f4x7_eth.o: ..\..\..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_cryp.h
@@ -36,4 +36,4 @@
 .\discover-more\stm32f4x7_eth.o: ..\..\..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_usart.h
 .\discover-more\stm32f4x7_eth.o: ..\..\..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_wwdg.h
 .\discover-more\stm32f4x7_eth.o: ..\..\..\..\Libraries\STM32F4xx_StdPeriph_Driver\inc\misc.h
-.\discover-more\stm32f4x7_eth.o: D:\Program Files\Keil\ARM\ARMCC\Bin\..\include\string.h
+.\discover-more\stm32f4x7_eth.o: D:\Program FIles\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
